@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
+import Login from './routes/Login';
+import Home from './routes/Home';
+import NoMatch from './routes/NoMatch';
+
 
 class App extends Component {
 
 
   render() {
     return (
-      <div>
-        <form class="form-signin">
-          <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></img>
-          <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <label for="inputEmail" class="sr-only">Email address</label>
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus></input>
-          <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required></input>
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me"></input> Remember me
-            </label>
-          </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-        </form>
-      </div>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/login" component={Login}/>
+            <Route component={NoMatch}/>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
