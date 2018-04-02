@@ -1,14 +1,13 @@
-import React from 'react';
-
-const Home = ({history}) => {
-    return (
-        <div>
-            홈
-            <button onClick={()=>{history.push('/Login')}}>
-                로그인
-            </button>
-        </div>
-    );
-};
-
+import React, { Component } from 'react';
+ 
+class Home extends Component {
+    render() {
+        return (
+            <div>
+                홈
+            </div>
+        );
+    }
+}
+ 
 export default Home;
