@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import './Login.css';
 
 class Login extends Component {
@@ -9,20 +9,20 @@ class Login extends Component {
         return (
           <div>
             <div>
-            <form class="form-signin">
-            <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></img>
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus></input>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required></input>
-            <div class="checkbox mb-3">
+            <form className="form-signin">
+            <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></img>
+            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label htmlFor="inputEmail" className="sr-only">Email address</label>
+            <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autoFocus></input>
+            <label htmlFor="inputPassword" className="sr-only">Password</label>
+            <input type="password" id="inputPassword" className="form-control" placeholder="Password" required></input>
+            <div className="checkbox mb-3">
               <label>
                 <input type="checkbox" value="remember-me"></input> Remember me
               </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+            <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
           </form>
           </div>
           </div>
