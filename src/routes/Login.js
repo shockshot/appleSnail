@@ -7,8 +7,7 @@ class Login extends Component {
 
     render() {
         return (
-          <div>
-            <div>
+          <div className="login">
             <form className="form-signin">
             <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></img>
             <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -24,7 +23,6 @@ class Login extends Component {
             <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <p className="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
           </form>
-          </div>
           </div>
         );
     }

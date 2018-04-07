@@ -8,6 +8,7 @@ import Home from './routes/Home';
 import NoMatch from './routes/NoMatch';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 class App extends Component {
@@ -17,10 +18,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Header />
           <Switch>
-            <Route exact path="/" component={Home}/>
             <Route path="/login" component={Login}/>
+            <Route exact path="/" component={Home}/>
             <Route component={NoMatch}/>
           </Switch>
         </div>
