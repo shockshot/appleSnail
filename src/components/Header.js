@@ -18,12 +18,11 @@ class Header extends Component {
                   </svg>
                 </a>
                 <Link className="py-2 d-none d-md-inline-block" to="/">홈</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/">예약관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/">매출관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/">고객관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/">제품관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/">샵관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="login">로그아웃</Link>
+                <Link className="py-2 d-none d-md-inline-block" to="/reservation">예약관리</Link>
+                <Link className="py-2 d-none d-md-inline-block" to="/sales">매출관리</Link>
+                <Link className="py-2 d-none d-md-inline-block" to="/customer">고객관리</Link>
+                <Link className="py-2 d-none d-md-inline-block" to="/shop">샵관리</Link>
+                <Link className="py-2 d-none d-md-inline-block" to="/login">로그아웃</Link>
                
               </div>
             </nav>
