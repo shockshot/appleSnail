@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
- 
+
+
 class Header extends Component {
+    static TopMenus = [
+      {menu: '홈', link: '/'},
+      {menu: '예약관리', link: '/reservation'},
+      {menu: '매출관리', link: '/sales'},
+      {menu: '고객관리', link: '/customer'},
+      {menu: '샵관리', link: '/shop'},
+      {menu: '로그아웃', link: '/login'},
+    ]
+  
+
     render() {
         return (
           <nav className="site-header sticky-top py-1">
@@ -17,13 +28,9 @@ class Header extends Component {
                     <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
                   </svg>
                 </a>
-                <Link className="py-2 d-none d-md-inline-block" to="/">홈</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/reservation">예약관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/sales">매출관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/customer">고객관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/shop">샵관리</Link>
-                <Link className="py-2 d-none d-md-inline-block" to="/login">로그아웃</Link>
-               
+                {Header.TopMenus.map( ({menu, link}, i) => 
+                  <Link className="py-2 d-none d-md-inline-block" to={link}>{menu}</Link>  
+                )}
               </div>
             </nav>
 

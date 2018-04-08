@@ -7,10 +7,6 @@ import Login from './routes/Login';
 import Home from './routes/Home';
 import NoMatch from './routes/NoMatch';
 
-import Header from './components/Header';
-import Footer from './components/Footer';
-
-
 class App extends Component {
 
 
