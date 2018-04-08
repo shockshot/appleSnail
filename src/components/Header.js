@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import classNames from 'classnames/bind';
+import styles from '../App.scss';
+const st = classNames.bind(styles);
 
 class Header extends Component {
     static TopMenus = [
@@ -15,8 +17,8 @@ class Header extends Component {
 
     render() {
         return (
-          <nav className="site-header sticky-top py-1">
-              <div className="container d-flex flex-column flex-md-row justify-content-between">
+          <nav className={st('site-header', 'sticky', 'py-1')}>
+              <div className={st('container', 'd-flex', 'flex-column', 'flex-md-row', 'justify-content-between')}>
                 <a className="py-2" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="d-block mx-auto">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -29,7 +31,7 @@ class Header extends Component {
                   </svg>
                 </a>
                 {Header.TopMenus.map( ({menu, link}, i) => 
-                  <Link className="py-2 d-none d-md-inline-block" to={link}>{menu}</Link>  
+                  <Link className={st('py-2', 'd-none', 'd-md-inline-block')} to={link} key={i}>{menu}</Link>  
                 )}
               </div>
             </nav>
