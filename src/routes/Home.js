@@ -5,11 +5,17 @@ class Home extends Component {
     render() {
         return (
             <DefaultPageTemplate>
-            <div className="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-                <div className="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-                    홈
-                </div>
+            {/* <main role="main"> */}
+            
+                <div className="container"> 
+                contents<br />
+                1<br />
+                2<br />
+                3<br />
+                4<br />
             </div>
+            {/* </main> */}
+
             </DefaultPageTemplate>
         );
     }

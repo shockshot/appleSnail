@@ -3,10 +3,16 @@ import Header from './Header';
 import Footer from './Footer';
 
 const DefaultPageTemplate = ({children}) => 
-          <div>
-              <Header />
-              {this.children}
-              <Footer />
-          </div>
+<div>
+  <Header/>
+  <main role="main">
+
+    <div className="container">
+      {children}
+    </div>
+
+  </main>
+  <Footer/>
+</div>
 
 export default DefaultPageTemplate;
