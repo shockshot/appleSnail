@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import DefaultPageTemplate from '../components/DefaultPageTemplate';
 
-class Home extends Component {
+class User extends Component {
     render() {
         return (
             <DefaultPageTemplate>
-                Home
+            
+            User<br />
+
             </DefaultPageTemplate>
         );
     }
 }
  
-export default Home;
+export default User;
