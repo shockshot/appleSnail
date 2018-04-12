@@ -232,8 +232,8 @@ module.exports = {
                         importLoaders: 1,
                         minimize: true,
                         sourceMap: shouldUseSourceMap,
-                        // modules: true,
-                        // localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                        modules: true,
+                        localIdentName: '[path][name]__[local]--[hash:base64:5]'
                       },
                     },
                     {
@@ -256,6 +256,12 @@ module.exports = {
                         ],
                       },
                     },
+                    {
+                      loader: require.resolve('sass-loader'),
+                      options: {
+                        // 나중에 입력
+                      }
+                    }
                   ],
                 },
                 extractTextPluginOptions
