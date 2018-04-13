@@ -1,18 +1,29 @@
+import { combineReducers } from 'redux';
 import { AUTH } from '../actions/ActionTypes';
 
-export const login = (state = {}, action) => {
+
+//reducer
+
+const login = (state = {isLogin: false}, action) => {
   switch(action.type) {
     case AUTH.LOGIN:
       return {
-        isLogin: true,
+//         isLogin: true, //로그인 성공하기 전에는 상태를 true로 바꿀수가 없음..
+				isLogin: false,
         userId: action.userId,
         password: action.password
       }
     case AUTH.LOGOUT:
       return {
-        isLogin: false
+        isLogin: false,
+				userId: null,
+				password: null1
       }
     default:
       return state
   }
 }
+
+export default combineReducers({ 
+	login
+});

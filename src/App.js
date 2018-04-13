@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
+
 import Login from './routes/Login';
 import Home from './routes/Home';
 import Customer from './routes/Customer';
@@ -10,10 +11,13 @@ import Reservation from './routes/Reservation';
 import Sales from './routes/Sales';
 import User from './routes/User';
 import Shop from './routes/Shop';
-
-
-
 import NoMatch from './routes/NoMatch';
+
+//추후 auth.js 이름 변경 필요
+import reducers from './reducers/auth.js'
+
+//store 생성
+let store = createStore(reducers);
 
 
 class App extends Component {
