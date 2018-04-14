@@ -19,6 +19,7 @@ const login = (state = {isLogin: false}, action) => {
 				userId: null,
 				password: null1
       }
+		//로그인 실패, 성공에 따른 reducer 정의 필요...
     default:
       return state
   }

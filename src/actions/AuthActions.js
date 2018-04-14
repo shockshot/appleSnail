@@ -8,6 +8,20 @@ export const login(userId, password){
 	}
 }
 
+export const loginSuccess(userInfo){
+	return {
+		type: AUTH.LOGIN_SUCCESS,
+		...userInfo
+	}
+}
+
+export const loginFail(userInfo) {
+	return {
+		type: AUTH.LOGIN_FAILURE,
+		...userInfo
+	}
+}
+
 export const logout(){
 	return {
 		type: AUTH.LOGOUT
