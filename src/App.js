@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
@@ -13,15 +14,21 @@ import User from './routes/User';
 import Shop from './routes/Shop';
 import NoMatch from './routes/NoMatch';
 
-//추후 auth.js 이름 변경 필요
-import reducers from './reducers/auth.js'
-
-//store 생성
-let store = createStore(reducers);
-
-
 class App extends Component {
 
+  getChildcontext() {
+    return {
+      store: this.props.store
+    }
+  }
+
+  componentWillMount() {
+    this.unsubscribe = this.props.store.subscribe( () => this.forceUpdate());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
   render() {
     return (
@@ -41,6 +48,14 @@ class App extends Component {
       </Router>
     );
   }
+}
+
+App.propTypes = {
+  store: PropTypes.object.isRequired
+}
+
+App.childContextTypes = {
+  store: PropTypes.object.isRequired
 }
 
 export default App;

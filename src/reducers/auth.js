@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 import { AUTH } from '../actions/ActionTypes';
 
 
 //reducer
 
-const login = (state = {isLogin: false}, action) => {
+const auth = (state = {isLogin: false}, action) => {
   switch(action.type) {
     case AUTH.LOGIN:
       return {
@@ -17,7 +17,7 @@ const login = (state = {isLogin: false}, action) => {
       return {
         isLogin: false,
 				userId: null,
-				password: null1
+				password: null
       }
 		//로그인 실패, 성공에 따른 reducer 정의 필요...
     default:
@@ -25,6 +25,8 @@ const login = (state = {isLogin: false}, action) => {
   }
 }
 
-export default combineReducers({ 
-	login
-});
+export default auth;
+
+// export default combineReducers({ 
+// 	login
+// });
