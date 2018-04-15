@@ -1,35 +1,18 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 
-
 const DefaultPageTemplate = ({children}) => 
-          <div>
-              <Header />
-              {this.children}
-              <Footer />
-          </div>
+<div>
+  <Header/>
+  <main role="main">
 
-/*
-class DefaultPageTemplate extends Component {
-    
-    children;
+    <div className="container">
+      {children}
+    </div>
 
-    constructor({children}) {
-        super();
-        this.children = children;
-    }
+  </main>
+  <Footer/>
+</div>
 
-    render() {
-        return (
-          <div>
-              <Header />
-              {this.children}
-              <Footer />
-          </div>
-        );
-    }
-}*/
- 
 export default DefaultPageTemplate;

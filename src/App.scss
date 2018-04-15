@@ -1,0 +1,16 @@
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body{
+  // background-image: url('/background.jpg') ;
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
+  // background-size: 100%;
+}
+
+main {
+  // min-height:calc(100vh - 58px);
+  // background-color:#fefefe;
+  padding-top: 3.5rem;
+}
+footer {
+  // background-color:#fefefe;
+}

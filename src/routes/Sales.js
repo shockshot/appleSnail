@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import DefaultPageTemplate from '../components/DefaultPageTemplate';
 
-class Home extends Component {
+class Sales extends Component {
     render() {
         return (
             <DefaultPageTemplate>
-                Home
+            
+            Sales<br />
+
             </DefaultPageTemplate>
         );
     }
 }
  
-export default Home;
+export default Sales;

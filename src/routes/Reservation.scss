@@ -1,0 +1,33 @@
+
+.calendar ul{
+  list-style-type: none;
+  font-size:0;
+  padding-left:0;
+}
+.calendar ul>li {
+
+  display:inline-block;
+}
+.calendar li.cal-col {
+  font-size:1.0rem;
+  min-width:4rem;
+  margin-right: -1px;
+  border:1px solid #ddd;
+}
+ul.calendar-header{
+  padding:0;
+}
+ul.calendar-header>li{
+  margin:0;
+  font-size:1.0rem;
+  text-align:center;
+}
+ul.calendar-week{
+  
+}
+ul.calendar-week>li{
+  margin-top:-1px;
+  width:100%;
+}
+
+
