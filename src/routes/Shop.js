@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DefaultPageTemplate from '../components/DefaultPageTemplate';
+import DefaultPageTemplate from '../containers/DefaultPageTemplate';
 
 class Shop extends Component {
     render() {

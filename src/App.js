@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
 
@@ -14,24 +13,8 @@ import User from './routes/User';
 import Shop from './routes/Shop';
 import NoMatch from './routes/NoMatch';
 
-class App extends Component {
 
-  getChildcontext() {
-    return {
-      store: this.props.store
-    }
-  }
-
-  componentWillMount() {
-    this.unsubscribe = this.props.store.subscribe( () => this.forceUpdate());
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    return (
+const App = () => 
       <Router>
         <div>
           <Switch>
@@ -46,16 +29,6 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
-    );
-  }
-}
 
-App.propTypes = {
-  store: PropTypes.object.isRequired
-}
-
-App.childContextTypes = {
-  store: PropTypes.object.isRequired
-}
 
 export default App;
