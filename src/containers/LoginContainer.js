@@ -5,15 +5,17 @@ import LoginForm from '../components/LoginForm';
 
 class LoginContainer extends Component {
 
-  handleLogin = (e) => {
-    e.preventDefault();
-    console.log('handleLogin called', e);
+  handleLogin = (userId, password) => {
+    console.log('userId', userId);
+    console.log('password', password);
   
   };
 
   render() {
+    const {handleLogin} = this;
+
       return (
-        <LoginForm onLogin={this.handleLogin}/>
+        <LoginForm onLogin={handleLogin}/>
       );
   }
 }
