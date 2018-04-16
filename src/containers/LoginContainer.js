@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 
 // isLogin = false;
 
 class LoginContainer extends Component {
+
+  constructor(props){
+    super(props);
+    // console.log(props);
+  }
 
   handleLogin = (userId, password) => {
     console.log('userId', userId);
@@ -19,5 +25,6 @@ class LoginContainer extends Component {
       );
   }
 }
+
 
 export default LoginContainer;
