@@ -1,4 +1,5 @@
 import React from 'react';
+import './LoginForm.css';
 
 const LoginForm = ({onLogin = f=>f}) => 
     <form className="form-signin" onSubmit={onLogin}>
