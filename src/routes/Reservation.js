@@ -3,9 +3,9 @@ import DefaultPageTemplate from '../containers/DefaultPageTemplate';
 import { DateUtils } from '../utils/DateUtils';
 import Calendar from '../components/Calendar';
 
-import classNames from 'classnames/bind';
-import styles from './Reservation.scss';
-const st = classNames.bind(styles);
+// import classNames from 'classnames/bind';
+// import styles from './Reservation.scss';
+// const st = classNames.bind(styles);
 
 class Reservation extends Component {
 
@@ -30,7 +30,7 @@ class Reservation extends Component {
                 </ol>
             </nav>
 
-            <Calendar />
+            <Calendar today={new Date()}/>
 
             </DefaultPageTemplate>
         );

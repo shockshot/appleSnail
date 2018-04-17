@@ -22,10 +22,18 @@ ul.calendar-header{
   }
 }
 ul.calendar-week{
-  
   >li{
     margin-top:-1px;
     width:100%;
+
+  }
+}
+
+li.cal-day {
+  // min-height:5rem;
+  >div.dateLabel{
+    min-height:5rem;
+    width:1rem;
   }
 }
 
