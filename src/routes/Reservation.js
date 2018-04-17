@@ -30,7 +30,7 @@ class Reservation extends Component {
                 </ol>
             </nav>
 
-            <Calendar today={new Date()}/>
+            <Calendar viewDay={new Date()}/>
 
             </DefaultPageTemplate>
         );

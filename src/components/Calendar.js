@@ -7,12 +7,14 @@ const st = classNames.bind(styles);
 
 class Calendar extends Component {
 
+
+
   constructor(props){
     super(props);
-
-    this.today = props.today;
-    const firstDate = DateUtils.getFirstDateOfCalendar(this.today);
-    const lastDate = DateUtils.getLastDateOfCalendar(this.today);
+    this.today = new Date();
+    this.viewDay = props.viewDay;
+    const firstDate = DateUtils.getFirstDateOfCalendar(this.viewDay);
+    const lastDate = DateUtils.getLastDateOfCalendar(this.viewDay);
     const counts = DateUtils.countDaysBetween(firstDate, lastDate)+1;
     this.datesArray = DateUtils.getCalendarArray(firstDate, counts);
   }
@@ -20,7 +22,7 @@ class Calendar extends Component {
   render(){
     return (
       <div className={st('calendar')}>
-        <h2>{this.today.getFullYear()}년 {this.today.getMonth()+1}월</h2>
+        <h2>{this.viewDay.getFullYear()}년 {this.viewDay.getMonth()+1}월</h2>
         <ul className={st("calendar-week")}>
           <li>
             <ul className={st("calendar-header")}>
