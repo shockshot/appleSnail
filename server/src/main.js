@@ -16,6 +16,19 @@ app.get('/api', (req, res) => {
     return res.send('Hello world');
 });
 
+app.post('/api/users/login', (req, res) => {
+    
+    console.log("req:", req.body);
+
+    const userInfo = {
+        userNo : 1,
+        userId : 'abcde@navar.com',
+        userName : '홍길동'
+    }
+
+    return res.send(JSON.stringify(userInfo));
+});
+
 app.listen(port, () => {
     console.log('Express is listening on port', port);
 });
