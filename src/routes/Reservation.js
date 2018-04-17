@@ -38,20 +38,21 @@ class Reservation extends Component {
             <div className={st('calendar')}>
                 <ul className={st("calendar-week")}>
                     <li>
-                    <ul className={st("calendar-header")}>
-                        <li className={st("cal-col")}>SUN</li>
-                        <li className={st("cal-col")}>MON</li>
-                        <li className={st("cal-col")}>TUE</li>
-                        <li className={st("cal-col")}>WED</li>
-                        <li className={st("cal-col")}>THU</li>
-                        <li className={st("cal-col")}>FRI</li>
-                        <li className={st("cal-col")}>SAT</li>
-                    </ul>
+                        <ul className={st("calendar-header")}>
+                            <li className={st("cal-col")}>SUN</li>
+                            <li className={st("cal-col")}>MON</li>
+                            <li className={st("cal-col")}>TUE</li>
+                            <li className={st("cal-col")}>WED</li>
+                            <li className={st("cal-col")}>THU</li>
+                            <li className={st("cal-col")}>FRI</li>
+                            <li className={st("cal-col")}>SAT</li>
+                        </ul>
                     </li>
                     {this.datesArray.map(week => 
+                    <li>
                         <ul>
                             {week.map(date => 
-                                <li className={st("cal-col")} >
+                                <li className={st("cal-col", "cal-day")} >
                                     <div className={st("dateLabel")}>
                                         {date.getDate()}
                                     </div>
@@ -61,10 +62,11 @@ class Reservation extends Component {
                                 </li>
                             )}
                         </ul>
+                    </li>
                     )}
                    
                 </ul>
-                </div>
+            </div>
 
 
             </DefaultPageTemplate>
