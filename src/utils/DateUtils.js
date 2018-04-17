@@ -39,7 +39,7 @@ export class DateUtils {
       arr[j].push(DateUtils.addDays(date, i));
     }
     return arr;
-}
+  }
 
 }
 
