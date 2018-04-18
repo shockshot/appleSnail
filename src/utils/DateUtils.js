@@ -30,6 +30,18 @@ export class DateUtils {
     return Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
   };
 
+  static isSameDate = function(date1, date2) {
+    return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
+  }
+
+  static isSameMonth = function(date1, date2) {
+    return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth();
+  }
+
+  static isToday = function(date) {
+    return DateUtils.isSameDate(new Date(), date);
+  }
+
   static getCalendarArray = (date, cnt) => {
     const arr = [];
     for(var i=0, j = -1 ; i<cnt ; i++){

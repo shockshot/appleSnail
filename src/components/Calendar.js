@@ -39,7 +39,7 @@ class Calendar extends Component {
           <li>
             <ul>
               {week.map(date => 
-                <li className={st("cal-col", "cal-day")} >
+                <li className={st("cal-col", "cal-day") + ' '+(DateUtils.isToday(date)?st('today'):'' )} >
                   <div className={st("dateLabel")}>
                     {date.getDate()}
                   </div>
