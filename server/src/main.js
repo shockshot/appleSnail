@@ -11,7 +11,7 @@ const port = 4000;
 //bodyParser 
 app.use(bodyParser.json());
 
-app.use('/', express.static(path.join(__dirname, './../public')));
+// app.use('/', express.static(path.join(__dirname, './../../public')));
 
 app.use('/api', api);
 

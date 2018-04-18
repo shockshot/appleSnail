@@ -81,7 +81,7 @@ choosePort(HOST, DEFAULT_PORT)
     );
 
     //프록시 설정 추가
-    serverConfig.proxy = {'*': 'http://localhost:4000' };
+    serverConfig.proxy = {'/api/*': 'http://localhost:4000' };
 
     const devServer = new WebpackDevServer(compiler, serverConfig);
     // Launch WebpackDevServer.
