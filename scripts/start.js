@@ -80,7 +80,7 @@ choosePort(HOST, DEFAULT_PORT)
       urls.lanUrlForConfig,
     );
 
-    //프록시 설정 추가
+    //프록시 설정 추가. url 이 /api/형식으로 올때만 proxy
     serverConfig.proxy = {'/api/*': 'http://localhost:4000' };
 
     const devServer = new WebpackDevServer(compiler, serverConfig);
