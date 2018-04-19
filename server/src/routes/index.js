@@ -1,5 +1,5 @@
 import express from 'express';
-
+import models from '../models';
 
 const router = express.Router();
 
@@ -9,9 +9,15 @@ router.get('/', (req, res) => {
   return res.send('Hello world');
 });
 
-router.post('/users/login', (req, res) => {
+router.get('/users/login', (req, res) => {
   
-  console.log("req:", req.body);
+  // console.log("req:", req.body);
+  models.sequelize.models.User.findAll().then(function(result){
+    // data = JSON.parse(result);
+    console.log(result[0].dataValues);
+    
+    
+  });
 
   const userInfo = {
       userNo : 1,
