@@ -1,3 +1,4 @@
+// https://cheese10yun.github.io/Passport-part1/
 import db from '../models';
 
 const env = process.env.NODE_ENV || "development";
