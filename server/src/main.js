@@ -18,14 +18,6 @@ app.use('/api', api);
 
 models.sequelize.sync().then(function () {
     console.log("----------------------------------------db-loading-has-been-done.");
-    // models.sequelize.models.User.findAll().then(function(result){
-    //     // data = JSON.parse(result);
-    //     console.log(result[0].dataValues);
-        
-        
-    // });
-    // console.log('models.sequelize:', );
-
     app.listen(port, () => {
         console.log('Express is listening on port', port);
     });

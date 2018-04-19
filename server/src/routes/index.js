@@ -1,6 +1,7 @@
 import express from 'express';
-import db from '../models';
-import {login} from '../controllers/users';
+// import db from '../models';
+import users from '../controllers/Users';
+
 
 const router = express.Router();
 
@@ -10,7 +11,14 @@ router.get('/', (req, res) => {
   return res.send('Hello world');
 });
 
-router.get( '/users/login', login);
-router.post('/users/login', login);
+// router.get( '/users/login', login);
+
+
+
+
+
+
+
+router.use('/users', users);
 
 export default router;
