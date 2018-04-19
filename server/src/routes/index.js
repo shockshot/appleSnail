@@ -1,5 +1,5 @@
 import express from 'express';
-import models from '../models';
+import db from '../models';
 
 const router = express.Router();
 
@@ -11,11 +11,13 @@ router.get('/', (req, res) => {
 
 router.get('/users/login', (req, res) => {
   
+  // console.log("models:", models.User.findAll());
+
   // console.log("req:", req.body);
-  models.sequelize.models.User.findAll().then(function(result){
-    // data = JSON.parse(result);
-    console.log(result[0].dataValues);
-    
+  db.User.findAll().then(function(result){
+    result.map(data=>data.dataValues).forEach(d=>{
+      console.log(d);
+    });
     
   });
 
