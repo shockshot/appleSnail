@@ -1,0 +1,11 @@
+{
+  "development": {
+    "username": "applesnail",
+    "password": "applesnail2018",
+    "database": "applesnail",
+    "host": "deliwind.com",
+    "port": 53306,
+    "dialect": "mysql",
+    "pool": { "max": 5, "min": 0, "idle": 10000 }
+  }
+}

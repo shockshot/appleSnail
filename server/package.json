@@ -7,16 +7,21 @@
     "build": "NODE_ENV=production babel src -d build --presets=es2016,react",
     "start": "node ./build/main.js",
     "development": "node ./scripts/development.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sequelize-auto": "sequelize-auto -h deliwind.com -d applesnail -u applesnail -x applesnail2018 -p 53306 -e mysql -o ./src/models"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "morgan": "^1.9.0",
+    "mysql2": "^1.5.3",
     "path": "^0.12.7",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "sequelize": "^4.37.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
