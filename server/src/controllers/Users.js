@@ -1,4 +1,5 @@
 // https://cheese10yun.github.io/Passport-part1/
+// https://github.com/auth0/node-jsonwebtoken
 import db from '../models';
 
 const env = process.env.NODE_ENV || "development";
