@@ -13,7 +13,6 @@ const jwt = require('jsonwebtoken');
 
 
 /** middlewares */
-router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
