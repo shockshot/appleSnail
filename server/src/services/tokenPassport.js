@@ -12,7 +12,7 @@ const Strategy = require('passport-http-bearer').Strategy;
 
 /**토큰 체크 로직 */
 tokenPassport.use(new Strategy((token, done) => {
-  if(!jwt.verify(token, config.secret)){
+  if(!jwt.verify(token, config.secret, config.options)){
     return done(err);
   }
   const user = jwt.decode(token);
