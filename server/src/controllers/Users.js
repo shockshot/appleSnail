@@ -4,7 +4,8 @@
 import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
-import passport from '../services/passport';
+import loginPassport from '../services/loginPassport';
+import tokenPassport from '../services/tokenPassport';
 
 const router = express.Router();
 const env = process.env.NODE_ENV || "development";
@@ -21,20 +22,15 @@ router.use(function (req, res, next) {
   next();
 });
 
-//init passport
-router.use(passport.initialize());
-
 
 const errHandler = (res, err) => {
   res.status(200).send('err:'+err);
 }
 
-
-router.post('/login', passport.authenticate('local', {
-  // successRedirect: '/',
-  // failureRedirect: '/',
-  // failureFlash: true
-}), (req, res) => {
+//login. 토큰 발급
+router.post('/login', 
+  loginPassport.initialize(), 
+  loginPassport.authenticate('local', {}), (req, res) => {
 
   const user = req.user;
   // issuing token.
@@ -42,14 +38,20 @@ router.post('/login', passport.authenticate('local', {
     id: user.userId
   };
   const token = jwt.sign(payload, config.secret, config.options);
-  req._token = token;
 
   console.log('#token:', token);
   
   res.setHeader('getToken', 'ok')
   res.status(200).send({token});
-  
 });
+
+router.get('/checkAuth',
+  tokenPassport.initialize(),
+  tokenPassport.authenticate('bearer', { session: false }), (req, res) => {
+  console.log('authed');
+  res.send(req.user);
+});
+
 
 
 export default router;
