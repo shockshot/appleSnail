@@ -42,8 +42,9 @@ passport.deserializeUser(function(user, cb) {
 
 
 // router.use(passport.session());
-const tokenPassport = () => {
-  return passport.authenticate('bearer', { session: false })
+const tokenPassport = {
+  init: passport.initialize(),
+  auth: passport.authenticate('bearer', { session: false })
 }
 
 export default tokenPassport;
