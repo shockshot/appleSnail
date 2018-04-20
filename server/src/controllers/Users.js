@@ -47,7 +47,7 @@ router.post('/login',
 });
 
 router.get('/checkAuth',
-  tokenPassport.initialize(),
+  // tokenPassport.initialize(),
   tokenPassport.authenticate('bearer', { session: false }), 
   (req, res) => {
   console.log('authed');

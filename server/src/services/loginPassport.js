@@ -44,19 +44,19 @@ loginPassport.serializeUser(function(user, done) {
 });
 
 //서버로 들어오는 요청마다 실제 DB와 비교
-loginPassport.deserializeUser(function(user, cb) {
-  // console.log('deserial');
-  db.Users.find({
-    where: {
-      userId: user.userId
-    }
-  }).then(user => {
-    cb(null, user.dataValues);
-  }, err=>{
-    // console.log('deserializeUser err', err);
-    cb(err);
-  })
-});
+// loginPassport.deserializeUser(function(user, cb) {
+//   // console.log('deserial');
+//   db.Users.find({
+//     where: {
+//       userId: user.userId
+//     }
+//   }).then(user => {
+//     cb(null, user.dataValues);
+//   }, err=>{
+//     // console.log('deserializeUser err', err);
+//     cb(err);
+//   })
+// });
 
 
 // router.use(passport.session());
