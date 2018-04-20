@@ -16,12 +16,8 @@ const loginLogic = function(req, userId, password, done) {
     }
   })
   .then( result => {
-    if(!result) {
-      return done(null, false);
-    }
-
+    if(!result) { return done(null, false); }
     user = result.dataValues;
-
     return bcrypt.compare(password, user.password)
   }, err => done(err) )
   .then( res => {
