@@ -6,12 +6,12 @@ const config = require('../../config/config.json')[env].jwt;
 const jwt = require('jsonwebtoken');
 
 /**passport */
-const tokenPassport = require('passport');
+const passport = require('passport');
 const Strategy = require('passport-http-bearer').Strategy;
 
 
 /**토큰 체크 로직 */
-tokenPassport.use(new Strategy((token, done) => {
+passport.use(new Strategy((token, done) => {
   if(!jwt.verify(token, config.secret, config.options)){
     return done(err);
   }
@@ -20,13 +20,13 @@ tokenPassport.use(new Strategy((token, done) => {
 }));
 
 //로그인 성공시 실행
-tokenPassport.serializeUser(function(user, done) {
+passport.serializeUser(function(user, done) {
   // console.log('serializeUser. user:', user);
   done(null, user);
 });
 
 //서버로 들어오는 요청마다 실제 DB와 비교
-tokenPassport.deserializeUser(function(user, cb) {
+passport.deserializeUser(function(user, cb) {
   // console.log('deserial');
   db.Users.find({
     where: {
@@ -42,5 +42,8 @@ tokenPassport.deserializeUser(function(user, cb) {
 
 
 // router.use(passport.session());
+const tokenPassport = () => {
+  return passport.authenticate('bearer', { session: false })
+}
 
 export default tokenPassport;

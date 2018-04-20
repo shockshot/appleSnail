@@ -42,13 +42,13 @@ router.post('/login',
 
   console.log('#token:', token);
   
-  res.setHeader('getToken', 'ok')
+  res.setHeader('Authorization', 'Bearer '+token);
   res.status(200).send({token});
 });
 
 router.get('/checkAuth',
   // tokenPassport.initialize(),
-  tokenPassport.authenticate('bearer', { session: false }), 
+  tokenPassport(), 
   (req, res) => {
   console.log('authed');
   res.send(req.user);
