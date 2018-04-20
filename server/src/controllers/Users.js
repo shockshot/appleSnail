@@ -12,108 +12,118 @@ const env = process.env.NODE_ENV || "development";
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config.json')[env].jwt;
 
-// const passport = require('passport');
-// const Strategy = require('passport-local').Strategy;
+
+/**passport */
+
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+
+passport.use(new Strategy({
+    usernameField: 'userId',
+    passwordField: 'password',
+    session: false, // 세션에 저장 여부
+    passReqToCallback: false
+  },
+  function(userId, password, done) {
+    db.User.findOne({
+      where: {
+        userId: userId
+      }
+    })
+    .then( result => {
+      if(!result) {
+        return done(null, false);
+      }
+
+      const user = result.dataValues;
+      if(user.password !== password){
+        return done(null, false);
+      }
+
+      const payload = {
+        id: user.userId
+      };
+      const token = jwt.sign(payload, config.secret, config.options);
+
+      return done(null, token);
+
+    }, err => done(err) );
+  }
+));
+
+passport.serializeUser(function(user, cb) {
+  console.log('serializeUser');
+  cb(null, user);
+});
+
+passport.deserializeUser(function(user, cb) {
+  console.log('deserial');
+  db.Users.find({
+    where: {
+      userId: user.userId
+    }
+  }).then(user => {
+    cb(null, user.dataValues);
+  }, err=>{
+    console.log('deserializeUser err', err);
+    cb(err);
+  })
+});
 
 
-
-// passport.use(new Strategy(
-//   function(userId, password, done) {
-//     console.log(12344444);
-//     db.User.findAll({
-//       where: {
-//         userId: userId
-//       }
-//     })
-//     .then( result => {
-//       const users = result.map(data=>data.dataValues);
-
-//       if(!users || !users.length){
-//         return done(null, false);
-//       }
-
-//       if(users[0].password !== password){
-//         return done(null, false);
-//       }
-
-//       const payload = {
-//         id: users[0].userId
-//       };
-//       const token = jwt.sign(payload, config.secret, config.options);
-//       return done(null, token);
-
-//     }, err => done(err) );
-//   }
-// ));
-
-// passport.serializeUser(function(user, cb) {
-//   console.log('serial');
-//   cb(null, user.id);
-// });
-
-// passport.deserializeUser(function(id, cb) {
-//   console.log('deserial');
-//   db.Users.find({
-//     where: {
-//       userId: id
-//     }
-//   }).then(user => {
-//     cb(null, user);
-//   }, err=>{
-//     cb(err);
-//   })
-// });
-
-
-// router.use(passport.initialize());
+router.use(passport.initialize());
 // router.use(passport.session());
 
+
 const errHandler = (res, err) => {
-  res.send('err:'+err);
+  res.status(200).send('err:'+err);
 }
-  
+
+router.post('/login', passport.authenticate('local', {
+  // successRedirect: '/',
+  // failureRedirect: '/',
+  // failureFlash: true
+}), (req, res) => {
+  res.send('login success');
+});
+
+/*
+
 router.post('/login', (req, res)=>{
   const {userId, password} = req.body;
   console.log(req.body);
 
-  db.User.findAll({
+  db.User.findOne({
       where: {
         userId: userId,
         password: password
       }
     })
     .then( result => {
-      const users = result
-        .map(data=>data.dataValues);
-      
-      console.log(users);
 
-      if(users && users.length){
-        return users[0];
-      }else{
-        throw 'user not found';
+      if(!result){
+        throw new Error('user not found');
       }
-  
-    }, err => errHandler(res, err) )
-    .then(user => {
+
+      const user = result.dataValues;
       const payload = {
         id: user.userId,
       };
-  
+
       const pr = new Promise((resolve, err) => jwt.sign(payload, config.secret, config.options, (err, token) => {
         if (err) reject(err)
         resolve(token) 
       }));
       // return res.send(JSON.stringify(token));
       return pr;
+  
     }, err => errHandler(res, err) )
     .then( token => {
       return res.send(token);
     }, err => errHandler(res, err))
-  
+
   }
 );
-
-
+*/
 
 export default router;
