@@ -48,7 +48,7 @@ router.post('/login', passport.authenticate('local', {
   console.log('#token:', token);
   
   res.setHeader('getToken', 'ok')
-  res.status(200).send(token);
+  res.status(200).send({token});
   
 });
 
