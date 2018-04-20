@@ -30,7 +30,8 @@ const errHandler = (res, err) => {
 //login. 토큰 발급
 router.post('/login', 
   loginPassport.initialize(), 
-  loginPassport.authenticate('local', {}), (req, res) => {
+  loginPassport.authenticate('local', {}), 
+  (req, res) => {
 
   const user = req.user;
   // issuing token.
@@ -47,7 +48,8 @@ router.post('/login',
 
 router.get('/checkAuth',
   tokenPassport.initialize(),
-  tokenPassport.authenticate('bearer', { session: false }), (req, res) => {
+  tokenPassport.authenticate('bearer', { session: false }), 
+  (req, res) => {
   console.log('authed');
   res.send(req.user);
 });
