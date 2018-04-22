@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import { history } from './helper/history';
