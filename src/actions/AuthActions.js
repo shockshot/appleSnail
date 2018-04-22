@@ -1,6 +1,9 @@
 import {AUTH} from './ActionTypes.js';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import {history} from '../helper/history';
+// import { createBrowserHistory } from 'history';
+// const history = createBrowserHistory();
 
 const loginUrl = '/api/users/login';
 
@@ -15,7 +18,8 @@ export const login = (userId, password) => dispatch => {
 		userId, password
 	}).then((response) => {
 		console.log("login req success");
-		dispatch(loginSuccess(response.data.token))
+		dispatch(loginSuccess(response.data.token));
+		history.push('/');
 	}).catch(error => {
 		console.log("login req failed:", error);
 		dispatch(loginFail())
@@ -25,7 +29,7 @@ export const login = (userId, password) => dispatch => {
 
 export const loginSuccess = (token) => {
 	const userInfo = jwt.decode(token);
-	console.log(userInfo);
+	// console.log(userInfo);
 	return {
 		type: AUTH.LOGIN_SUCCESS,
 		userId: userInfo.id,

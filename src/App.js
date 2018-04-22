@@ -1,7 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
-import PropTypes from 'prop-types'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Router } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
+import { history } from './helper/history';
 import './App.scss';
 
 
@@ -27,7 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <Switch>
             <Route path="/login"       component={Login}/>
