@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 // import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import { connect } from 'react-redux';
-import { login } from '../actions/AuthActions';
+import { login, logout } from '../actions/AuthActions';
 
 // isLogin = false;
 
@@ -14,6 +14,8 @@ class LoginContainer extends Component {
   constructor(props){
     super(props);
     console.log(props);
+
+    this.props.logout();
   }
 
   render() {
@@ -35,6 +37,9 @@ const mapDispatchProps = (dispatch) => {
   return {
       handleLogin: (userId, password) => { 
         dispatch(login(userId, password));
+      },
+      logout: () => {
+        dispatch(logout());
       }
   };
 };

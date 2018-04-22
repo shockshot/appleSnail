@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
@@ -16,6 +17,9 @@ import User from './routes/User';
 import Shop from './routes/Shop';
 import NoMatch from './routes/NoMatch';
 
+//나중에 앱 외부로 빼던가 할것...
+//로그인 확인 예외 페이지 url
+const excludes = ['/login'];
 
 class App extends Component {
 
@@ -25,7 +29,17 @@ class App extends Component {
   //     store: this.props.store
   //   }
   // }
+  
 
+  constructor(props){
+    super(props);
+
+    // token이 없는데 예외 페이지에 없는 경우 redirect...
+    if(!props.state.auth.isLogin &&  excludes.findIndex( e => e === history.location.pathname ) < 0  ) {
+      history.push('/login');
+    }
+
+  }
 
   render() {
     return (
@@ -55,4 +69,10 @@ class App extends Component {
 //   store: PropTypes.object.isRequired
 // }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+      state
+  };
+};
+
+export default connect(mapStateToProps)(App);
