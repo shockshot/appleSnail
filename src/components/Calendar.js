@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { DateUtils } from '../utils/DateUtils';
 import classNames from 'classnames/bind';
 import styles from './Calendar.scss';
-const st = classNames.bind(styles);
+import v4 from 'uuid';
 
+const st = classNames.bind(styles);
+const weekTitles = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 class Calendar extends Component {
-
-
 
   constructor(props){
     super(props);
@@ -26,25 +26,23 @@ class Calendar extends Component {
         <ul className={st("calendar-week")}>
           <li>
             <ul className={st("calendar-header")}>
-              <li className={st("cal-col")}>SUN</li>
-              <li className={st("cal-col")}>MON</li>
-              <li className={st("cal-col")}>TUE</li>
-              <li className={st("cal-col")}>WED</li>
-              <li className={st("cal-col")}>THU</li>
-              <li className={st("cal-col")}>FRI</li>
-              <li className={st("cal-col")}>SAT</li>
+              {weekTitles.map(day => 
+                <li key={day} className={st("cal-col")}>{day}</li>
+              )}
             </ul>
           </li>
           {this.datesArray.map(week => 
-          <li>
+          <li key={v4()}>
             <ul>
               {week.map(date => 
-                <li className={st("cal-col", "cal-day") + ' '+(DateUtils.isToday(date)?st('today'):'' )} >
+                <li className={st("cal-col", "cal-day") + ' '+(DateUtils.isToday(date)?st('today'):'' )} 
+                  key={v4()}
+                  >
                   <div className={st("dateLabel")}>
                     {date.getDate()}
                   </div>
                   <div>
-
+                    
                   </div>
                 </li>
               )}

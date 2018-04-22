@@ -5,17 +5,18 @@ import auth from '../reducers/auth.js'
 import {createLogger} from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 
-//middlewares
-// const logger = store => next => action => {
-//   let result;
-//   console.groupCollapsed("dispatching", action.type);
-//   console.log('before status', store.getState());
-//   console.log('action', action);
-//   result = next(action);
-//   console.log('next status', store.getState());
-//   console.groupEnd();
-//   return result;
-// }
+/*
+// middlewares
+const logger = store => next => action => {
+  let result;
+  console.groupCollapsed("dispatching", action.type);
+  console.log('before status', store.getState());
+  console.log('action', action);
+  result = next(action);
+  console.log('next status', store.getState());
+  console.groupEnd();
+  return result;
+}*/
 
 /* 로그 미들웨어를 생성 할 때 설정 커스터마이징 가능
    https://github.com/evgenyrodionov/redux-logger#options

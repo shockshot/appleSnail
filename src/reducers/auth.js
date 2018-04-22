@@ -10,16 +10,25 @@ const auth = (state = {isLogin: false}, action) => {
       return {
 //         isLogin: true, //로그인 성공하기 전에는 상태를 true로 바꿀수가 없음..
 				isLogin: false,
-        userId: action.userId,
-        password: action.password
+        userId: action.userId
       }
     case AUTH.LOGOUT:
       return {
         isLogin: false,
-				userId: null,
-				password: null
+				userId: null
       }
-		//로그인 실패, 성공에 따른 reducer 정의 필요...
+    case AUTH.LOGIN_SUCCESS:
+      return {
+        isLogin: true,
+        userId: action.userId,
+        Authorization: action.Authorization
+      }
+    case AUTH.LOGIN_FAILURE:
+      return {
+        isLogin: false,
+        userId: null,
+        Authorization: null
+      }
     default:
       return state
   }

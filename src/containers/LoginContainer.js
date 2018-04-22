@@ -1,7 +1,7 @@
 // https://velopert.com/3401 async thunk 사용하기
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import { connect } from 'react-redux';
 import { login } from '../actions/AuthActions';
@@ -21,11 +21,11 @@ class LoginContainer extends Component {
   // };
 
   render() {
-    const {handleLogin} = this;
+    // const {handleLogin} = this;
 
-      return (
-        <LoginForm onLogin={this.props.handleLogin}/>
-      );
+    return (
+      <LoginForm onLogin={this.props.handleLogin}/>
+    );
   }
 }
 
@@ -42,6 +42,7 @@ const mapDispatchProps = (dispatch) => {
       handleLogin: (userId, password) => { dispatch(login(userId, password))}
   };
 };
+
 export default connect(mapStateToProps, mapDispatchProps)(LoginContainer);
 
 

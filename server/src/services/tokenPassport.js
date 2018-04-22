@@ -13,7 +13,7 @@ const Strategy = require('passport-http-bearer').Strategy;
 /**토큰 체크 로직 */
 passport.use(new Strategy((token, done) => {
   if(!jwt.verify(token, config.secret, config.options)){
-    return done(err);
+    return done(null, false);
   }
   const user = jwt.decode(token);
   return done(null, user);
@@ -26,6 +26,7 @@ passport.serializeUser(function(user, done) {
 });
 
 //서버로 들어오는 요청마다 실제 DB와 비교
+/*
 passport.deserializeUser(function(user, cb) {
   // console.log('deserial');
   db.Users.find({
@@ -38,7 +39,7 @@ passport.deserializeUser(function(user, cb) {
     // console.log('deserializeUser err', err);
     cb(err);
   })
-});
+});*/
 
 
 // router.use(passport.session());
