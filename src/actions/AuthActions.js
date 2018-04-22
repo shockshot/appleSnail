@@ -1,5 +1,6 @@
 import {AUTH} from './ActionTypes.js';
-import axios from 'axios';
+// import axios from 'axios';
+import HttpHelper from '../helper/HttpHelper';
 import jwt from 'jsonwebtoken';
 import {history} from '../helper/history';
 // import { createBrowserHistory } from 'history';
@@ -8,23 +9,17 @@ import {history} from '../helper/history';
 const loginUrl = '/api/users/login';
 
 export const login = (userId, password) => dispatch => {
-	console.log('loginAction', userId, password);
-	// return {
-	// 	type: AUTH.LOGIN,
-	// 	userId,
-	// 	password
-	// }
-	return axios.post(loginUrl, {
-		userId, password
-	}).then((response) => {
+	return HttpHelper.post(loginUrl, {
+		userId, 
+		password
+	}, {}, false).then((response) => {
 		console.log("login req success");
 		dispatch(loginSuccess(response.data.token));
 		history.push('/');
 	}).catch(error => {
 		console.log("login req failed:", error);
-		dispatch(loginFail())
+		dispatch(loginFailed())
 	})
-
 }
 
 export const loginSuccess = (token) => {
@@ -37,7 +32,7 @@ export const loginSuccess = (token) => {
 	}
 }
 
-export const loginFail = () => {
+export const loginFailed= () => {
 	return {
 		type: AUTH.LOGIN_FAILURE,
 		userId: null,

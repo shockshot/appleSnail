@@ -1,7 +1,7 @@
 // https://velopert.com/3401 async thunk 사용하기
 
 import React, { Component } from 'react';
-import { withRouter } from 'react-router'
+// import { withRouter } from 'react-router'
 // import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import { connect } from 'react-redux';
@@ -44,7 +44,7 @@ const mapDispatchProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchProps)(withRouter(LoginContainer));
+export default connect(mapStateToProps, mapDispatchProps)(LoginContainer);
 
 
 // export default LoginContainer;
