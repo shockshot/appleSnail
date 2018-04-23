@@ -7,11 +7,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// const store = storeFactory();
-
 ReactDOM.render(
   <Provider store={store}>
-    {/* <App store={store}/> */}
     <App/>
   </Provider>
   , document.getElementById('root'));

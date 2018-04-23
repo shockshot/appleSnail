@@ -1,12 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux';
 //추후 auth.js 이름 변경 필요
+import {AUTH} from '../actions/AuthActions';
 import auth from '../reducers/auth';
 import sales from '../reducers/sales';
 import {createLogger} from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
-// import penderMiddleware from 'redux-pender';
-// import {penderReducer} from 'redux-pender'
 
 /* 로그 미들웨어를 생성 할 때 설정 커스터마이징 가능
    https://github.com/evgenyrodionov/redux-logger#options
@@ -22,19 +21,25 @@ const saver = store => next => action => {
 }
 
 
+const reducers = (state, action) => {
+  if (action.type === AUTH.LOGOUT) {
+    state = undefined
+  }
+  return combineReducers({
+    auth,
+    sales,
+  })(state, action);
+}
+
+
 //storeFactory
 const storeFactory = (initialState = {}) => 
   applyMiddleware(
     logger, 
     ReduxThunk, 
-    // penderMiddleware(), 
     saver)
     (createStore)(
-    combineReducers({
-      auth,
-      sales,
-      // pender: penderReducer
-    }),
+    reducers,
     (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : initialState
   )
 

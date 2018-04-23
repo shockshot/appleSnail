@@ -2,19 +2,31 @@ import React, { Component } from 'react';
 import SalesList from '../components/SalesList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchSales } from '../actions/SalesActions';
+import * as salesActions from '../actions/SalesActions';
 
 class SalesListContainer extends Component {
+
+    constructor(props){
+        super(props);
+    }
+
     render(){
         return (
-            <SalesList onSearch={this.props.handleSearch}/>
+            <SalesList 
+                searchCondition={this.props.searchCondition}
+                onAction={this.props.salesActions}
+                dataList={this.props.dataList}
+                />
         );
     }
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({sales}) => {
+    // console.log(sales);
     return {
+        searchCondition: sales.searchCondition,
+        dataList: sales.dataList
         // isLogin: state.isLogin,
         // userId: state.userId
     };
@@ -22,7 +34,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchProps = (dispatch) => {
     return {
-        handleSearch: bindActionCreators(searchSales, dispatch)
+        salesActions: bindActionCreators(salesActions, dispatch)
     };
 };
   

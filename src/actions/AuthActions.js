@@ -31,7 +31,7 @@ export const login = (userId, password) => dispatch => {
 	})
 }
 
-export const loginSuccess = (token) => {
+const loginSuccess = (token) => {
 	const userInfo = jwt.decode(token);
 	// console.log(userInfo);
 	return {
@@ -41,7 +41,7 @@ export const loginSuccess = (token) => {
 	}
 }
 
-export const loginFailed= () => {
+const loginFailed= () => {
 	return {
 		type: AUTH.LOGIN_FAILURE,
 		userId: null,

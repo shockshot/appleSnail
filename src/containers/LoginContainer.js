@@ -38,12 +38,7 @@ const mapStateToProps = (state) => {
 const mapDispatchProps = (dispatch) => {
   return {
       handleLogin: bindActionCreators(authActions.login, dispatch),
-        // dispatch(login(userId, password));
-      // },
       handleLogout: bindActionCreators(authActions.logout, dispatch),
-      // logout: () => {
-      //   dispatch(logout());
-      // }
   };
 };
 
