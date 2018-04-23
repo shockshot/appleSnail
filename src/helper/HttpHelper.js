@@ -1,5 +1,8 @@
-import axios from 'axios';
+import httpClient from 'axios';
 // import AxiosRequestConfig from 'axios';
+import storeFactory from './store';
+
+const store = storeFactory();
 
 export default class HttpHelper {
 
@@ -10,38 +13,84 @@ export default class HttpHelper {
       };
 
 
-    static post(url, data, config = null, withAuth = true){
+    static post(url, data, withAuth = true, config = null){
         if(!config){
             config = {...this.config};
         }
-        
-        if(withAuth && localStorage['redux-store'].auth.Authorization){
-            config.headers.Authorization = 'bearer ' + localStorage['redux-store'].auth.Authorization;
+
+        if(withAuth && store.getState().auth && store.getState().auth.isLogin){
+            try{
+                if(!config.headers){ config.headers = {} }
+                config.headers.Authorization = 'bearer ' + store.getState().auth.Authorization;
+            }catch(e){
+                console.log('error while setting header:', e);
+            }
+        }
+        return httpClient.post(url, data, config);
+    }
+
+    static get(url, withAuth = true, config = null ){
+        if(!config){
+            config = {...this.config};
         }
 
-        // const instance = axios.create(config);
-
-        return axios.post(url, data, config);
+        if(withAuth && store.getState().auth){
+            try{
+                if(!config.headers){ config.headers = {} }
+                config.headers.Authorization = 'bearer ' + store.getState().auth.Authorization;
+            }catch(e){
+                console.log('error while setting header:', e);
+            }
+        }
+        return httpClient.get(url, config);
     }
 
-    static get(url, config = null, withAuth = true){
+    static put(url, data, withAuth = true, config = null) {
+        if(!config){
+            config = {...this.config};
+        }
 
-        return axios.get(url, config);
+        if(withAuth && store.getState().auth){
+            try{
+                if(!config.headers){ config.headers = {} }
+                config.headers.Authorization = 'bearer ' + store.getState().auth.Authorization;
+            }catch(e){
+                console.log('error while setting header:', e);
+            }
+        }
+        return httpClient.put(url, data);
     }
 
-    static put(url, data, config = null, withAuth = true) {
+    static delete(url, withAuth = true, config = null){
+        if(!config){
+            config = {...this.config};
+        }
 
-        return axios.put(url, data);
+        if(withAuth && store.getState().auth){
+            try{
+                if(!config.headers){ config.headers = {} }
+                config.headers.Authorization = 'bearer ' + store.getState().auth.Authorization;
+            }catch(e){
+                console.log('error while setting header:', e);
+            }
+        }
+        return httpClient.delete(url);
     }
 
-    static delete(url, config = null, withAuth = true){
+    static patch(url, data, withAuth = true, config = null) {
+        if(!config){
+            config = {...this.config};
+        }
 
-        return axios.delete(url);
-    }
-
-    static patch(url, data, config = null, withAuth = true) {
-
-        return axios.patch(url, data, withAuth = true, config = null);
+        if(withAuth && store.getState().auth){
+            try{
+                if(!config.headers){ config.headers = {} }
+                config.headers.Authorization = 'bearer ' + store.getState().auth.Authorization;
+            }catch(e){
+                console.log('error while setting header:', e);
+            }
+        }
+        return httpClient.patch(url, data, config = null);
     }
 
 }

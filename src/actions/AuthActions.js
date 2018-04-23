@@ -9,10 +9,11 @@ import {history} from '../helper/history';
 const loginUrl = '/api/users/login';
 
 export const login = (userId, password) => dispatch => {
+	dispatch({type:AUTH.LOGIN});
 	return HttpHelper.post(loginUrl, {
 		userId, 
 		password
-	}, {}, false).then((response) => {
+	}, false).then((response) => {
 		console.log("login req success");
 		dispatch(loginSuccess(response.data.token));
 		history.push('/');

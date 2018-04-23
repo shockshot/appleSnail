@@ -1,7 +1,7 @@
 import express from 'express';
 // import db from '../models';
 import users from '../controllers/Users';
-
+import sales from '../controllers/Sales';
 
 const router = express.Router();
 
@@ -17,8 +17,7 @@ router.get('/', (req, res) => {
 
 
 
-
-
 router.use('/users', users);
+router.use('/sales', sales);
 
 export default router;

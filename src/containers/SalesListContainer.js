@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import SalesList from '../components/SalesList';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchSales } from '../actions/SalesActions';
 
 class SalesListContainer extends Component {
     render(){
         return (
-            <SalesList />
+            <SalesList onSearch={this.props.handleSearch}/>
         );
     }
 
@@ -16,17 +18,12 @@ const mapStateToProps = (state) => {
         // isLogin: state.isLogin,
         // userId: state.userId
     };
-  };
-  
-  const mapDispatchProps = (dispatch) => {
+};
+
+const mapDispatchProps = (dispatch) => {
     return {
-        // handleLogin: (userId, password) => { 
-        //   dispatch(login(userId, password));
-        // },
-        // logout: () => {
-        //   dispatch(logout());
-        // }
+        handleSearch: bindActionCreators(searchSales, dispatch)
     };
-  };
+};
   
   export default connect(mapStateToProps, mapDispatchProps)(SalesListContainer);

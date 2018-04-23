@@ -12,11 +12,16 @@ const Strategy = require('passport-http-bearer').Strategy;
 
 /**토큰 체크 로직 */
 passport.use(new Strategy((token, done) => {
-  if(!jwt.verify(token, config.secret, config.options)){
+  try{
+    if(!jwt.verify(token, config.secret, config.options)){
+      return done(null, false);
+    }
+    const user = jwt.decode(token);
+    return done(null, user);
+  }catch(e){
+    console.log('token error:', e);
     return done(null, false);
   }
-  const user = jwt.decode(token);
-  return done(null, user);
 }));
 
 //로그인 성공시 실행

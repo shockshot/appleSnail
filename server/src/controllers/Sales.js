@@ -4,7 +4,6 @@
 import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
-import loginPassport from '../services/loginPassport';
 import tokenPassport from '../services/tokenPassport';
 
 const router = express.Router();
@@ -22,36 +21,25 @@ router.use(function (req, res, next) {
   next();
 });
 
-
 const errHandler = (res, err) => {
   res.status(200).send('err:'+err);
 }
 
-//login. 토큰 발급
-router.post('/login', 
-  loginPassport.init, loginPassport.auth, 
-  (req, res) => {
 
-  const user = req.user;
-  // issuing token.
-  const payload = {
-    id: user.userId
-  };
-  const token = jwt.sign(payload, config.secret, config.options);
-
-  console.log('#token:', token);
-  
-  res.setHeader('Authorization', 'Bearer '+token);
-  res.status(200).send({token});
-});
-
-router.get('/checkAuth',
+//search. 토큰 발급
+router.post('/search', 
   tokenPassport.auth, 
   (req, res) => {
-  console.log('authed:', req.user);
-  res.send(req.user);
+    db.Sales.findAll().then( result => {
+      if(!result){
+        res.status(404).send({});
+      }else{
+        const data = result.map(result => result.dataValues);
+        res.status(200).json(data);
+      }
+    })
+  
 });
-
 
 
 export default router;

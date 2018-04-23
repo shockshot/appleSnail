@@ -4,6 +4,8 @@ import { combineReducers } from 'redux';
 import auth from '../reducers/auth.js'
 import {createLogger} from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
+// import penderMiddleware from 'redux-pender';
+// import {penderReducer} from 'redux-pender'
 
 /*
 // middlewares
@@ -34,10 +36,17 @@ const saver = store => next => action => {
 
 //storeFactory
 const storeFactory = (initialState = {}) => 
-  applyMiddleware(logger, ReduxThunk, saver)(createStore)(
-    combineReducers({auth}),
-    (localStorage['redux-store'])?
-      JSON.parse(localStorage['redux-store']) : initialState
+  applyMiddleware(
+    logger, 
+    ReduxThunk, 
+    // penderMiddleware(), 
+    saver)
+    (createStore)(
+    combineReducers({
+      auth,
+      // pender: penderReducer
+    }),
+    (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : initialState
   )
 
 

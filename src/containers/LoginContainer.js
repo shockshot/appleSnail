@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import LoginForm from '../components/LoginForm';
 import { connect } from 'react-redux';
 import { login, logout } from '../actions/AuthActions';
+import { bindActionCreators } from 'redux';
 
 // isLogin = false;
 
@@ -35,12 +36,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchProps = (dispatch) => {
   return {
-      handleLogin: (userId, password) => { 
-        dispatch(login(userId, password));
-      },
-      logout: () => {
-        dispatch(logout());
-      }
+      handleLogin: bindActionCreators(login, dispatch),
+        // dispatch(login(userId, password));
+      // },
+      logout: bindActionCreators(logout, dispatch),
+      // logout: () => {
+      //   dispatch(logout());
+      // }
   };
 };
 

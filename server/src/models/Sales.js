@@ -10,7 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     shopNo: {
       type: DataTypes.INTEGER(10).UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Shop',
+        key: 'shopNo'
+      }
     },
     reservationNo: {
       type: DataTypes.INTEGER(10).UNSIGNED,
