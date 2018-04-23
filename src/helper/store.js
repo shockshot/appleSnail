@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux';
 //추후 auth.js 이름 변경 필요
 import auth from '../reducers/auth';
-// import sales from '../reducers/sales';
+import sales from '../reducers/sales';
 import {createLogger} from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 // import penderMiddleware from 'redux-pender';
@@ -32,6 +32,7 @@ const storeFactory = (initialState = {}) =>
     (createStore)(
     combineReducers({
       auth,
+      sales
       // pender: penderReducer
     }),
     (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : initialState
