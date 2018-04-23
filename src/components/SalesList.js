@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
-import { Button, Table } from 'reactstrap';
+import { Button, Table, FormGroup, Label, Input, Form } from 'reactstrap';
 
 class SalesList extends Component {
 
     constructor(props){
         super(props);
+
+        this.state = {...props.searchCondition};
         // this.handleSearch = this.handleSearch.bind(this);
         console.log('dataList:', props.dataList);
     }
 
     handleSearch = () => {
+        console.log('props:', this.props);
 
-        this.props.onAction.search({
-            searchFrom: this.searchFrom.value,
-            searchTo: this.searchTo.value
+        this.props.onActions.search({
+            searchFrom: this.form.searchFrom.value,
+            searchTo: this.form.searchTo.value
         });
+    }
+
+    handleChange(e) {
+        let change = {...this.state}
+        change[e.target.name] = e.target.value;
+        this.setState(change);
     }
 
     render(){
@@ -35,9 +44,20 @@ class SalesList extends Component {
 
         return(
             <div>
-                <input type="text" name="searchFrom" value={this.props.searchCondition.searchFrom} ref={c => this.searchFrom = c}/>~
-                <input type="text" name="searchTo" value={this.props.searchCondition.searchTo} ref={c => this.searchTo = c}/>
-                <Button onClick={this.handleSearch}>검색</Button>
+                <Form inline innerRef={c=>this.form=c}>
+                    <FormGroup>
+                        <Label for="searchFrom" hidden>검색시작일</Label>
+                        <Input type="text" name="searchFrom" id="searchFrom" placeholder="yyyymmdd" value={this.state.searchFrom} onChange={this.handleChange.bind(this)}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="searchTo" hidden>검색종료일</Label>
+                        <Input type="text" name="searchTo" id="searchTo" placeholder="yyyymmdd" value={this.state.searchTo} onChange={this.handleChange.bind(this)}/>
+                    </FormGroup>
+                    <Button onClick={this.handleSearch}>검색</Button>
+                </Form>
+                {/* <input type="text" name="searchFrom" value={this.props.searchCondition.searchFrom} ref={c => this.searchFrom = c}/>~
+                <input type="text" name="searchTo" value={this.props.searchCondition.searchTo} ref={c => this.searchTo = c}/> */}
+                
                 <Table>
                     <thead>
                         <tr>

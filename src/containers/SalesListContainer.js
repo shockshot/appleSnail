@@ -6,15 +6,15 @@ import * as salesActions from '../actions/SalesActions';
 
 class SalesListContainer extends Component {
 
-    constructor(props){
-        super(props);
-    }
+    // constructor(props){
+    //     super(props);
+    // }
 
     render(){
         return (
             <SalesList 
                 searchCondition={this.props.searchCondition}
-                onAction={this.props.salesActions}
+                onActions={this.props.handleActions}
                 dataList={this.props.dataList}
                 />
         );
@@ -23,7 +23,7 @@ class SalesListContainer extends Component {
 }
 
 const mapStateToProps = ({sales}) => {
-    // console.log(sales);
+    console.log('mapStateToProps', sales);
     return {
         searchCondition: sales.searchCondition,
         dataList: sales.dataList
@@ -34,7 +34,7 @@ const mapStateToProps = ({sales}) => {
 
 const mapDispatchProps = (dispatch) => {
     return {
-        salesActions: bindActionCreators(salesActions, dispatch)
+        handleActions: bindActionCreators(salesActions, dispatch)
     };
 };
   

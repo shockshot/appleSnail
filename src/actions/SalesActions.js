@@ -17,13 +17,6 @@ export const SALES = {
   GET:            "SALES_GET"
 }
 
-export const setSearchCondition = (searchCondition = {}) => dispatch => {
-  return {
-    type:SALES.SEARCH_CONDITION,
-    searchCondition: searchCondition
-  };
-}
-
 export const search = (searchCondition = {}) => dispatch => {
 	dispatch({
     type:SALES.SEARCH,

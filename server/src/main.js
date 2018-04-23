@@ -1,6 +1,7 @@
 // http://developmentholic.blogspot.kr/2017/02/react-08-create-react-app-express.html
 
 import express from 'express';
+import helmet from 'helmet';
 import path from 'path';
 import bodyParser from 'body-parser';
 import api from './routes';
@@ -9,7 +10,10 @@ import models from './models';
 const app = express();
 const port = 4000;
 
-//bodyParser 
+app.use(helmet());
+app.disable('x-powered-by');
+
+//bodyparser
 app.use(bodyParser.json());
 
 // app.use('/', express.static(path.join(__dirname, './../../public')));
