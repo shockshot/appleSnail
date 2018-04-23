@@ -32,7 +32,7 @@ const storeFactory = (initialState = {}) =>
     (createStore)(
     combineReducers({
       auth,
-      sales
+      sales,
       // pender: penderReducer
     }),
     (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : initialState
