@@ -1,4 +1,4 @@
-import {AUTH} from './ActionTypes.js';
+// import {AUTH} from './ActionTypes.js';
 // import axios from 'axios';
 import HttpHelper from '../helper/HttpHelper';
 import jwt from 'jsonwebtoken';
@@ -7,6 +7,14 @@ import {history} from '../helper/history';
 // const history = createBrowserHistory();
 
 const loginUrl = '/api/users/login';
+
+export const AUTH = {
+  LOGIN: "AUTH_LOGIN",
+  LOGIN_SUCCESS: "AUTH_LOGIN_SUCCESS",
+  LOGIN_FAILURE: "AUTH_LOGIN_FAILURE",
+  LOGOUT: "AUTH_LOGOUT"
+}
+
 
 export const login = (userId, password) => dispatch => {
 	dispatch({type:AUTH.LOGIN});

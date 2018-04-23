@@ -1,24 +1,12 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux';
 //추후 auth.js 이름 변경 필요
-import auth from '../reducers/auth.js'
+import auth from '../reducers/auth';
+// import sales from '../reducers/sales';
 import {createLogger} from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 // import penderMiddleware from 'redux-pender';
 // import {penderReducer} from 'redux-pender'
-
-/*
-// middlewares
-const logger = store => next => action => {
-  let result;
-  console.groupCollapsed("dispatching", action.type);
-  console.log('before status', store.getState());
-  console.log('action', action);
-  result = next(action);
-  console.log('next status', store.getState());
-  console.groupEnd();
-  return result;
-}*/
 
 /* 로그 미들웨어를 생성 할 때 설정 커스터마이징 가능
    https://github.com/evgenyrodionov/redux-logger#options
@@ -49,5 +37,6 @@ const storeFactory = (initialState = {}) =>
     (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : initialState
   )
 
+const store = storeFactory()
 
-export default storeFactory;
+export default store;

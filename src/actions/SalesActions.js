@@ -1,7 +1,16 @@
-import {SALES} from './ActionTypes.js';
+// import { SALES } from './ActionTypes.js';
 import HttpHelper from '../helper/HttpHelper';
 
 const loginUrl = '/api/sales';
+
+export const SALES = {
+  SEARCH: "SALES_SEARCH",
+  REGISTER: "SALES_REGISTER",
+  POST: "SALES_POST",
+  PUT: "SALES_PUT",
+  DELETE: "SALES_DELETE",
+  GET: "SALES_GET"
+}
 
 export const searchSales = () => dispatch => {
 	dispatch({type:SALES.SEARCH});

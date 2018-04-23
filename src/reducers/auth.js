@@ -1,40 +1,37 @@
 // import { combineReducers } from 'redux';
-import { AUTH } from '../actions/ActionTypes';
+import { AUTH } from '../actions/AuthActions';
+import { handleActions } from 'redux-actions';
 
+const initialState = {isLogin: false};
 
-//reducer
-
-const auth = (state = {isLogin: false}, action) => {
-  switch(action.type) {
-    case AUTH.LOGIN:
-      return {
-//         isLogin: true, //로그인 성공하기 전에는 상태를 true로 바꿀수가 없음..
-				isLogin: false,
-        userId: action.userId
-      }
-    case AUTH.LOGOUT:
-      return {
-        isLogin: false,
-				userId: null
-      }
-    case AUTH.LOGIN_SUCCESS:
-      return {
-        isLogin: true,
-        userId: action.userId,
-        Authorization: action.Authorization
-      }
-    case AUTH.LOGIN_FAILURE:
-      return {
-        isLogin: false,
-        userId: null,
-        Authorization: null
-      }
-    default:
-      return state
+export default handleActions({
+  [AUTH.LOGIN]: (state, action) => {
+    return {
+      isLogin: false,
+      userId: action.userId
+    }
+  },
+  [AUTH.LOGIN_SUCCESS]: (state, action) => {
+    return {
+      isLogin: true,
+      userId: action.userId,
+      Authorization: action.Authorization
+    }
+  },
+  [AUTH.LOGIN_FAILURE]: (state, action) => {
+    return {
+      isLogin: false,
+      userId: null,
+      Authorization: null
+    }
+  },
+  [AUTH.LOGOUT]: (state, action) => {
+    return {
+      isLogin: false,
+      userId: null
+    }
   }
-}
-
-export default auth;
+}, initialState);
 
 // export default combineReducers({ 
 // 	login

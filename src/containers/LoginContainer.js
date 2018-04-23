@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import { connect } from 'react-redux';
-import { login, logout } from '../actions/AuthActions';
+// import { login, logout } from '../actions/AuthActions';
+import * as authActions from '../actions/AuthActions';
 import { bindActionCreators } from 'redux';
 
 // isLogin = false;
@@ -16,7 +17,7 @@ class LoginContainer extends Component {
     super(props);
     console.log(props);
 
-    this.props.logout();
+    this.props.handleLogout();
   }
 
   render() {
@@ -36,10 +37,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchProps = (dispatch) => {
   return {
-      handleLogin: bindActionCreators(login, dispatch),
+      handleLogin: bindActionCreators(authActions.login, dispatch),
         // dispatch(login(userId, password));
       // },
-      logout: bindActionCreators(logout, dispatch),
+      handleLogout: bindActionCreators(authActions.logout, dispatch),
       // logout: () => {
       //   dispatch(logout());
       // }
