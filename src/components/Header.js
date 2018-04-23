@@ -27,9 +27,7 @@ export default ({menus, userName}) =>
         <Nav className="mr-auto">
           {menus.map( ({menu, link}, i) => 
             <NavItem key={i}>
-              <NavLink>
-                <Link to={link}>{menu}</Link>  
-              </NavLink>
+              <Link className="nav-link" to={link}>{menu}</Link>  
             </NavItem>
           )}
         </Nav>

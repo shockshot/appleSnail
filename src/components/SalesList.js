@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 
 class SalesList extends Component {
 
@@ -38,7 +38,7 @@ class SalesList extends Component {
                 <input type="text" name="searchFrom" value={this.props.searchCondition.searchFrom} ref={c => this.searchFrom = c}/>~
                 <input type="text" name="searchTo" value={this.props.searchCondition.searchTo} ref={c => this.searchTo = c}/>
                 <Button onClick={this.handleSearch}>검색</Button>
-                <table className="table">
+                <Table>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -54,7 +54,7 @@ class SalesList extends Component {
                     <tbody>
                        {list}
                     </tbody>
-                </table>
+                </Table>
             </div>
 
         )
