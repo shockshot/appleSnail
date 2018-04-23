@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DefaultPageTemplate from '../containers/DefaultPageTemplate';
 import { DateUtils } from '../utils/DateUtils';
 import Calendar from '../components/Calendar';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 // import classNames from 'classnames/bind';
 // import styles from './Reservation.scss';
@@ -24,11 +25,9 @@ class Reservation extends Component {
         return (
             <DefaultPageTemplate>
             
-            <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item active" aria-current="page">예약관리</li>
-                </ol>
-            </nav>
+            <Breadcrumb>
+                <BreadcrumbItem active>예약관리</BreadcrumbItem>
+            </Breadcrumb>
 
             <Calendar viewDay={new Date()}/>
 

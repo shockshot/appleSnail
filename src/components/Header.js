@@ -1,29 +1,43 @@
 import React from 'react';
+import { 
+  Button ,
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavItem,
+  NavLink,
+  Collapse
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
- 
+// https://reactstrap.github.io/components/navbar/ 
 export default ({menus, userName}) => 
-<nav className="navbar navbar-expand-lg">
-  <div className="container">
-    <Link to="/" className="navbar-brand">Applesnail</Link>
-    
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
+  <Navbar className="navbar-expand-lg">
+    <div className="container">
+      <NavbarBrand to="/" className="navbar-brand">Applesnail</NavbarBrand >
+      
+      <Button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </Button>
+      {/* <NavbarToggler onClick={this.toggle} /> */}
 
-    <div className="collapse navbar-collapse" id="navbar">
-      <ul className="navbar-nav mr-auto">
-        {menus.map( ({menu, link}, i) => 
-          <li className="nav-item" key={i}>
-            <Link className="nav-link" to={link}>{menu}</Link>  
-          </li>
-        )}
-      </ul>
+      
+      <Collapse isOpen={true} navbar>
+        <Nav className="mr-auto">
+          {menus.map( ({menu, link}, i) => 
+            <NavItem key={i}>
+              <NavLink>
+                <Link to={link}>{menu}</Link>  
+              </NavLink>
+            </NavItem>
+          )}
+        </Nav>
 
-      <div className="my-2 my-md-0">
-        {userName}님
-      </div>
+        <div className="my-2 my-md-0">
+          {userName}님
+        </div>
+      </Collapse>
+      
     </div>
-  </div>
-</nav>
+  </Navbar> 
