@@ -44,7 +44,7 @@ export class DateUtils {
 
   static getCalendarArray = (date, cnt) => {
     const arr = [];
-    for(var i=0, j = -1 ; i<cnt ; i++){
+    for(let i=0, j = -1 ; i<cnt ; i++){
       if(i%7 === 0){
           arr[++j] = [];
       }
@@ -55,22 +55,18 @@ export class DateUtils {
 
   static format = (date, format) => {
     const add0 = function(number)  {
-      return number < 10 ? ('0'+number) : ('' + number);
+      return number < 10 ? ('0' + number) : ('' + number);
     }
-    
     const dt = {
       yyyy : date.getFullYear(),
-      MM : add0(date.getMonth()+1),
-      dd : add0(date.getDate()),
-      hh : add0(date.getHours()),
-      mm : add0(date.getMinutes()),
-      ss : add0(date.getSeconds())
+      MM   : add0(date.getMonth()+1),
+      dd   : add0(date.getDate()),
+      hh   : add0(date.getHours()),
+      mm   : add0(date.getMinutes()),
+      ss   : add0(date.getSeconds())
     }
-    let rv = format;
-    Object.keys(dt).forEach(key => {
-      rv = rv.replace(key, dt[key]);
-    })
-    return rv;
+    return Object.keys(dt)
+      .reduce( (x, y) => x.replace(y, dt[y]) , format);
   }
 
 }
