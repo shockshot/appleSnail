@@ -14,7 +14,7 @@ import './Header.css';
 
 // https://reactstrap.github.io/components/navbar/ 
 export default ({menus, userName, isMenuOpen, toggleMenu = f=>f}) => 
-  <Navbar className="navbar-expand-lg">
+  <Navbar className="navbar-expand-lg text-white" color="info" dark>
     <div className="container">
       <NavbarBrand to="/" className="navbar-brand">Applesnail</NavbarBrand >
       <NavbarToggler onClick={toggleMenu} />
@@ -23,14 +23,21 @@ export default ({menus, userName, isMenuOpen, toggleMenu = f=>f}) =>
         <Nav className="mr-auto">
           {menus.map( ({menu, link}, i) => 
             <NavItem key={i}>
-              <Link className="nav-link" to={link}>{menu}</Link>  
+              <Link className="nav-link text-white" to={link}>{menu}</Link>  
             </NavItem>
           )}
         </Nav>
 
-        <div className="my-2 my-md-0">
-          {userName}님
-        </div>
+        <Nav>
+          <NavItem>
+            <Link className="nav-link text-white" to='#'>
+            {userName}님
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link className="nav-link text-white" to='/login'>로그아웃</Link>  
+          </NavItem>
+        </Nav>
       </Collapse>
       
     </div>

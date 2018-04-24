@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {faPlus, faSpinner, faSearch} from '@fortawesome/fontawesome-free-solid';
+// import faPlus from '@fortawesome/fontawesome-free-solid/faSpinner';
 import { Button, Table, FormGroup, Label, Input, Form } from 'reactstrap';
 
 class SalesList extends Component {
@@ -51,6 +54,8 @@ class SalesList extends Component {
             )
         ) : (<tr><td colSpan="8">데이터가 없습니다.</td></tr>)
 
+        const spinner = this.props.loading ? (<FontAwesomeIcon icon={faSpinner} spin/>) : ( <FontAwesomeIcon icon={faSearch}/> )
+
         return(
             <div>
                 <Form inline innerRef={c=>this.form=c}>
@@ -62,7 +67,12 @@ class SalesList extends Component {
                         <Label for="searchTo" hidden>검색종료일</Label>
                         <DatePicker className="form-control" selected={this.state.searchTo} onChange={this.handleDatePickerChange2} dateFormat="YYYYMMDD"/>
                     </FormGroup>
-                    <Button onClick={this.handleSearch}>검색</Button>
+                    <Button onClick={this.handleSearch}>
+                        {spinner}검색
+                    </Button>
+                    <Button>
+                        <FontAwesomeIcon icon={faPlus} />
+                    </Button>
                 </Form>
                 
                 <Table>

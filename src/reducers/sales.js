@@ -1,18 +1,15 @@
 // import { combineReducers } from 'redux';
-import { SALES } from '../actions/SalesActions';
+import { SALES, defaultSearchCondition } from '../actions/SalesActions';
 import { handleActions } from 'redux-actions';
 import { DateUtils } from '../utils/DateUtils';
 
 const initialState = {
-  searchCondition: {
-    searchFrom: DateUtils.format(new Date(), 'yyyyMMdd'),
-    searchTo: DateUtils.format(new Date(), 'yyyyMMdd')
-  },
+  searchCondition: {...defaultSearchCondition},
   dataList: []
 };
 
 export default handleActions({
-  [SALES.SEARCH_CONDITION]: (state, action) => {
+  [SALES.SEARCH]: (state, action) => {
     return {
       searchCondition: action.searchCondition,
       dataList: []
@@ -22,6 +19,12 @@ export default handleActions({
     return {
       searchCondition: action.searchCondition,
       dataList : action.dataList
+    }
+  },
+  [SALES.SEARCH_FAIL]: (state, action) => {
+    return {
+      searchCondition: action.searchCondition,
+      dataList : state.dataList
     }
   },
   [SALES.REGISTER]: (state, action) => {},

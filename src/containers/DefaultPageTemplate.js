@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 
 const  menus = [
   {menu: '예약관리', link: '/reservation'},
   {menu: '매출관리', link: '/sales'},
   {menu: '고객관리', link: '/customer'},
   {menu: '샵관리', link: '/shop'},
-  {menu: '로그아웃', link: '/login'},
 ]
 
 class DefaultPageTemplate extends Component {
@@ -18,6 +20,10 @@ class DefaultPageTemplate extends Component {
     this.state = {
       isMenuOpen: false
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    // console.log('loading', nextProps.loading)
   }
 
   toggleMenu = () => {
@@ -44,4 +50,18 @@ class DefaultPageTemplate extends Component {
 }
 
 
-export default DefaultPageTemplate;
+// export default DefaultPageTemplate;
+
+const mapStateToProps = ({loading}) => {
+  return {
+    loading: loading
+  };
+};
+
+const mapDispatchProps = (dispatch) => {
+  return {
+      // handleActions: bindActionCreators(salesActions, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchProps)(DefaultPageTemplate);

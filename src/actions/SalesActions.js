@@ -1,14 +1,13 @@
 // import { SALES } from './ActionTypes.js';
 import HttpHelper from '../helper/HttpHelper';
+import { DateUtils } from '../utils/DateUtils';
 
 const loginUrl = '/api/sales';
 
 export const SALES = {
-  SEARCH_CONDITION: "SALES_SEARCH_CONDITION",
-
-  SEARCH:         "SALES_SEARCH",
+  SEARCH:         "SALES_SEARCH_REQUEST",
   SEARCH_SUCCESS: "SAELS_SEARCH_SUCCESS",
-  SEARCH_FAIL:    "SAELS_SEARCH_FAIL",
+  SEARCH_FAIL:    "SAELS_SEARCH_FAILURE",
 
   REGISTER:       "SALES_REGISTER",
   POST:           "SALES_POST",
@@ -17,7 +16,12 @@ export const SALES = {
   GET:            "SALES_GET"
 }
 
-export const search = (searchCondition = {}) => dispatch => {
+export const defaultSearchCondition = {
+  searchFrom : DateUtils.format(new Date(), 'yyyyMMdd'),
+  searchTo : DateUtils.format(new Date(), 'yyyyMMdd')
+}
+
+export const search = (searchCondition = defaultSearchCondition) => dispatch => {
 	dispatch({
     type:SALES.SEARCH,
     searchCondition: searchCondition

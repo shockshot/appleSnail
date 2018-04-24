@@ -1,15 +1,11 @@
-// import {AUTH} from './ActionTypes.js';
-// import axios from 'axios';
 import HttpHelper from '../helper/HttpHelper';
 import jwt from 'jsonwebtoken';
 import {history} from '../helper/history';
-// import { createBrowserHistory } from 'history';
-// const history = createBrowserHistory();
 
 const loginUrl = '/api/users/login';
 
 export const AUTH = {
-  LOGIN: "AUTH_LOGIN",
+  LOGIN: "AUTH_LOGIN_REQUEST",
   LOGIN_SUCCESS: "AUTH_LOGIN_SUCCESS",
   LOGIN_FAILURE: "AUTH_LOGIN_FAILURE",
   LOGOUT: "AUTH_LOGOUT"
@@ -27,7 +23,7 @@ export const login = (userId, password) => dispatch => {
 		history.push('/');
 	}).catch(error => {
 		console.log("login req failed:", error);
-		dispatch(loginFailed())
+		dispatch(loginFailed());
 	})
 }
 

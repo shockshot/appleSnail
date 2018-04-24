@@ -1,8 +1,8 @@
-.navbar{
-  /* margin-top: calc(100vh - 56px); */
-  background-color: #ccc
+nav.bg-info{
+  background-color: #fdad34!important;
 }
-
-.navbar a{
-  color:#fff
+button.navbar-toggler {
+  padding-left:0.5rem;
+  padding-right:0.5rem;
+  border:0;
 }

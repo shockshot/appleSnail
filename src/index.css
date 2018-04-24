@@ -4,3 +4,7 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
 }
+
+main{
+  min-height: calc(100vh - 116px)
+}
