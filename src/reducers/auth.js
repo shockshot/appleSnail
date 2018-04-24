@@ -5,12 +5,12 @@ import { handleActions } from 'redux-actions';
 const initialState = {isLogin: false};
 
 export default handleActions({
-  // [AUTH.LOGIN]: (state, action) => {
-  //   return {
-  //     isLogin: false,
-  //     userId: action.userId
-  //   }
-  // },
+  [AUTH.LOGIN]: (state, action) => {
+    return {
+      isLogin: false,
+      userId: action.userId
+    }
+  },
   [AUTH.LOGIN_SUCCESS]: (state, action) => {
     return {
       isLogin: true,

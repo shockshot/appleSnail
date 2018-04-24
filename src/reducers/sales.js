@@ -27,11 +27,25 @@ export default handleActions({
       dataList : state.dataList
     }
   },
+  [SALES.GET]: (state, action) => {
+    return {
+      
+    }
+  },
+  [SALES.GET_SUCCESS]: (state, action) => {
+    return {
+      
+    }
+  },
+  [SALES.GET_FAIL]: (state, action) => {
+    return {
+      
+    }
+  },
   [SALES.REGISTER]: (state, action) => {},
   [SALES.POST]: (state, action) => {},
   [SALES.PUT]: (state, action) => {},
   [SALES.DELETE]: (state, action) => {},
-  [SALES.GET]: (state, action) => {},
 }, initialState);
 
 // export default combineReducers({ 

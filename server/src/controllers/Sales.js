@@ -26,20 +26,39 @@ const errHandler = (res, err) => {
 }
 
 
-//search. 토큰 발급
+//search. 
 router.post('/search', 
   tokenPassport.auth, 
   (req, res) => {
     db.Sales.findAll().then( result => {
       if(!result){
-        res.status(404).send({});
+        return res.status(404).send({});
       }else{
         const data = result.map(result => result.dataValues);
-        res.status(200).json(data);
+        return res.status(200).json(data);
       }
     })
   
 });
+
+router.get(/[0-9]/g,
+  tokenPassport.auth, 
+  (req, res) => {
+    // db.Sales.find()
+    const id = req.url.replace(/[^0-9]/, '');
+    console.log('#req id:', id);
+
+    db.Sales.findOne({where:{salesNo: id}}).then(result => {
+      if(result){
+        return res.status(200).json(result.dataValues);
+      }else{
+        return res.status(404).send({message: 'there is no data'});
+      }
+    }).catch(err => {
+      return res.status(500).send({message: 'internal service error'});
+    });
+});
+
 
 
 export default router;

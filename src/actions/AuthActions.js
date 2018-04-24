@@ -23,7 +23,11 @@ export const login = (userId, password) => dispatch => {
 		history.push('/');
 	}).catch(error => {
 		console.log("login req failed:", error);
-		dispatch(loginFailed());
+		dispatch({
+			type: AUTH.LOGIN_FAILURE,
+			userId: null,
+			Authorization: null
+		});
 	})
 }
 
@@ -34,14 +38,6 @@ const loginSuccess = (token) => {
 		type: AUTH.LOGIN_SUCCESS,
 		userId: userInfo.id,
 		Authorization: token
-	}
-}
-
-const loginFailed= () => {
-	return {
-		type: AUTH.LOGIN_FAILURE,
-		userId: null,
-		Authorization: null
 	}
 }
 
