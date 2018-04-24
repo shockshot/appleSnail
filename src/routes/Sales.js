@@ -20,7 +20,7 @@ class Sales extends Component {
 
                 <Switch>
                     <Route exact path="/sales" component={SalesListContainer} />
-                    <Route path="/sales/add" component={SalesDetailContainer} />
+                    <Route path="/sales/:path" component={SalesDetailContainer} />
                 </Switch>
             </DefaultPageTemplate>
         );

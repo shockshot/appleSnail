@@ -10,6 +10,8 @@ const initialState = {
 
 
 export default handleActions({
+  //목록
+  ///////////////////////////////////////////////
   [SALES.SEARCH]: (state, action) => {
     return {
       ...state,
@@ -31,11 +33,24 @@ export default handleActions({
     }
   },
 
+
+  //개별
+  ///////////////////////////////////////////////
   [SALES.GET]: (state, action) => {
-    return {
-      ...state,
-      salesNo: action.payload.salesNo,
-      salesData: []
+    //조회
+    if(action.payload){
+      return {
+        ...state,
+        salesNo: action.payload.salesNo,
+        salesData: []
+      }
+    //신규
+    }else{
+      return {
+        ...state,
+        salesNo: null,
+        salesData: []        
+      }
     }
   },
   [SALES.GET_SUCCESS]: (state, action) => {

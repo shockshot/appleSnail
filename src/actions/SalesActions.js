@@ -5,17 +5,17 @@ import { DateUtils } from '../utils/DateUtils';
 const salesUrl = '/api/sales';
 
 export const SALES = {
-  SEARCH:             "SALES_SEARCH_REQUEST",
-  SEARCH_SUCCESS:     "SAELS_SEARCH_SUCCESS",
-  SEARCH_FAIL:        "SAELS_SEARCH_FAILURE",
+  SEARCH:             "SALES.SEARCH_REQUEST",
+  SEARCH_SUCCESS:     "SAELS.SEARCH_SUCCESS",
+  SEARCH_FAIL:        "SAELS.SEARCH_FAILURE",
 
-  GET:                "SALES_GET_REQUEST",
-  GET_SUCCESS:        "SALES_GET_SUCCESS",
-  GET_FAIL:           "SALES_GET_FAILURE",
+  GET:                "SALES.GET_REQUEST",
+  GET_SUCCESS:        "SALES.GET_SUCCESS",
+  GET_FAIL:           "SALES.GET_FAILURE",
 
-  REGISTER:           "SALES_REGISTER_REQUEST",
-  REGISTER_SUCCESS:   "SALES_REGISTER_SUCCESS",
-  REGISTER_FAILURE:   "SALES_REGISTER_FAILURE",
+  REGISTER:           "SALES.REGISTER_REQUEST",
+  REGISTER_SUCCESS:   "SALES.REGISTER_SUCCESS",
+  REGISTER_FAILURE:   "SALES.REGISTER_FAILURE",
 
   POST:           "SALES_POST",
   PUT:            "SALES_PUT",
@@ -58,40 +58,36 @@ export const search = (searchCondition = defaultSearchCondition) => dispatch => 
 
 
 /**매출 단건 조회. salesNo 를 넘기지 않을 경우 신규  */
-export const getSale = ( salesNo = null) => dispatch => {
+export const getSale = ( salesNo ) => dispatch => {
   dispatch({
     type:SALES.GET,
     payload:{
-      salesNo: salesNo,
-      salesData: null
+      salesNo: salesNo
     }
   });
-  if(salesNo) {
-    return HttpHelper.get(`${salesUrl}/${salesNo}`).then((response) => {
-      console.log("getSale success");
-      dispatch({
-        type: SALES.GET_SUCCESS,
-        payload: {
-          salesNo: salesNo,
-          salesData: response.data
-        }
-      });
-    }).catch(error => {
-      console.log("getSale failed:", error);
-      dispatch({
-        type: SALES.GET_FAIL,
-        payload: {
-          salesNo: salesNo,
-          salesData: {}
-        }
-      });
-    })
-  }else{
-    dispatch({ 
-      type:SALES.GET_SUCCESS,
-      payload: {}
-    })
-  }
+
+  return HttpHelper.get(`${salesUrl}/${salesNo}`).then((response) => {
+    console.log("getSale success");
+    dispatch({
+      type: SALES.GET_SUCCESS,
+      payload: {
+        salesNo: salesNo,
+        salesData: response.data
+      }
+    });
+  }).catch(error => {
+    console.log("getSale failed:", error);
+    dispatch({
+      type: SALES.GET_FAIL,
+      payload: {
+        salesNo: salesNo
+      }
+    });
+  }); 
 }
+
+export const newSale = () => {
+  return {type: SALES.GET}
+};
 
 // export const searchSuccess

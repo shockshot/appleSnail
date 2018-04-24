@@ -10,7 +10,14 @@ class SalesDetailContainer extends Component {
   constructor(props){
     super(props);
     
-    props.handleActions.getSale(1);
+    if(props.match.params.path === 'add') {
+      // props.handleActions.getSale();
+      
+    }else {
+      props.handleActions.getSale(props.match.params.path);
+    }
+
+    // 
   }
 
   render(){
