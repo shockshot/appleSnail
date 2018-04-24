@@ -4,42 +4,51 @@ import { handleActions } from 'redux-actions';
 // import { DateUtils } from '../utils/DateUtils';
 
 const initialState = {
-  searchCondition: {...defaultSearchCondition},
+  searchCondition: defaultSearchCondition,
   dataList: []
 };
+
 
 export default handleActions({
   [SALES.SEARCH]: (state, action) => {
     return {
-      searchCondition: action.searchCondition,
+      ...state,
+      searchCondition: action.payload.searchCondition,
       dataList: []
     }
   },
   [SALES.SEARCH_SUCCESS]: (state, action) => {
     return {
-      searchCondition: action.searchCondition,
-      dataList : action.dataList
+      ...state,
+      searchCondition: action.payload.searchCondition,
+      dataList : action.payload.dataList
     }
   },
   [SALES.SEARCH_FAIL]: (state, action) => {
     return {
-      searchCondition: action.searchCondition,
-      dataList : state.dataList
+      ...state,
+      searchCondition: action.searchCondition
     }
   },
+
   [SALES.GET]: (state, action) => {
     return {
-      
+      ...state,
+      salesNo: action.payload.salesNo,
+      salesData: []
     }
   },
   [SALES.GET_SUCCESS]: (state, action) => {
     return {
-      
+      ...state,
+      salesNo: action.payload.salesNo,
+      salesData: action.payload.salesData
     }
   },
   [SALES.GET_FAIL]: (state, action) => {
     return {
-      
+      ...state,
+      salesNo: action.payload.salesNo
     }
   },
   [SALES.REGISTER]: (state, action) => {},

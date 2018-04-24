@@ -21,6 +21,9 @@ router.use(function (req, res, next) {
   next();
 });
 
+// token 확인
+router.use(tokenPassport.auth );
+
 const errHandler = (res, err) => {
   res.status(200).send('err:'+err);
 }
@@ -28,34 +31,32 @@ const errHandler = (res, err) => {
 
 //search. 
 router.post('/search', 
-  tokenPassport.auth, 
   (req, res) => {
     db.Sales.findAll().then( result => {
       if(!result){
-        return res.status(404).send({});
+        res.status(404).send({message: 'there is no data'});
       }else{
         const data = result.map(result => result.dataValues);
-        return res.status(200).json(data);
+        res.status(200).json(data);
       }
     })
   
 });
 
-router.get(/[0-9]/g,
-  tokenPassport.auth, 
+router.get('/:id',
   (req, res) => {
     // db.Sales.find()
     const id = req.url.replace(/[^0-9]/, '');
-    console.log('#req id:', id);
+    console.log('#req id:', new Date(), req.url);
 
     db.Sales.findOne({where:{salesNo: id}}).then(result => {
       if(result){
-        return res.status(200).json(result.dataValues);
+        res.status(200).json(result.dataValues);
       }else{
-        return res.status(404).send({message: 'there is no data'});
+        res.status(404).send({message: 'there is no data'});
       }
     }).catch(err => {
-      return res.status(500).send({message: 'internal service error'});
+      res.status(500).send({message: 'internal service error'});
     });
 });
 

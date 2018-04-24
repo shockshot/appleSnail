@@ -7,19 +7,22 @@ const initialState = {isLogin: false};
 export default handleActions({
   [AUTH.LOGIN]: (state, action) => {
     return {
+      ...state,
       isLogin: false,
-      userId: action.userId
+      userId: action.payload.userId
     }
   },
   [AUTH.LOGIN_SUCCESS]: (state, action) => {
     return {
+      ...state,
       isLogin: true,
-      userId: action.userId,
-      Authorization: action.Authorization
+      userId: action.payload.userId,
+      Authorization: action.payload.Authorization
     }
   },
   [AUTH.LOGIN_FAILURE]: (state, action) => {
     return {
+      ...state,
       isLogin: false,
       userId: null,
       Authorization: null
@@ -27,8 +30,10 @@ export default handleActions({
   },
   [AUTH.LOGOUT]: (state, action) => {
     return {
+      ...state,
       isLogin: false,
-      userId: null
+      userId: null,
+      Authorization: null
     }
   }
 }, initialState);

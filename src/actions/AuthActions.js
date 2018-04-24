@@ -5,15 +5,20 @@ import {history} from '../helper/history';
 const loginUrl = '/api/users/login';
 
 export const AUTH = {
-  LOGIN: "AUTH_LOGIN_REQUEST",
-  LOGIN_SUCCESS: "AUTH_LOGIN_SUCCESS",
-  LOGIN_FAILURE: "AUTH_LOGIN_FAILURE",
-  LOGOUT: "AUTH_LOGOUT"
+  LOGIN:         "AUTH.LOGIN_REQUEST",
+  LOGIN_SUCCESS: "AUTH.LOGIN_SUCCESS",
+  LOGIN_FAILURE: "AUTH.LOGIN_FAILURE",
+  LOGOUT:        "AUTH.LOGOUT"
 }
 
 
 export const login = (userId, password) => dispatch => {
-	dispatch({type:AUTH.LOGIN});
+	dispatch({
+		type:AUTH.LOGIN,
+		payload: {
+			userId, password
+		}
+	});
 	return HttpHelper.post(loginUrl, {
 		userId, 
 		password
@@ -24,27 +29,24 @@ export const login = (userId, password) => dispatch => {
 	}).catch(error => {
 		console.log("login req failed:", error);
 		dispatch({
-			type: AUTH.LOGIN_FAILURE,
-			userId: null,
-			Authorization: null
+			type: AUTH.LOGIN_FAILURE
 		});
 	})
 }
 
 const loginSuccess = (token) => {
 	const userInfo = jwt.decode(token);
-	// console.log(userInfo);
 	return {
 		type: AUTH.LOGIN_SUCCESS,
-		userId: userInfo.id,
-		Authorization: token
+		payload: {
+			userId: userInfo.id,
+			Authorization: token
+		}
 	}
 }
 
 export const logout = () => {
 	return {
-		type: AUTH.LOGOUT,
-		userId: null,
-		Authorization: null
+		type: AUTH.LOGOUT
 	}
 }

@@ -32,21 +32,26 @@ export const defaultSearchCondition = {
 export const search = (searchCondition = defaultSearchCondition) => dispatch => {
 	dispatch({
     type:SALES.SEARCH,
-    searchCondition: searchCondition
+    payload: {
+      searchCondition: searchCondition
+    }
   });
 	return HttpHelper.post(salesUrl + '/search', {} ).then((response) => {
     console.log("sales req success");
 		dispatch({
       type: SALES.SEARCH_SUCCESS,
-      searchCondition: searchCondition,
-      dataList: response.data
+      payload: {
+        searchCondition: searchCondition,
+        dataList: response.data
+      }
     });
 	}).catch(error => {
 		console.log("sales req failed:", error);
 		dispatch({
       type: SALES.SEARCH_FAIL,
-      searchCondition: searchCondition,
-      dataList: []
+      payload: {
+        searchCondition: searchCondition,
+      }
     });
 	})
 }
@@ -56,30 +61,35 @@ export const search = (searchCondition = defaultSearchCondition) => dispatch => 
 export const getSale = ( salesNo = null) => dispatch => {
   dispatch({
     type:SALES.GET,
-    salesNo: salesNo,
-    salesData: null
+    payload:{
+      salesNo: salesNo,
+      salesData: null
+    }
   });
   if(salesNo) {
     return HttpHelper.get(`${salesUrl}/${salesNo}`).then((response) => {
       console.log("getSale success");
       dispatch({
         type: SALES.GET_SUCCESS,
-        salesNo: salesNo,
-        salesData: response.data
+        payload: {
+          salesNo: salesNo,
+          salesData: response.data
+        }
       });
     }).catch(error => {
       console.log("getSale failed:", error);
       dispatch({
         type: SALES.GET_FAIL,
-        salesNo: salesNo,
-        salesData: {}
+        payload: {
+          salesNo: salesNo,
+          salesData: {}
+        }
       });
     })
   }else{
     dispatch({ 
       type:SALES.GET_SUCCESS,
-      salesNo: salesNo,
-      salesData: {}
+      payload: {}
     })
   }
 }
