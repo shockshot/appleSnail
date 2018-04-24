@@ -5,7 +5,9 @@ import { handleActions } from 'redux-actions';
 
 const initialState = {
   searchCondition: defaultSearchCondition,
-  dataList: []
+  dataList: [],
+  salesNo: null,
+  salesData: null
 };
 
 
@@ -38,34 +40,40 @@ export default handleActions({
   ///////////////////////////////////////////////
   [SALES.GET]: (state, action) => {
     //조회
+    return {
+      ...state,
+      salesNo: action.payload.salesNo,
+      salesData: []
+    }
+  },
+  [SALES.GET_SUCCESS]: (state, action) => {
+    //조회
     if(action.payload){
       return {
         ...state,
         salesNo: action.payload.salesNo,
-        salesData: []
+        salesData: action.payload.salesData
       }
     //신규
-    }else{
+    }else {
       return {
         ...state,
         salesNo: null,
-        salesData: []        
+        salesData: null
       }
     }
   },
-  [SALES.GET_SUCCESS]: (state, action) => {
-    return {
-      ...state,
-      salesNo: action.payload.salesNo,
-      salesData: action.payload.salesData
-    }
-  },
+  //실패
   [SALES.GET_FAIL]: (state, action) => {
     return {
       ...state,
       salesNo: action.payload.salesNo
     }
   },
+
+
+
+
   [SALES.REGISTER]: (state, action) => {},
   [SALES.POST]: (state, action) => {},
   [SALES.PUT]: (state, action) => {},

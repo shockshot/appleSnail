@@ -87,7 +87,7 @@ export const getSale = ( salesNo ) => dispatch => {
 }
 
 export const newSale = () => {
-  return {type: SALES.GET}
+  return {type: SALES.GET_SUCCESS}
 };
 
 // export const searchSuccess
