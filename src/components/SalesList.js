@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import { Button, Table, FormGroup, Label, Input, Form } from 'reactstrap';
 
 class SalesList extends Component {
@@ -6,23 +8,30 @@ class SalesList extends Component {
     constructor(props){
         super(props);
 
-        this.state = {...props.searchCondition};
+        this.state = {
+            searchFrom: moment(props.searchCondition.searchFrom, 'YYYYMMDD'),
+            searchTo: moment(props.searchCondition.searchTo, 'YYYYMMDD')
+        };
         // this.handleSearch = this.handleSearch.bind(this);
         console.log('dataList:', props.dataList);
     }
 
     handleSearch = () => {
         console.log('props:', this.props);
-
         this.props.onActions.search({
-            searchFrom: this.form.searchFrom.value,
-            searchTo: this.form.searchTo.value
+            searchFrom: this.state.searchFrom.format('YYYYMMDD'),
+            searchTo: this.state.searchTo.format('YYYYMMDD')
         });
     }
 
-    handleChange(e) {
+    handleDatePickerChange1 = (e) => {
         let change = {...this.state}
-        change[e.target.name] = e.target.value;
+        change.searchFrom = e;
+        this.setState(change);
+    }
+    handleDatePickerChange2 = (e) => {
+        let change = {...this.state}
+        change.searchTo = e;
         this.setState(change);
     }
 
@@ -47,16 +56,14 @@ class SalesList extends Component {
                 <Form inline innerRef={c=>this.form=c}>
                     <FormGroup>
                         <Label for="searchFrom" hidden>검색시작일</Label>
-                        <Input type="text" name="searchFrom" id="searchFrom" placeholder="yyyymmdd" value={this.state.searchFrom} onChange={this.handleChange.bind(this)}/>
+                        <DatePicker className="form-control" selected={this.state.searchFrom} onChange={this.handleDatePickerChange1} dateFormat="YYYYMMDD"/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="searchTo" hidden>검색종료일</Label>
-                        <Input type="text" name="searchTo" id="searchTo" placeholder="yyyymmdd" value={this.state.searchTo} onChange={this.handleChange.bind(this)}/>
+                        <DatePicker className="form-control" selected={this.state.searchTo} onChange={this.handleDatePickerChange2} dateFormat="YYYYMMDD"/>
                     </FormGroup>
                     <Button onClick={this.handleSearch}>검색</Button>
                 </Form>
-                {/* <input type="text" name="searchFrom" value={this.props.searchCondition.searchFrom} ref={c => this.searchFrom = c}/>~
-                <input type="text" name="searchTo" value={this.props.searchCondition.searchTo} ref={c => this.searchTo = c}/> */}
                 
                 <Table>
                     <thead>

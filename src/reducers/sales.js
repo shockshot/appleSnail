@@ -15,7 +15,7 @@ export default handleActions({
   [SALES.SEARCH_CONDITION]: (state, action) => {
     return {
       searchCondition: action.searchCondition,
-      dataList: state.dataList
+      dataList: []
     }
   },
   [SALES.SEARCH_SUCCESS]: (state, action) => {
