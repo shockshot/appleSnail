@@ -46,6 +46,7 @@ class App extends Component {
 
   constructor(props){
     super(props);
+    auth.isLogin = props.state.auth.isLogin;
 
     // token이 없는데 예외 페이지에 없는 경우 redirect...
     // if(!props.state.auth.isLogin &&  excludes.findIndex( e => e === history.location.pathname ) < 0  ) {
@@ -70,7 +71,8 @@ class App extends Component {
             <PrivateRoute exact path="/"      component={Home}       />
             <PrivateRoute path="/customer"    component={Customer}    />
             <PrivateRoute path="/reservation" component={Reservation} />
-            <PrivateRoute path="/sales"       component={Sales}       />
+            <PrivateRoute exact path="/sales"           component={Sales}       />
+            <PrivateRoute exact path="/sales/:method"       component={Sales}       />
             <PrivateRoute path="/user"        component={User}        />
             <PrivateRoute path="/shop"        component={Shop}        />
             <Route component={NoMatch}/>

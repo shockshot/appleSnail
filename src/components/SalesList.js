@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import {faPlus, faSpinner, faSearch} from '@fortawesome/fontawesome-free-solid';
-// import faPlus from '@fortawesome/fontawesome-free-solid/faSpinner';
-import { Button, Table, FormGroup, Label, Input, Form } from 'reactstrap';
+import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
+import { Button, Table, FormGroup, Label, Input, Form, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class SalesList extends Component {
 
@@ -70,9 +70,13 @@ class SalesList extends Component {
                     <Button onClick={this.handleSearch}>
                         {spinner}검색
                     </Button>
-                    <Button>
-                        <FontAwesomeIcon icon={faPlus} />
-                    </Button>
+                    
+                    <Link to='/sales/add'>
+                        <Button>
+                            <FontAwesomeIcon icon={faPlus} />
+                        </Button>
+                    </Link>
+                    
                 </Form>
                 
                 <Table>
