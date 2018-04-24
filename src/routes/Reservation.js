@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DefaultPageTemplate from '../containers/DefaultPageTemplate';
-import { DateUtils } from '../utils/DateUtils';
+// import { DateUtils } from '../utils/DateUtils';
 import Calendar from '../components/Calendar';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
@@ -11,15 +11,15 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 class Reservation extends Component {
 
 
-    constructor(props){
-        super(props);
+    // constructor(props){
+    //     super(props);
 
-        // console.log('firstDate', this.firstDate);
-        // console.log('lastDate', this.lastDate);
-        // console.log('counts', this.counts);
-        // console.log(this.datesArray);
+    //     // console.log('firstDate', this.firstDate);
+    //     // console.log('lastDate', this.lastDate);
+    //     // console.log('counts', this.counts);
+    //     // console.log(this.datesArray);
 
-    }
+    // }
 
     render() {
         return (

@@ -1,7 +1,7 @@
 // import { combineReducers } from 'redux';
 import { SALES, defaultSearchCondition } from '../actions/SalesActions';
 import { handleActions } from 'redux-actions';
-import { DateUtils } from '../utils/DateUtils';
+// import { DateUtils } from '../utils/DateUtils';
 
 const initialState = {
   searchCondition: {...defaultSearchCondition},
