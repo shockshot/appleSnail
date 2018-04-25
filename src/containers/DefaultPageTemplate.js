@@ -8,7 +8,11 @@ const  menus = [
   {menu: '예약관리', link: '/reservation'},
   {menu: '매출관리', link: '/sales'},
   {menu: '고객관리', link: '/customer'},
-  {menu: '샵관리', link: '/shop'},
+  {menu: '샵관리', link: '/shop', children: [
+    {menu: '상품관리', link: '/shop/service'},
+    {menu: '샵정보관리', link: '/shop/info'},
+    // {menu: '영업시간관리', link: '/shop/open'}
+  ]},
 ]
 
 class DefaultPageTemplate extends Component {

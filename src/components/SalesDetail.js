@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Logger from 'helpers/Logger';
 // import DatePicker from 'react-datepicker';
 import { DatePicker } from 'components/common';
-import moment from 'moment';
-import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, BreadcrumbItem*/ } from 'reactstrap';
+import { FormGroup, Label, Form /*, Button, Table, Input, Breadcrumb, BreadcrumbItem*/ } from 'reactstrap';
 
 class SalesDetail extends Component {
 
