@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import SalesDetail from '../components/SalesDetail';
-import * as salesActions from '../actions/SalesActions';
-
+import SalesDetail from 'components/SalesDetail';
+import * as salesActions from 'actions/SalesActions';
+import Logger from 'helpers/Logger';
 class SalesDetailContainer extends Component {
 
   constructor(props){
     super(props);
     
+    Logger.debug('123');
+
     if(props.match.params.path === 'add') {
       // props.handleActions.getSale();
       

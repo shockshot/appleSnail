@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import SalesList from '../components/SalesList';
+import SalesList from 'components/SalesList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as salesActions from '../actions/SalesActions';
+import * as salesActions from 'actions/SalesActions';
+import Logger from 'helpers/Logger';
 
 class SalesListContainer extends Component {
 

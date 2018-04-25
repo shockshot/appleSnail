@@ -1,5 +1,5 @@
 // import { combineReducers } from 'redux';
-import { AUTH } from '../actions/AuthActions';
+import { AUTH } from 'actions/AuthActions';
 import { handleActions } from 'redux-actions';
 
 const initialState = {isLogin: false};

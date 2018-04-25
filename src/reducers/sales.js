@@ -1,5 +1,5 @@
 // import { combineReducers } from 'redux';
-import { SALES, defaultSearchCondition } from '../actions/SalesActions';
+import { SALES, defaultSearchCondition } from 'actions/SalesActions';
 import { handleActions } from 'redux-actions';
 // import { DateUtils } from '../utils/DateUtils';
 

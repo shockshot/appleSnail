@@ -4,18 +4,18 @@ import { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { Router } from 'react-router';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { history } from './helper/history';
+import { history } from './helpers/history';
 import './App.scss';
 
 
-import Login from './routes/Login';
-import Home from './routes/Home';
-import Customer from './routes/Customer';
-import Reservation from './routes/Reservation';
-import Sales from './routes/Sales';
-import User from './routes/User';
-import Shop from './routes/Shop';
-import NoMatch from './routes/NoMatch';
+import Login from 'routes/Login';
+import Home from 'routes/Home';
+import Customer from 'routes/Customer';
+import Reservation from 'routes/Reservation';
+import Sales from 'routes/Sales';
+import User from 'routes/User';
+import Shop from 'routes/Shop';
+import NoMatch from 'routes/NoMatch';
 
 //나중에 앱 외부로 빼던가 할것...
 //로그인 확인 예외 페이지 url
@@ -35,14 +35,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 class App extends Component {
-
-  // getChildContext() {
-  //   console.log(this.props.store);
-  //   return {
-  //     store: this.props.store
-  //   }
-  // }
-  
 
   constructor(props){
     super(props);
@@ -71,8 +63,8 @@ class App extends Component {
             <PrivateRoute exact path="/"      component={Home}       />
             <PrivateRoute path="/customer"    component={Customer}    />
             <PrivateRoute path="/reservation" component={Reservation} />
-            <PrivateRoute exact path="/sales"           component={Sales}       />
-            <PrivateRoute exact path="/sales/:method"       component={Sales}       />
+            <PrivateRoute path="/sales"           component={Sales}       />
+            {/* <PrivateRoute path="/sales/:method"       component={Sales}       /> */}
             <PrivateRoute path="/user"        component={User}        />
             <PrivateRoute path="/shop"        component={Shop}        />
             <Route component={NoMatch}/>

@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 // import { withRouter } from 'react-router'
 // import PropTypes from 'prop-types';
-import LoginForm from '../components/LoginForm';
+import LoginForm from 'components/LoginForm';
 import { connect } from 'react-redux';
 // import { login, logout } from '../actions/AuthActions';
-import * as authActions from '../actions/AuthActions';
+import * as authActions from 'actions/AuthActions';
 import { bindActionCreators } from 'redux';
 
 // isLogin = false;

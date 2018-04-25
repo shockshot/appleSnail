@@ -1,6 +1,6 @@
 // import { SALES } from './ActionTypes.js';
-import HttpHelper from '../helper/HttpHelper';
-import { DateUtils } from '../utils/DateUtils';
+import HttpHelper from 'helpers/HttpHelper';
+import { DateUtils } from 'utils/DateUtils';
 
 const salesUrl = '/api/sales';
 

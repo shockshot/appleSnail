@@ -1,6 +1,7 @@
-import HttpHelper from '../helper/HttpHelper';
+import HttpHelper from 'helpers/HttpHelper';
+import {history} from 'helpers/history';
 import jwt from 'jsonwebtoken';
-import {history} from '../helper/history';
+
 
 const loginUrl = '/api/users/login';
 

@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
-import DefaultPageTemplate from '../containers/DefaultPageTemplate';
-import SalesListContainer from '../containers/SalesListContainer';
-import SalesDetailContainer from '../containers/SalesDetailContainer';
+import DefaultPageTemplate from 'containers/DefaultPageTemplate';
+import SalesListContainer from 'containers/SalesListContainer';
+import SalesDetailContainer from 'containers/SalesDetailContainer';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Route, Switch } from 'react-router-dom';
 
 class Sales extends Component {
-
-    // constructor(props){
-    //     super(props);
-    // }
 
     render() {
         return (

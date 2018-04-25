@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DefaultPageTemplate from '../containers/DefaultPageTemplate';
+import DefaultPageTemplate from 'containers/DefaultPageTemplate';
 
 class Customer extends Component {
     render() {

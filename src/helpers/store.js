@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux';
 //추후 auth.js 이름 변경 필요
-import {AUTH} from '../actions/AuthActions';
-import auth from '../reducers/auth';
-import sales from '../reducers/sales';
+import {AUTH} from 'actions/AuthActions';
+import auth from 'reducers/auth';
+import sales from 'reducers/sales';
 // import loading from '../reducers/loading';
 import {createLogger} from 'redux-logger';
 import ReduxThunk from 'redux-thunk';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DateUtils } from '../utils/DateUtils';
+import { DateUtils } from 'utils/DateUtils';
 import classNames from 'classnames/bind';
 import styles from './Calendar.scss';
 import v4 from 'uuid';
