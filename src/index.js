@@ -8,7 +8,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 //common css
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-datepicker/dist/react-datepicker.css';
 
 ReactDOM.render(
   <Provider store={store}>
