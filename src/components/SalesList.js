@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Logger from 'helpers/Logger';
-import DatePicker from './DatePicker';
+import DatePicker from 'components/common/DatePicker';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
 import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, BreadcrumbItem*/ } from 'reactstrap';

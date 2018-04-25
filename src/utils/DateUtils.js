@@ -1,4 +1,4 @@
-export class DateUtils {
+export default class DateUtils {
 
   static getFirstDateOfMonth = function(date) {
     return new Date((new Date(date)).setDate(1));

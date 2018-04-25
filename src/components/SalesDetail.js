@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Logger from 'helpers/Logger';
 // import DatePicker from 'react-datepicker';
-import DatePicker from './DatePicker';
+import DatePicker from 'components/common/DatePicker';
 import moment from 'moment';
 import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, BreadcrumbItem*/ } from 'reactstrap';
 

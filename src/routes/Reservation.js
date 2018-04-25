@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DefaultPageTemplate from 'containers/DefaultPageTemplate';
 // import { DateUtils } from '../utils/DateUtils';
-import Calendar from 'components/Calendar';
+import Calendar from 'components/common/Calendar';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 // import classNames from 'classnames/bind';

@@ -1,7 +1,6 @@
 // import { SALES } from './ActionTypes.js';
-import HttpHelper from 'helpers/HttpHelper';
-import Logger from 'helpers/Logger';
-import { DateUtils } from 'utils/DateUtils';
+import { HttpHelper, Logger }  from 'helpers';
+import { DateUtils } from 'utils';
 
 const salesUrl = '/api/sales';
 
@@ -21,7 +20,6 @@ export const SALES = {
   POST:           "SALES_POST",
   PUT:            "SALES_PUT",
   DELETE:         "SALES_DELETE",
-  
 }
 
 export const defaultSearchCondition = {

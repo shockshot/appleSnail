@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import Header from 'components/common/Header';
+import Footer from 'components/common/Footer';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 

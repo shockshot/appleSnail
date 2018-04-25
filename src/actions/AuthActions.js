@@ -1,6 +1,4 @@
-import Logger from 'helpers/Logger';
-import HttpHelper from 'helpers/HttpHelper';
-import {history} from 'helpers/history';
+import { history, HttpHelper, Logger } from 'helpers';
 import jwt from 'jsonwebtoken';
 
 

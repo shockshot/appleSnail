@@ -1,16 +1,16 @@
 // https://velopert.com/3401 async thunk 사용하기
 
 import React, { Component } from 'react';
-import { Logger } from 'helpers';
-// import { withRouter } from 'react-router'
-// import PropTypes from 'prop-types';
-import LoginForm from 'components/LoginForm';
-import { connect } from 'react-redux';
-// import { login, logout } from '../actions/AuthActions';
-import * as authActions from 'actions/AuthActions';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-// isLogin = false;
+
+import { Logger } from 'helpers';
+
+import LoginForm from 'components/LoginForm';
+import * as authActions from 'actions/AuthActions';
+
+// import PropTypes from 'prop-types';
 
 class LoginContainer extends Component {
 
