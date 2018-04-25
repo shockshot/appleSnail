@@ -14,17 +14,19 @@ class DatePicker extends Component {
   onChangeHandler = (e) => {
     this.props.onChange({
       selectedDate: e.format(this.dateFormat),
-      targetName: this.props.targetName
+      name: this.props.name
     });
   }
 
   render(){
     return (
-      <_DatePicker className="form-control" 
-          dateFormat={this.dateFormat}
-          selected={moment(this.props.selected, this.dateFormat)}
-          onChange={this.onChangeHandler} 
-          />
+      <_DatePicker 
+        className="form-control" 
+        dateFormat={this.dateFormat}
+        selected={moment(this.props.selected, this.dateFormat)}
+        onChange={this.onChangeHandler}
+        name={this.props.name}
+        />
     )
   }
 }

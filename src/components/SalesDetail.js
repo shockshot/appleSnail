@@ -15,8 +15,8 @@ class SalesDetail extends Component {
       <div>
         <Form inline>
           <FormGroup>
-            <Label for="searchFrom">매출일</Label>
-            <DatePicker targetName="salesDate" onChange={this.onChangeHandler} selected="20180425"/>
+            <Label for="salesDate">매출일</Label>
+            <DatePicker name="salesDate" onChange={this.onChangeHandler} selected="20180425"/>
           </FormGroup>
         </Form>
 

@@ -28,7 +28,7 @@ class SalesList extends Component {
 
     handleDatePickerChange = (e) => {
         let change = {...this.state}
-        change[e.targetName] = e.selectedDate;
+        change[e.name] = e.selectedDate;
         this.setState(change);
     }
 
@@ -56,11 +56,11 @@ class SalesList extends Component {
                 <Form inline innerRef={c=>this.form=c}>
                     <FormGroup>
                         <Label for="searchFrom" hidden>검색시작일</Label>
-                        <DatePicker targetName="searchFrom" selected={this.state.searchFrom} onChange={this.handleDatePickerChange} />
+                        <DatePicker name="searchFrom" selected={this.state.searchFrom} onChange={this.handleDatePickerChange} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="searchTo" hidden>검색종료일</Label>
-                        <DatePicker targetName="searchTo" selected={this.state.searchTo} onChange={this.handleDatePickerChange} />
+                        <DatePicker name="searchTo" selected={this.state.searchTo} onChange={this.handleDatePickerChange} />
                     </FormGroup>
                     <Button onClick={this.handleSearch}>
                         {spinner}검색
