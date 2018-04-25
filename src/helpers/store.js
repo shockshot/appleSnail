@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux';
+import { createLogger } from 'redux-logger';
+import { handleActions } from 'redux-actions';
+import ReduxThunk from 'redux-thunk';
+
 //추후 auth.js 이름 변경 필요
 import {AUTH} from 'actions/AuthActions';
-import auth from 'reducers/auth';
-import sales from 'reducers/sales';
-// import loading from '../reducers/loading';
-import {createLogger} from 'redux-logger';
-import ReduxThunk from 'redux-thunk';
-import { handleActions } from 'redux-actions';
+import { auth, sales } from 'reducers';
+
 
 /* 로그 미들웨어를 생성 할 때 설정 커스터마이징 가능
    https://github.com/evgenyrodionov/redux-logger#options
@@ -16,7 +16,7 @@ import { handleActions } from 'redux-actions';
 const logger = createLogger();
 
 //dummy reducer
-const loadingReducer = handleActions({}, {});
+const dummyReducer = handleActions({}, {});
 
 //local-storage에 save
 const saver = store => next => action => {
@@ -56,7 +56,7 @@ const rootReducers = (state, action) => {
   return combineReducers({
     auth,
     sales,
-    loading: loadingReducer
+    loading: dummyReducer
   })(state, action);
 }
 

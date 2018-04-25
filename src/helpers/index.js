@@ -1,4 +1,4 @@
-import { history } from './history';
+import history from './history';
 import HttpHelper from './HttpHelper';
 import Logger from './Logger';
 import store from './store';
