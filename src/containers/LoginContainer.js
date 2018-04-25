@@ -1,7 +1,7 @@
 // https://velopert.com/3401 async thunk 사용하기
 
 import React, { Component } from 'react';
-import Logger from 'helpers/Logger';
+import { Logger } from 'helpers';
 // import { withRouter } from 'react-router'
 // import PropTypes from 'prop-types';
 import LoginForm from 'components/LoginForm';

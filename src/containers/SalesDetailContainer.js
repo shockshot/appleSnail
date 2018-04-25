@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import SalesDetail from 'components/SalesDetail';
 import * as salesActions from 'actions/SalesActions';
-import Logger from 'helpers/Logger';
+import { Logger } from 'helpers';
 class SalesDetailContainer extends Component {
 
   constructor(props){

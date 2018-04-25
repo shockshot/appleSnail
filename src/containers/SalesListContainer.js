@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logger from 'helpers/Logger';
+import { Logger } from 'helpers';
 import SalesList from 'components/SalesList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

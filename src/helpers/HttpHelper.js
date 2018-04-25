@@ -1,10 +1,6 @@
 import httpClient from 'axios';
 // import AxiosRequestConfig from 'axios';
-import store from './store';
-import Logger from 'helpers/Logger';
-
-// const store = storeFactory();
-// const store = store;
+import { store, Logger} from 'helpers';
 
 const addAuth = ( config ) => {
     if(store.getState().auth && store.getState().auth.isLogin){
