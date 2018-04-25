@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Logger from 'helpers/Logger';
-import DatePicker from 'components/common/DatePicker';
+import { Link } from 'react-router-dom';
+
+import { DatePicker } from 'components/common';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
 import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, BreadcrumbItem*/ } from 'reactstrap';
-import { Link } from 'react-router-dom';
+
 
 class SalesList extends Component {
 
