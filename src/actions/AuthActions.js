@@ -1,3 +1,4 @@
+import Logger from 'helpers/Logger';
 import HttpHelper from 'helpers/HttpHelper';
 import {history} from 'helpers/history';
 import jwt from 'jsonwebtoken';
@@ -24,11 +25,11 @@ export const login = (userId, password) => dispatch => {
 		userId, 
 		password
 	}, false).then((response) => {
-		console.log("login req success");
+		Logger.debug("login req success");
 		dispatch(loginSuccess(response.data.token));
 		history.push('/');
 	}).catch(error => {
-		console.log("login req failed:", error);
+		Logger.debug("login req failed:", error);
 		dispatch({
 			type: AUTH.LOGIN_FAILURE
 		});

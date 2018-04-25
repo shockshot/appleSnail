@@ -1,5 +1,6 @@
 // import { SALES } from './ActionTypes.js';
 import HttpHelper from 'helpers/HttpHelper';
+import Logger from 'helpers/Logger';
 import { DateUtils } from 'utils/DateUtils';
 
 const salesUrl = '/api/sales';
@@ -37,7 +38,7 @@ export const search = (searchCondition = defaultSearchCondition) => dispatch => 
     }
   });
 	return HttpHelper.post(salesUrl + '/search', {} ).then((response) => {
-    console.log("sales req success");
+    Logger.debug("sales req success");
 		dispatch({
       type: SALES.SEARCH_SUCCESS,
       payload: {
@@ -46,7 +47,7 @@ export const search = (searchCondition = defaultSearchCondition) => dispatch => 
       }
     });
 	}).catch(error => {
-		console.log("sales req failed:", error);
+		Logger.debug("sales req failed:", error);
 		dispatch({
       type: SALES.SEARCH_FAIL,
       payload: {
@@ -67,7 +68,7 @@ export const getSale = ( salesNo ) => dispatch => {
   });
 
   return HttpHelper.get(`${salesUrl}/${salesNo}`).then((response) => {
-    console.log("getSale success");
+    Logger.debug("getSale success");
     dispatch({
       type: SALES.GET_SUCCESS,
       payload: {
@@ -76,7 +77,7 @@ export const getSale = ( salesNo ) => dispatch => {
       }
     });
   }).catch(error => {
-    console.log("getSale failed:", error);
+    Logger.debug("getSale failed:", error);
     dispatch({
       type: SALES.GET_FAIL,
       payload: {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import Logger from 'helpers/Logger';
 import SalesList from 'components/SalesList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as salesActions from 'actions/SalesActions';
-import Logger from 'helpers/Logger';
 
 class SalesListContainer extends Component {
 
@@ -15,7 +15,7 @@ class SalesListContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('loading', nextProps.loading);
+        Logger.debug('loading', nextProps.loading);
     }
 
     render(){
@@ -32,7 +32,7 @@ class SalesListContainer extends Component {
 }
 
 const mapStateToProps = ({sales, loading}) => {
-    // console.log('mapStateToProps', sales);
+    // Logger.debug('mapStateToProps', sales);
     return {
         searchCondition: sales.searchCondition,
         dataList: sales.dataList,

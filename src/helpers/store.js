@@ -14,6 +14,7 @@ import { handleActions } from 'redux-actions';
 */
 //로거
 const logger = createLogger();
+
 //dummy reducer
 const loadingReducer = handleActions({}, {});
 

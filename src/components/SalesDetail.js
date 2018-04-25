@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Logger from 'helpers/Logger';
 // import DatePicker from 'react-datepicker';
 import DatePicker from './DatePicker';
 import moment from 'moment';
@@ -7,7 +8,7 @@ import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, Breadcrumb
 class SalesDetail extends Component {
 
   onChangeHandler = (e) => {
-    console.log('e', e);
+    Logger.debug('e', e);
   }
 
   render(){

@@ -1,6 +1,7 @@
 // https://velopert.com/3401 async thunk 사용하기
 
 import React, { Component } from 'react';
+import Logger from 'helpers/Logger';
 // import { withRouter } from 'react-router'
 // import PropTypes from 'prop-types';
 import LoginForm from 'components/LoginForm';
@@ -15,7 +16,7 @@ class LoginContainer extends Component {
 
   constructor(props){
     super(props);
-    console.log(props);
+    Logger.debug(props);
 
     this.props.handleLogout();
   }

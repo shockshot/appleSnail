@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Logger from 'helpers/Logger';
 import DatePicker from './DatePicker';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
@@ -15,11 +16,11 @@ class SalesList extends Component {
             searchTo: props.searchCondition.searchTo
         };
         // this.handleSearch = this.handleSearch.bind(this);
-        console.log('dataList:', props.dataList);
+        Logger.debug('dataList:', props.dataList);
     }
 
     handleSearch = () => {
-        console.log('props:', this.props);
+        Logger.debug('props:', this.props);
         this.props.onActions.search({
             searchFrom: this.state.searchFrom,
             searchTo: this.state.searchTo
