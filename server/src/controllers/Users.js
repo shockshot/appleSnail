@@ -27,7 +27,10 @@ const errHandler = (res, err) => {
   res.status(200).send('err:'+err);
 }
 
-//login. 토큰 발급
+//////////////////////////////////////////////////////
+// /api/users/login
+// ID, PW 토큰 발급
+//////////////////////////////////////////////////////
 router.post('/login', 
   loginPassport.init, loginPassport.auth, 
   (req, res) => {
@@ -45,6 +48,12 @@ router.post('/login',
   res.status(200).send({token});
 });
 
+
+
+//////////////////////////////////////////////////////
+// /api/users/checkAuth
+// 토큰 확인
+//////////////////////////////////////////////////////
 router.get('/checkAuth',
   tokenPassport.auth, 
   (req, res) => {
@@ -52,6 +61,27 @@ router.get('/checkAuth',
   res.send(req.user);
 });
 
+
+
+//////////////////////////////////////////////////////
+// /api/users/duplicateCheck
+// 아이디 중복 확인
+//////////////////////////////////////////////////////
+router.get('/duplicateCheck/:id', (req, res) => {
+  console.log('req:', req.params.id);
+  const id = req.params.id.replace(/[^0-9\.@a-zA-Z\-_]/gi, '');
+  db.User.count({
+    where: {
+      userId: req.params.id
+    }
+  }).then((result) => {
+    res.send({
+      userId: id,
+      ok: result>0 ? false: true
+    });
+    
+  })
+});
 
 
 export default router;

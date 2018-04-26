@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchProps = (dispatch) => {
   return {
-      handleLogin: bindActionCreators(authActions.login, dispatch),
+      handleLogin: bindActionCreators(authActions.reqLogin, dispatch),
       handleLogout: bindActionCreators(authActions.logout, dispatch),
   };
 };

@@ -1,25 +1,35 @@
 import { history, HttpHelper, Logger } from 'helpers';
 import jwt from 'jsonwebtoken';
+import { createAction, handleActions } from 'redux-actions';
 
 
-const loginUrl = '/api/users/login';
+const loginUrl = '/api/users';
 
 export const AUTH = {
-  LOGIN:         "AUTH.LOGIN_REQUEST",
-  LOGIN_SUCCESS: "AUTH.LOGIN_SUCCESS",
-  LOGIN_FAILURE: "AUTH.LOGIN_FAILURE",
-  LOGOUT:        "AUTH.LOGOUT"
+  LOGIN:             "AUTH.LOGIN_REQUEST",
+  LOGIN_SUCCESS:     "AUTH.LOGIN_SUCCESS",
+  LOGIN_FAILURE:     "AUTH.LOGIN_FAILURE",
+	LOGOUT:            "AUTH.LOGOUT",
+	
+	REGISTER :         "AUTH.REGISTER_REQUEST",
+	REGISTER_SUCCESS : "AUTH.REGISTER_SUCCESS",
+	REGISTER_FAILURE : "AUTH.REGISTER_FAILURE",
+
+	ID_CHECK         : "AUTH.ID_CHECK_REQUEST",
+	ID_CHECK_SUCCESS : "AUTH.ID_CHECK_SUCCESS",
+	ID_CHECK_FAILURE : "AUTH.ID_CHECK_FAILURE",
+
 }
 
-
-export const login = (userId, password) => dispatch => {
+/** 로그인 */
+export const reqLogin = (userId, password) => dispatch => {
 	dispatch({
 		type:AUTH.LOGIN,
 		payload: {
 			userId, password
 		}
 	});
-	return HttpHelper.post(loginUrl, {
+	return HttpHelper.post(loginUrl + '/login', {
 		userId, 
 		password
 	}, false).then((response) => {
@@ -50,3 +60,21 @@ export const logout = () => {
 		type: AUTH.LOGOUT
 	}
 }
+
+export const reqIdCheck = (userId) => dispatch => {
+	const reqUrl = `${loginUrl}/duplicateCheck/${userId}`;
+	dispatch(idCheck({userId}));
+	return HttpHelper.get(reqUrl, false ).then(res => {
+		Logger.debug('duplicated check res:', res);
+		dispatch({
+			type: AUTH.ID_CHECK_SUCCESS,
+			payload: res.data
+		});
+	}).catch(err => {
+		Logger.debug('duplicated check res:', err);
+		dispatch({type: AUTH.ID_CHECK_FAILURE})
+	})
+}
+
+export const idCheck  = createAction(AUTH.ID_CHECK);
+export const register = createAction(AUTH.REGISTER);

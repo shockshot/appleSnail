@@ -5,10 +5,11 @@ import { Component } from 'react';
 import { Router } from 'react-router';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { history } from './helpers';
-import './App.scss';
+import './App.css';
 
 
 import Login       from 'routes/Login';
+import Register    from 'routes/Register';
 import Home        from 'routes/Home';
 import Customer    from 'routes/Customer';
 import Reservation from 'routes/Reservation';
@@ -36,19 +37,23 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    // auth.isLogin = props.auth.isLogin;
-
     // token이 없는데 예외 페이지에 없는 경우 redirect...
     // if(!props.state.auth.isLogin &&  excludes.findIndex( e => e === history.location.pathname ) < 0  ) {
       // history.push('/login');
     // }
-    this.isLogin = props.auth.isLogin;
+    
+    this.state = {
+      isLogin: props.auth.isLogin
+    }
   }
 
   componentWillReceiveProps(nextProps){
-    console.log('nextProps', nextProps);
+    // console.log('nextProps', nextProps);
     // 로그인 처리 시, auth 에 로그인 상태 변경
-    this.isLogin = nextProps.auth.isLogin;
+    this.setState({
+      ...this.state,
+      isLogin: nextProps.auth.isLogin
+    });
   }
 
 
@@ -57,13 +62,14 @@ class App extends Component {
       <Router history={history}>
         <div>
           <Switch>
-            <Route path="/login"       component={Login}/>
-            <PrivateRoute exact path="/"      component={Home}      isLogin={this.isLogin} />
-            <PrivateRoute path="/customer"    component={Customer}    isLogin={this.isLogin}/>
-            <PrivateRoute path="/reservation" component={Reservation} isLogin={this.isLogin}/>
-            <PrivateRoute path="/sales"       component={Sales}       isLogin={this.isLogin}/>
-            <PrivateRoute path="/user"        component={User}        isLogin={this.isLogin}/>
-            <PrivateRoute path="/shop"        component={Shop}        isLogin={this.isLogin}/>
+            <Route path="/login"              component={Login}/>
+            <Route path="/register"           component={Register}/>
+            <PrivateRoute exact path="/"      component={Home}        isLogin={this.state.isLogin} />
+            <PrivateRoute path="/customer"    component={Customer}    isLogin={this.state.isLogin} />
+            <PrivateRoute path="/reservation" component={Reservation} isLogin={this.state.isLogin} />
+            <PrivateRoute path="/sales"       component={Sales}       isLogin={this.state.isLogin} />
+            <PrivateRoute path="/user"        component={User}        isLogin={this.state.isLogin} />
+            <PrivateRoute path="/shop"        component={Shop}        isLogin={this.state.isLogin} />
             <Route component={NoMatch}/>
           </Switch>
         </div>

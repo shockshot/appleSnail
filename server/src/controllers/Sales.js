@@ -46,8 +46,8 @@ router.post('/search',
 router.get('/:id',
   (req, res) => {
     // db.Sales.find()
-    const id = req.url.replace(/[^0-9]/, '');
-    console.log('#req id:', new Date(), req.url);
+    const id = req.params.id.replace(/[^0-9]/, '');
+    console.log('#req id:', id);
 
     db.Sales.findOne({where:{salesNo: id}}).then(result => {
       if(result){

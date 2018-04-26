@@ -35,7 +35,34 @@ export default handleActions({
       userId: null,
       Authorization: null
     }
-  }
+  },
+
+  [AUTH.ID_CHECK] : (state, action) => {
+    return {
+      ...state,
+      userId: action.payload.userId,
+      duplicatedCheck: null
+    }
+  },
+	[AUTH.ID_CHECK_SUCCESS] : (state, action) => {
+    return {
+      ...state,
+      userId: action.payload.userId,
+      duplicatedCheck: action.payload.ok
+    }
+  },
+  [AUTH.ID_CHECK_FAILURE] : (state, action) => {
+    return {
+      ...state,
+      userId: action.payload.userId,
+      duplicatedCheck: false
+    }
+  },
+
+	// [AUTH.REGISTER] : (state, action) => state,
+	// [AUTH.REGISTER_SUCCESS] : (state, action) => state,
+	// [AUTH.REGISTER_FAILURE] : (state, action) => state,
+
 }, initialState);
 
 // export default combineReducers({ 
