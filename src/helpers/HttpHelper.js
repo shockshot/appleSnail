@@ -1,6 +1,7 @@
 import httpClient from 'axios';
 // import AxiosRequestConfig from 'axios';
 import { store, Logger} from 'helpers';
+import { error } from 'util';
 
 const addAuth = ( config ) => {
     if(store.getState().auth && store.getState().auth.isLogin){
@@ -12,6 +13,22 @@ const addAuth = ( config ) => {
         }
     }
     return config;
+}
+
+const resultHandler = (promise) => {
+    return promise.then( result => {
+        Logger.debug('result:', result);
+        switch(result.status){
+            case 200:
+                return result;
+            case 404:
+                return null;
+            default:
+                throw new Error('http error:', result.status);
+        }
+    }).catch(err => {
+        Logger.err('error:', err);
+    });
 }
 
 
@@ -27,31 +44,36 @@ export default class HttpHelper {
     static post(url, data, withAuth = true, config = {...this.config}){
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpPost url:', url);
-        return httpClient.post(url, data, config);
+        const p = httpClient.post(url, data, config)
+        return resultHandler(p);
     }
 
     static get(url, withAuth = true, config = {...this.config} ){
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpGet url:', url);
-        return httpClient.get(url, config);
+        const p = httpClient.get(url, config);
+        return resultHandler(p);
     }
 
     static put(url, data, withAuth = true, config = {...this.config}) {
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpPut url:', url);
-        return httpClient.put(url, data);
+        const p = httpClient.put(url, data);
+        return resultHandler(p);
     }
 
     static delete(url, withAuth = true, config = {...this.config}){
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpDelete url:', url);
-        return httpClient.delete(url);
+        const p = httpClient.delete(url);
+        return resultHandler(p);
     }
 
     static patch(url, data, withAuth = true, config = {...this.config}) {
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpPatch url:', url);
-        return httpClient.patch(url, data, config = null);
+        const p = httpClient.patch(url, data, config = null);
+        return resultHandler(p);
     }
 
 }

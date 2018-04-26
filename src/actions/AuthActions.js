@@ -10,7 +10,7 @@ export const AUTH = {
   LOGIN_SUCCESS:     "AUTH.LOGIN_SUCCESS",
   LOGIN_FAILURE:     "AUTH.LOGIN_FAILURE",
 	LOGOUT:            "AUTH.LOGOUT",
-	
+
 	REGISTER :         "AUTH.REGISTER_REQUEST",
 	REGISTER_SUCCESS : "AUTH.REGISTER_SUCCESS",
 	REGISTER_FAILURE : "AUTH.REGISTER_FAILURE",
@@ -79,7 +79,18 @@ export const reqIdCheck = (userId) => dispatch => {
 export const reqRegister = (formContent) => dispatch => {
 	const reqUrl = `${loginUrl}/`;
 	dispatch(register(formContent));
-	//request todo.....
+	return HttpHelper.post(reqUrl, formContent, false ).then(res => {
+		dispatch({
+			type: AUTH.REGISTER_SUCCESS,
+			payload: res.data
+		})
+		//res.status === 200
+		Logger.debug('res', res.data);
+
+	}).catch(err => {
+		dispatch({type: AUTH.REGISTER_FAILURE});
+		Logger.error('auth register failed.', err);
+	})
 }
 
 export const idCheck  = createAction(AUTH.ID_CHECK);

@@ -59,9 +59,23 @@ export default handleActions({
     }
   },
 
-	// [AUTH.REGISTER] : (state, action) => state,
-	// [AUTH.REGISTER_SUCCESS] : (state, action) => state,
-	// [AUTH.REGISTER_FAILURE] : (state, action) => state,
+	[AUTH.REGISTER] : (state, action) => {
+    return {
+      ...state,
+      ...action.payload
+    }
+  },
+	[AUTH.REGISTER_SUCCESS] : (state, action) => {
+    return {
+      ...state,
+      ...action.payload
+    }
+  },
+	[AUTH.REGISTER_FAILURE] : (state, action) => {
+    return {
+      ...state
+    }
+  },
 
 }, initialState);
 

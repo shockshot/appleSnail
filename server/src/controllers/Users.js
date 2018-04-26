@@ -4,9 +4,11 @@
 import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
 import loginPassport from '../services/loginPassport';
 import tokenPassport from '../services/tokenPassport';
 
+const hashRounds = 10;
 const router = express.Router();
 const env = process.env.NODE_ENV || "development";
 const config = require('../../config/config.json')[env].jwt;
@@ -24,7 +26,7 @@ router.use(function (req, res, next) {
 
 
 const errHandler = (res, err) => {
-  res.status(200).send('err:'+err);
+  res.status(500).send('err:'+err);
 }
 
 //////////////////////////////////////////////////////
@@ -64,7 +66,7 @@ router.get('/checkAuth',
 
 
 //////////////////////////////////////////////////////
-// /api/users/duplicateCheck
+// GET /api/users/duplicateCheck
 // 아이디 중복 확인
 //////////////////////////////////////////////////////
 router.get('/duplicateCheck/:id', (req, res) => {
@@ -79,8 +81,44 @@ router.get('/duplicateCheck/:id', (req, res) => {
       userId: id,
       ok: result>0 ? false: true
     });
-    
-  })
+  }).catch(err => errHandler(res, err))
+});
+
+
+//////////////////////////////////////////////////////
+// POST /api/users
+// 회원 등록
+//////////////////////////////////////////////////////
+router.post('/', (req, res) => {
+  console.log('req body:', req.body);
+  // res.json(req.body);
+
+  let password = req.body.password.substring(0, 30);
+
+  // bcrypt.enc
+  bcrypt.hash(password, hashRounds ).then(function(hash) {
+    const user = {
+      userId: req.body.userId,
+      userName: req.body.userName,
+      password: hash,
+      phoneNo: req.body.phoneNo.replace(/[^0-9]/gi, '')
+    }
+    return db.User.create(user);
+  }).catch( err => errHandler(res, err))
+  .then( result => {
+    console.log("result", result);
+    if(result){
+
+      res.status(200).json({
+        userNo: result.userNo,
+        userId: result.userId,
+        userName: result.userName,
+        phoneNo: result.phoneNo
+      });
+    }
+  }).catch(err => errHandler(res, err));  
+
+
 });
 
 

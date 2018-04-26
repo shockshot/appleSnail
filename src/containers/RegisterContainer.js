@@ -15,8 +15,13 @@ class RegisterContainer extends Component {
     this.props.handleActions.reqIdCheck(userId);
   }
 
-  handleSubmit = (e) => {
-    Logger.debug(e);
+  handleSubmit = (frm) => {
+    this.props.handleActions.reqRegister({
+      userId: frm.userId,
+      userName: frm.userName,
+      password: frm.password,
+      phoneNo: frm.phoneNo
+    });
   }
 
 
