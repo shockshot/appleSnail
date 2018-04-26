@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Button, Form, /*FormGroup,*/ Label, Input, /*FormText*/ } from 'reactstrap';
 import { DateUtils } from 'utils';
 import { Logger, history, regex } from 'helpers';
 
@@ -7,6 +6,9 @@ import { Logger, history, regex } from 'helpers';
 import * as Rx from 'rxjs';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
+
+/** components */
+import { Button, Form, FormGroup, Label, Input, FormFeedback,  /*FormText*/ } from 'reactstrap';
 
 /** styles */
 import classNames from 'classnames/bind';
@@ -23,13 +25,22 @@ class RegisterForm extends Component {
     this.userId$   = new Rx.Subject();
     
     this.state = {
-      isValid: {
-        id: false
+      valid: {
+        userId: false
       },
       duplicatedCheck: false
     }
   }
-    
+  
+  setValid(valid){
+    this.setState({
+      ...this.state,
+      valid:{
+        ...this.state.valid,
+        ...valid
+      }
+    })
+  }
 
   componentDidMount(){
     this.userId$
@@ -37,24 +48,17 @@ class RegisterForm extends Component {
       .subscribe(userId => {
         //이메일 형식에 맞음
         if(regex.email.test(userId)){
-          this.state.isValid.id = true;
+          this.setValid({userId: true})
           this.props.onDuplicatedCheck(userId);
+          this.setState({ userId: userId});
         }else{ //형식에 맞지 않음
-          this.setState({
-            ...this.state,
-            isValid : {
-              ...this.state.isValid,
-              id: false
-            }
-          })
+          this.setValid({userId: false})
         }
-        // Logger.debug('state', this.state);
       })
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({
-      ...this.state,
       duplicatedCheck: nextProps.duplicatedCheck
     })
   }
@@ -62,18 +66,24 @@ class RegisterForm extends Component {
   handleSubmit = (e) => {
       e.preventDefault();
       // this.props.onLogin(this.form.userId.value, this.form.password.value);
+      
+      
+      // Logger.debug('123');
+      const validCount = Object
+        .keys(this.state.valid)
+        .map(key => this.state.valid[key])
+        .filter(tf => !tf)
+        .length;
+      
+      if(!validCount && this.state.duplicatedCheck){
+        this.props.onSubmit(this.state);
+      }
   }
 
   handleChange = (e) => {
-
     if(e.target.name === 'passwordConfirm'){
-      if(this.state.password === e.target.value){
-        this.setState({isValid:{...this.state.isValid, passwordConfirm: true}});
-      }else{
-        this.setState({isValid:{...this.state.isValid, passwordConfirm: false}});
-      }
+      this.setValid({[e.target.name]: this.state.password === e.target.value});
     }
-
     this.setState({[e.target.name] : e.target.value});
   }
 
@@ -85,31 +95,40 @@ class RegisterForm extends Component {
         {/* <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></img> */}
         <h1 className="h3 mb-3 font-weight-normal">회원가입</h1>
 
-        <Label for="inputEmail">이메일 ID</Label>
-        { !this.state.isValid.id ? '' : (
-          this.state.duplicatedCheck === null ? '' : (
-            this.state.duplicatedCheck === false ? <span>중복</span> : <span>. OK.</span>
-          )
-        ) }
+        <FormGroup>
+          <Label for="inputEmail">이메일 ID</Label>
+          <Input  type="email" 
+                  name="userId" 
+                  id="inputEmail" 
+                  className="form-control" 
+                  placeholder="abc@gmail.com" 
+                  required 
+                  autoFocus 
+                  onChange={e => this.userId$.next(e.target.value)} 
+                  valid={this.state.valid.userId}
+                  />
+          { !this.state.valid.id ? '' : (
+            this.state.duplicatedCheck === null ? '' : (
+              this.state.duplicatedCheck === false ? (
+                <FormFeedback inValid>Oops! that name is unavailable</FormFeedback>
+              ) : <FormFeedback valid>Sweet! that name is available</FormFeedback>
+            )
+          ) }
+          
+        </FormGroup>
 
-        <Input  type="email" 
-                name="userId" 
-                id="inputEmail" 
-                className="form-control" 
-                placeholder="abc@gmail.com" 
-                required 
-                autoFocus 
-                onChange={e => this.userId$.next(e.target.value)} />
-
-        <Label for="inputPassword">패스워드</Label>
-        <Input  type="password" 
-                name="password" 
-                id="inputPassword" 
-                className="form-control" 
-                placeholder="********" required 
-                onChange={this.handleChange}
-                />
-
+        <FormGroup>
+          <Label for="inputPassword">패스워드</Label>
+          <Input  type="password" 
+                  name="password" 
+                  id="inputPassword" 
+                  className="form-control" 
+                  placeholder="********" required 
+                  onChange={this.handleChange}
+                  />
+        </FormGroup>
+        
+        <FormGroup>
         <Label for="inputPasswordConfirm">패스워드 확인</Label>
         <Input  type="password" 
                 name="passwordConfirm" 
@@ -117,19 +136,25 @@ class RegisterForm extends Component {
                 className="form-control" 
                 placeholder="********" required 
                 onChange={this.handleChange}
+                valid={this.state.valid.passwordConfirm}
                 />
+        </FormGroup>
 
+        <FormGroup>
         <Label for="userName">성명</Label>
         <Input  type="text" name="userName" id="userName" className="form-control" placeholder="홍길동" required 
                 onChange={this.handleChange}/>
+        </FormGroup>
 
+        <FormGroup>
         <Label for="phoneNo">휴대폰</Label>
         <Input  type="tel" name="phoneNo" id="phoneNo" className="form-control" placeholder="010-1234-5678" required 
                 onChange={this.handleChange}/>
+        </FormGroup>
+
 
         <Button className="btn-lg btn-primary btn-block" type="submit">Register</Button>
 
-        <Button onClick={e=>Logger.debug(this.state)}>show state</Button>
         <p className="mt-5 mb-3 text-muted">&copy; {this.year}</p>
       </Form> 
     )

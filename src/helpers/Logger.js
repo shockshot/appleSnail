@@ -19,7 +19,7 @@ export default class Logger {
     }
   }
 
-  get info() {
+  static get info() {
     if (logLevel <= LOG_LEVEL.INFO) {
       return console.info.bind(console);
     } else {
@@ -27,7 +27,7 @@ export default class Logger {
     }
   }
 
-  get warn() {
+  static get warn() {
     if (logLevel <= LOG_LEVEL.WARN) {
       return console.warn.bind(console);
     } else {
@@ -35,7 +35,7 @@ export default class Logger {
     }
   }
 
-  get error() {
+  static get error() {
     if (logLevel <= LOG_LEVEL.ERROR) {
       return console.error.bind(console);
     } else {

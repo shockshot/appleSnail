@@ -15,10 +15,18 @@ class RegisterContainer extends Component {
     this.props.handleActions.reqIdCheck(userId);
   }
 
+  handleSubmit = (e) => {
+    Logger.debug(e);
+  }
+
 
   render(){
     return(
-      <RegisterForm onDuplicatedCheck={this.handleDuplicatedCheck} duplicatedCheck={this.props.duplicatedCheck}/>
+      <RegisterForm 
+        onDuplicatedCheck={this.handleDuplicatedCheck} 
+        duplicatedCheck={this.props.duplicatedCheck}
+        onSubmit={this.handleSubmit}
+      />
     )
   }
 
