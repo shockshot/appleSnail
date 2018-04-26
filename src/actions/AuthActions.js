@@ -76,5 +76,11 @@ export const reqIdCheck = (userId) => dispatch => {
 	})
 }
 
+export const reqRegister = (formContent) => dispatch => {
+	const reqUrl = `${loginUrl}/`;
+	dispatch(register(formContent));
+	//request todo.....
+}
+
 export const idCheck  = createAction(AUTH.ID_CHECK);
 export const register = createAction(AUTH.REGISTER);
