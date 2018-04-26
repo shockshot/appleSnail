@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Logger } from 'helpers';
-import SalesList from 'components/SalesList';
+import SalesList from 'components/sales/SalesList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as salesActions from 'actions/SalesActions';

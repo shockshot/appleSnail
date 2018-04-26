@@ -22,10 +22,8 @@ import NoMatch     from 'routes/NoMatch';
 //로그인 확인 예외 페이지 url
 const PrivateRoute = ({ component: Component, ...rest, isLogin }) => (
   <Route {...rest}
-    render={props => isLogin ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{
+    render={props => isLogin ? ( <Component {...props} /> ) : (
+        <Redirect push={true} to={{
             pathname: "/login",
             // state: { from: props.location }
         }}/>
@@ -64,7 +62,6 @@ class App extends Component {
             <PrivateRoute path="/customer"    component={Customer}    isLogin={this.isLogin}/>
             <PrivateRoute path="/reservation" component={Reservation} isLogin={this.isLogin}/>
             <PrivateRoute path="/sales"       component={Sales}       isLogin={this.isLogin}/>
-            {/* <PrivateRoute path="/sales/:method"       component={Sales}       /> */}
             <PrivateRoute path="/user"        component={User}        isLogin={this.isLogin}/>
             <PrivateRoute path="/shop"        component={Shop}        isLogin={this.isLogin}/>
             <Route component={NoMatch}/>
