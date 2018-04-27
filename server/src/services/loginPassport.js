@@ -12,7 +12,8 @@ const loginFunc = function(req, userId, password, done) {
   let user;
   db.User.findOne({
     where: {
-      userId: userId
+      userId: userId,
+      del: 0
     }
   })
   .then( result => {

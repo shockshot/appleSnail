@@ -28,4 +28,15 @@ Object.keys(db).forEach(function(modelName) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+
+/** Join 관계 설정 */
+// db.User.hasMany(db.Employee, {foreignKey: 'userNo'});
+// db.Employee.belongsTo(db.Company, {foreignKey: 'companyNo'});
+// db.Company.hasMany(db.Employee, {foreignKey: 'companyNo'});
+// db.Company.hasMany(db.Employee, {foreignKey: 'companyNo'});
+
+
+
+
+export default db;
+// module.exports = db;

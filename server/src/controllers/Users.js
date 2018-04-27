@@ -1,3 +1,4 @@
+"use strict";
 // https://cheese10yun.github.io/Passport-part1/
 // https://github.com/auth0/node-jsonwebtoken
 
@@ -7,6 +8,8 @@ import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import loginPassport from '../services/loginPassport';
 import tokenPassport from '../services/tokenPassport';
+import { Mapper } from '../helpers';
+import { User } from '../viewModels';
 
 const hashRounds = 10;
 const router = express.Router();
@@ -38,16 +41,46 @@ router.post('/login',
   (req, res) => {
 
   const user = req.user;
-  // issuing token.
-  const payload = {
-    id: user.userId
-  };
-  const token = jwt.sign(payload, config.secret, config.options);
+  db.User.hasMany(db.Employee, {foreignKey: 'userNo'});
+  db.Employee.belongsTo(db.Company, {foreignKey: 'companyNo'});
+  db.Employee.hasMany(db.ShopEmployee, {foreignKey: 'employeeNo'});
+  db.ShopEmployee.belongsTo(db.Shop, {foreignKey: 'shopNo'});
 
-  console.log('#token:', token);
   
-  res.setHeader('Authorization', 'Bearer '+token);
-  res.status(200).send({token});
+  db.User.findOne({
+    where: {userNo: user.userNo},
+    include:{
+      model: db.Employee,
+      include: [
+        db.Company,
+        {
+          model: db.ShopEmployee,
+          include: db.Shop
+        }
+      ]
+    }
+  }).then(result => {
+    // console.log('#result:', result.dataValues )
+    // issuing token.
+    
+    const payload = {
+      id: result.dataValues.userId,
+      no: result.dataValues.userNo,
+    };
+
+
+    const token = jwt.sign(payload, config.secret, config.options);
+
+    console.log('#token:', token);
+    
+    res.setHeader('Authorization', 'Bearer '+token);
+    res.status(200).send({
+      token,
+      user: Mapper.map(result.dataValues, User)
+    });
+
+  }).catch(err => errHandler(res, err));
+
 });
 
 
