@@ -1,6 +1,7 @@
 import { history, HttpHelper, Logger } from 'helpers';
 import { createAction } from 'redux-actions';
 import { loginSuccess } from './AuthActions';
+import { addMessage } from './ToastActions';
 
 const registerUrl = '/api/register';
 
@@ -57,9 +58,11 @@ export const reqRegisterCompanyWithShop = ( formContent ) => dispatch => {
   dispatch(registerCompany( formContent ));
   return HttpHelper.post(reqUrl, formContent, true).then(res => {
     dispatch(createAction(REGISTER.COMPANY_SUCCESS)(res.data));
-
+		history.push('/login');
+		dispatch(addMessage('등록 성공'));
   }).catch(err => {
     dispatch(createAction(REGISTER.COMPANY_FAILURE)() );
+		dispatch(addMessage('등록 실패'));
 
   })
 

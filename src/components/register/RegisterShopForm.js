@@ -19,6 +19,7 @@ class RegisterShopForm extends Component {
       openDate: DateUtils.format(new Date(),'yyyyMMdd'),
       status: props.status
     }
+ 
   }
 
   handleChange = (e) => {
@@ -120,11 +121,8 @@ class RegisterShopForm extends Component {
 
         <Button className="btn-lg btn-primary btn-block" type="submit">Register</Button>
 
-        <p className="mt-5 mb-3 text-muted">&copy; {this.year}</p>
+        <p className="mt-5 mb-3 text-muted">&copy; {(new Date()).getFullYear()}</p>
 
-        <Alert color="info" isOpen={this.state.status !== 0} toggle={this.onDismiss}>
-          I am an alert and I can be dismissed!
-        </Alert>
       </Form> 
     )
   }

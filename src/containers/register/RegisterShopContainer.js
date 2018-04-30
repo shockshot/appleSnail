@@ -5,13 +5,18 @@ import { connect } from 'react-redux';
 import * as registerActions from 'actions/RegisterActions';
 
 import RegisterShopForm from 'components/register/RegisterShopForm';
-import {Logger} from 'helpers';
+import {Logger, history} from 'helpers';
 
 class RegisterShopContainer extends Component{
 
   constructor(props){
     super(props);
     this.state = {status : 0}
+
+       
+    if(!props.auth || !props.auth.Authorization){
+      history.push('/login');
+    }
   }
 
   handleSubmit = (data) => {
@@ -31,10 +36,11 @@ class RegisterShopContainer extends Component{
 // export default RegisterShopContainer;
 
 // export default SalesDetailContainer;
-const mapStateToProps = ({register}) => {
+const mapStateToProps = ({register, auth}) => {
   Logger.debug('register', register);
   return {
-    status : register.status
+    status : register.status,
+    auth: auth
     // duplicatedCheck: register.duplicatedCheck,
     // userId: register.userId
   };
