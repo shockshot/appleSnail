@@ -1,7 +1,7 @@
 import httpClient from 'axios';
 // import AxiosRequestConfig from 'axios';
 import { store, Logger} from 'helpers';
-import { error } from 'util';
+// import { error } from 'util';
 
 const addAuth = ( config ) => {
     if(store.getState().auth && store.getState().auth.isLogin){

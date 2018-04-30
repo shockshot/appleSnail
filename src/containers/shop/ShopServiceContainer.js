@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Logger } from 'helpers';
+// import { Logger } from 'helpers';
 
 class ShopServiceContainer extends Component {
 
@@ -19,7 +19,7 @@ class ShopServiceContainer extends Component {
 
 
 // export default SalesDetailContainer;
-const mapStateToProps = ({}) => {
+const mapStateToProps = () => {
   return {
   };
 };

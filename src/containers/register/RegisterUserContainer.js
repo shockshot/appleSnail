@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Logger } from 'helpers';
+// import { Logger } from 'helpers';
 import RegisterUserForm from 'components/register/RegisterUserForm';
 // import * as authActions from 'actions/AuthActions';
 import * as registerActions from 'actions/RegisterActions';

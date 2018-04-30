@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { DateUtils } from 'utils';
-import { Logger, history, regex } from 'helpers';
+import { /*Logger, history, */ regex } from 'helpers';
 
 /** rxjs */
 import * as Rx from 'rxjs';
@@ -86,7 +86,7 @@ class RegisterForm extends Component {
   }
 
   render(){
-    const { handleSubmit, handleJoin, idValidCheck} = this;
+    const { handleSubmit } = this;
 
     return(
       <Form className={styles('form-register')} onSubmit={handleSubmit}>
