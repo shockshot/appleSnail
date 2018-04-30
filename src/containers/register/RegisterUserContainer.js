@@ -3,11 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { Logger } from 'helpers';
-import RegisterForm from 'components/RegisterForm';
-import * as authActions from 'actions/AuthActions';
+import RegisterUserForm from 'components/register/RegisterUserForm';
+// import * as authActions from 'actions/AuthActions';
+import * as registerActions from 'actions/RegisterActions';
 
 
-class RegisterContainer extends Component {
+class RegisterUserContainer extends Component {
 
 
   handleDuplicatedCheck = (userId) => {
@@ -16,7 +17,7 @@ class RegisterContainer extends Component {
   }
 
   handleSubmit = (frm) => {
-    this.props.handleActions.reqRegister({
+    this.props.handleActions.reqRegisterUser({
       userId: frm.userId,
       userName: frm.userName,
       password: frm.password,
@@ -27,7 +28,7 @@ class RegisterContainer extends Component {
 
   render(){
     return(
-      <RegisterForm 
+      <RegisterUserForm 
         onDuplicatedCheck={this.handleDuplicatedCheck} 
         duplicatedCheck={this.props.duplicatedCheck}
         onSubmit={this.handleSubmit}
@@ -39,18 +40,18 @@ class RegisterContainer extends Component {
 
 
 // export default SalesDetailContainer;
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({register}) => {
   return {
-    duplicatedCheck: auth.duplicatedCheck,
-    userId: auth.userId
+    duplicatedCheck: register.duplicatedCheck,
+    userId: register.userId
   };
 };
 
 const mapDispatchProps = (dispatch) => {
   return {
-    handleActions: bindActionCreators(authActions, dispatch)
+    handleActions: bindActionCreators(registerActions, dispatch)
       // handleActions: bindActionCreators(salesActions, dispatch)
   };
 };
 
-export default connect(mapStateToProps, mapDispatchProps)(RegisterContainer);
+export default connect(mapStateToProps, mapDispatchProps)(RegisterUserContainer);

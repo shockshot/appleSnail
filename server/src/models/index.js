@@ -1,9 +1,13 @@
 // http://webframeworks.kr/tutorials/expressjs/expressjs_orm_three/
 "use strict";
 
-var fs        = require("fs");
-var path      = require("path");
-var Sequelize = require("sequelize");
+// var fs        = require("fs");
+// var path      = require("path");
+// var Sequelize = require("sequelize");
+import fs from 'fs';
+import path from 'path';
+import Sequelize from 'sequelize';
+
 var env       = process.env.NODE_ENV || "development";
 var config    = require(__dirname + '/../../config/config.json')[env]['db'];
 var sequelize = new Sequelize(config.database, config.username, config.password, config);

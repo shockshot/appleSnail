@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk';
 
 //추후 auth.js 이름 변경 필요
 import {AUTH} from 'actions/AuthActions';
-import { auth, sales } from 'reducers';
+import { auth, sales, register } from 'reducers';
 
 
 /* 로그 미들웨어를 생성 할 때 설정 커스터마이징 가능
@@ -56,6 +56,7 @@ const rootReducers = (state, action) => {
   return combineReducers({
     auth,
     sales,
+    register,
     loading: dummyReducer
   })(state, action);
 }

@@ -6,16 +6,14 @@ import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
-import { loginPassport, tokenPassport, issueToken } from '../services';
-// import tokenPassport from '../services/tokenPassport';
-// import {issueToken} from '../services/tokenService';
 
+import { loginPassport, tokenPassport, issueToken } from '../services';
 import { Mapper } from '../helpers';
 import { User } from '../viewModels';
 
-
 const hashRounds = 10;
 const router = express.Router();
+
 
 /** middlewares */
 router.use(bodyParser.urlencoded({extended: true}));
@@ -30,63 +28,6 @@ router.use(function (req, res, next) {
 const errHandler = (res, err) => {
   res.status(500).send('err:'+err);
 }
-
-//////////////////////////////////////////////////////
-// /api/users/login
-// ID, PW 토큰 발급
-//////////////////////////////////////////////////////
-router.post('/login', 
-  loginPassport.init, loginPassport.auth, 
-  (req, res) => {
-
-  const user = req.user;
-  db.User.hasMany(db.Employee, {foreignKey: 'userNo'});
-  db.Employee.belongsTo(db.Company, {foreignKey: 'companyNo'});
-  db.Employee.hasMany(db.ShopEmployee, {foreignKey: 'employeeNo'});
-  db.ShopEmployee.belongsTo(db.Shop, {foreignKey: 'shopNo'});
-
-  
-  db.User.findOne({
-    where: {userNo: user.userNo},
-    include:{
-      model: db.Employee,
-      include: [
-        db.Company,
-        {
-          model: db.ShopEmployee,
-          include: db.Shop
-        }
-      ]
-    }
-  }).then(result => {
-    // console.log('#result:', result.dataValues )
-    // issuing token.
-    
-    const token = issueToken(result.dataValues);
-    console.log('#token:', token);
-    
-    res.setHeader('Authorization', token);
-    res.status(200).send({
-      Authorization: token,
-      user: Mapper.map(result.dataValues, User)
-    });
-
-  }).catch(err => errHandler(res, err));
-
-});
-
-
-
-//////////////////////////////////////////////////////
-// /api/users/checkAuth
-// 토큰 확인
-//////////////////////////////////////////////////////
-router.get('/checkAuth',
-  tokenPassport.auth, 
-  (req, res) => {
-  console.log('authed:', req.user);
-  res.send(req.user);
-});
 
 
 
@@ -111,10 +52,10 @@ router.get('/duplicateCheck/:id', (req, res) => {
 
 
 //////////////////////////////////////////////////////
-// POST /api/users
+// POST /api/register/user
 // 회원 등록
 //////////////////////////////////////////////////////
-router.post('/', (req, res) => {
+router.post('/user', (req, res) => {
   console.log('req body:', req.body);
   // res.json(req.body);
 
@@ -139,13 +80,80 @@ router.post('/', (req, res) => {
         userNo: result.userNo,
         userId: result.userId,
         userName: result.userName,
-        phoneNo: result.phoneNo
+        phoneNo: result.phoneNo,
+        Authorization: issueToken(result)
       });
     }
   }).catch(err => errHandler(res, err));  
 
-
 });
 
+
+//////////////////////////////////////////////////////
+// POST /api/register/companyWithShop
+// 회사/매장 동시 등록
+//////////////////////////////////////////////////////
+router.post('/companyWithShop', tokenPassport.auth, 
+  (req, res) => {
+    db.sequelize.transaction().then((transaction) => {
+      const data = req.body;
+      let user = null;
+      let shop = null;
+      let company = null;
+
+      return db.User.findOne({where: {userNo: req.user.no}})
+      .then(({dataValues}) => {
+        //insert company
+        console.log('dataValues', dataValues);
+        user = dataValues;
+
+        let company = {
+          companyName: data.companyName,
+          businessNo:  data.businessNo,
+          telNo:       data.telNo,
+          website:     data.website,
+          ownerName:   data.ownerName,
+          addressNo:   '',
+          createdUser: user.userNo
+        }
+
+        return db.Company.create(company, {transaction});
+      })
+      .catch(err => errHandler(res, err))
+      .then(result => {
+        //insert shop
+        company = result.dataValues;
+        console.log('company insert result:', company);
+
+        const shop = { 
+          companyNo:   company.companyNo,
+          businessNo:  company.businessNo,
+          shopName:    data.shopName,
+          openDate:    data.openDate,
+          closeDate:   '99991231',
+          remark:      data.remark,
+          createdUser: user.userNo
+        }
+
+        return db.Shop.create(shop, {transaction})
+      })
+      .catch(err => errHandler(res, err))
+      .then((result) => {
+        shop = result.dataValues;
+        console.log('commit');
+        res.json({
+          shop: shop,
+          company: company
+        });
+
+        return transaction.commit();
+      })
+      .catch(err=>{
+
+        errHandler(res, err)
+        return transaction.rollback();
+      })
+    })
+});
 
 export default router;

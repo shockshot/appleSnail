@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import { Button, Form, /*FormGroup,*/ Label, Input, /*FormText*/ } from 'reactstrap';
 import { DateUtils } from 'utils';
-import { history } from 'helpers';
+import { history, Logger } from 'helpers';
 
 import classNames from 'classnames/bind';
 const styles = classNames.bind(require('./LoginForm.scss'));
 
 class LoginForm extends Component {
 
-    // constructor(props){
-    //     super(props);
-    // }
+    constructor(props){
+        super(props);
+        this.state = {status: null};
+    }
+
     year = DateUtils.format(new Date(),'yyyy');
 
     handleSubmit = (e) => {
@@ -22,8 +24,17 @@ class LoginForm extends Component {
         history.push('register')
     }
 
+    componentWillReceiveProps(nextProps){
+        Logger.debug('nextProps', nextProps);
+        // 로그인 처리 시, auth 에 로그인 상태 변경
+        this.setState({
+            status: nextProps.status
+        });
+    }
+
     render(){
-        const { handleSubmit, handleJoin} = this;
+        const { handleSubmit, handleJoin, state} = this;
+        
 
         return(
             <div className={styles('login')}>
@@ -34,6 +45,7 @@ class LoginForm extends Component {
                     <Input type="text" name="userId" id="inputEmail" className="form-control" placeholder="Email address" required autoFocus />
                     <Label for="inputPassword" className="sr-only">Password</Label>
                     <Input  type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" required />
+                    {state.status === -1 ? <span>아이디/패스워드를 확인해주세요</span> : ''}
                     <div className="checkbox mb-3">
                         <Label>
                             <Input type="checkbox" value="remember-me" /> Remember me
@@ -48,8 +60,6 @@ class LoginForm extends Component {
     }
 }
 
-
-// const LoginForm = ({onLogin = f=>f}) => 
 
 
 export default LoginForm;

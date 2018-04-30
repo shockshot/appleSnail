@@ -2,79 +2,43 @@
 import { AUTH } from 'actions/AuthActions';
 import { handleActions } from 'redux-actions';
 
-const initialState = {isLogin: false};
+const initialState = {isLogin: false, status: null};
 
 export default handleActions({
-  [AUTH.LOGIN]: (state, action) => {
+  [AUTH.LOGIN]: (state, {payload}) => {
     return {
       ...state,
-      isLogin: false,
-      userId: action.payload.userId
+      isLogin: null,
+      userName: null,
+      userId: payload.userId,
+      Authorization: null,
+      status: 0
     }
   },
-  [AUTH.LOGIN_SUCCESS]: (state, action) => {
+  [AUTH.LOGIN_SUCCESS]: (state, {payload}) => {
     return {
       ...state,
       isLogin: true,
-      userId: action.payload.userId,
-      Authorization: action.payload.Authorization
+      userNo: payload.userNo,
+      userId: payload.userId,
+      userName: payload.userName,
+      Authorization: payload.Authorization,
+      status: 1
     }
   },
   [AUTH.LOGIN_FAILURE]: (state, action) => {
     return {
       ...state,
       isLogin: false,
+      userNo: null,
       userId: null,
-      Authorization: null
+      userName: null,
+      Authorization: null,
+      status: -1
     }
   },
   [AUTH.LOGOUT]: (state, action) => {
-    return {
-      ...state,
-      isLogin: false,
-      userId: null,
-      Authorization: null
-    }
-  },
-
-  [AUTH.ID_CHECK] : (state, action) => {
-    return {
-      ...state,
-      userId: action.payload.userId,
-      duplicatedCheck: null
-    }
-  },
-	[AUTH.ID_CHECK_SUCCESS] : (state, action) => {
-    return {
-      ...state,
-      userId: action.payload.userId,
-      duplicatedCheck: action.payload.ok
-    }
-  },
-  [AUTH.ID_CHECK_FAILURE] : (state, action) => {
-    return {
-      ...state,
-      userId: action.payload.userId,
-      duplicatedCheck: false
-    }
-  },
-
-	[AUTH.REGISTER] : (state, action) => {
-    return {
-      ...state,
-      ...action.payload
-    }
-  },
-	[AUTH.REGISTER_SUCCESS] : (state, action) => {
-    return {
-      ...state,
-      ...action.payload
-    }
-  },
-	[AUTH.REGISTER_FAILURE] : (state, action) => {
-    return {
-      ...state
-    }
+    return initialState
   },
 
 }, initialState);

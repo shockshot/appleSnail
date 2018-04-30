@@ -12,7 +12,7 @@ import { Button, Form, FormGroup, Label, Input, FormFeedback,  /*FormText*/ } fr
 
 /** styles */
 import classNames from 'classnames/bind';
-import scss from './RegisterForm.scss';
+import scss from './RegisterUserForm.scss';
 const styles = classNames.bind(scss);
 
 class RegisterForm extends Component {
@@ -67,14 +67,12 @@ class RegisterForm extends Component {
       e.preventDefault();
       // this.props.onLogin(this.form.userId.value, this.form.password.value);
       
-      
       // Logger.debug('123');
       const validCount = Object
         .keys(this.state.valid)
         .map(key => this.state.valid[key])
         .filter(tf => !tf)
         .length;
-      
       if(!validCount && this.state.duplicatedCheck){
         this.props.onSubmit(this.state);
       }
@@ -91,8 +89,7 @@ class RegisterForm extends Component {
     const { handleSubmit, handleJoin, idValidCheck} = this;
 
     return(
-      <Form className={styles('form-register')} onSubmit={handleSubmit} innerRef={c => this.form = c}>
-        {/* <img className="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"></img> */}
+      <Form className={styles('form-register')} onSubmit={handleSubmit}>
         <h1 className="h3 mb-3 font-weight-normal">회원가입</h1>
 
         <FormGroup>
@@ -111,7 +108,7 @@ class RegisterForm extends Component {
             this.state.duplicatedCheck === null ? '' : (
               this.state.duplicatedCheck === false ? (
                 <FormFeedback inValid>Oops! that name is unavailable</FormFeedback>
-              ) : <FormFeedback valid>Sweet! that name is available</FormFeedback>
+              ) : <FormFeedback valid>OK! that name is available</FormFeedback>
             )
           ) }
           

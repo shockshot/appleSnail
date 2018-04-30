@@ -11,6 +11,7 @@ const  menus = [
   {menu: '샵관리', link: '/shop', children: [
     {menu: '상품관리', link: '/shop/service'},
     {menu: '샵정보관리', link: '/shop/info'},
+    {menu: '직원관리', link: '/shop/employee'},
     // {menu: '영업시간관리', link: '/shop/open'}
   ]},
 ]
@@ -38,7 +39,7 @@ class DefaultPageTemplate extends Component {
   render() {
     return (
       <div>
-        <Header menus={menus} userName="애플스네일" toggleMenu={this.toggleMenu} isMenuOpen={this.state.isMenuOpen} />
+        <Header menus={menus} userName={this.props.userName} toggleMenu={this.toggleMenu} isMenuOpen={this.state.isMenuOpen} />
         <main role="main">
 
           <div className="container">
@@ -55,9 +56,10 @@ class DefaultPageTemplate extends Component {
 
 // export default DefaultPageTemplate;
 
-const mapStateToProps = ({loading}) => {
+const mapStateToProps = ({loading, auth}) => {
   return {
-    loading: loading
+    loading: loading,
+    userName: auth.userName
   };
 };
 

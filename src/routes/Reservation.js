@@ -4,22 +4,8 @@ import DefaultPageTemplate from 'containers/DefaultPageTemplate';
 import Calendar from 'components/common/Calendar';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
-// import classNames from 'classnames/bind';
-// import styles from './Reservation.scss';
-// const st = classNames.bind(styles);
-
 class Reservation extends Component {
 
-
-    // constructor(props){
-    //     super(props);
-
-    //     // console.log('firstDate', this.firstDate);
-    //     // console.log('lastDate', this.lastDate);
-    //     // console.log('counts', this.counts);
-    //     // console.log(this.datesArray);
-
-    // }
 
     render() {
         return (

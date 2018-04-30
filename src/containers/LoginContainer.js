@@ -23,16 +23,18 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <LoginForm onLogin={this.props.handleLogin}/>
+      <LoginForm onLogin={this.props.handleLogin} status={this.props.status}/>
     );
   }
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({auth}) => {
+  
   return {
-      isLogin: state.isLogin,
-      userId: state.userId
+      // isLogin: state.isLogin,
+      // userId: state.userId,
+      status: auth.status
   };
 };
 

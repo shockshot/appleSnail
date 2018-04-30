@@ -31,7 +31,7 @@ class SalesList extends Component {
 
     handleDatePickerChange = (e) => {
         let change = {...this.state}
-        change[e.name] = e.selectedDate;
+        change[e.target.name] = e.target.value;
         this.setState(change);
     }
 
