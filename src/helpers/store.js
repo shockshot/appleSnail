@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk';
 
 //추후 auth.js 이름 변경 필요
 import {AUTH} from 'actions/AuthActions';
-import { auth, sales, register } from 'reducers';
+import { auth, sales, register, toast } from 'reducers';
 
 
 /* 로그 미들웨어를 생성 할 때 설정 커스터마이징 가능
@@ -37,7 +37,8 @@ const saver = store => next => action => {
 
 const initialStoreState = {
   loading: false,
-  auth: {isLogin: false}
+  auth: {isLogin: false},
+  toast: {messages : []}
 }
 
 const rootReducers = (state, action) => {
@@ -57,6 +58,7 @@ const rootReducers = (state, action) => {
     auth,
     sales,
     register,
+    toast,
     loading: dummyReducer
   })(state, action);
 }

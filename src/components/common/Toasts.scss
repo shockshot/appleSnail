@@ -1,0 +1,16 @@
+
+.toastContainer{
+  position: fixed;
+  /* right: 5rem; */
+  top: 5rem;
+  right:5rem;
+  max-width:20rem;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+.toast{
+ position: absolute;
+ max-width: 20rem;
+}

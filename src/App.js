@@ -7,6 +7,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { history } from './helpers';
 import './App.css';
 
+import ToastContainer from 'containers/ToastContainer';
 
 import Login       from 'routes/Login';
 import Register    from 'routes/Register';
@@ -72,6 +73,7 @@ class App extends Component {
             <PrivateRoute path="/shop"        component={Shop}        isLogin={this.state.isLogin} />
             <Route component={NoMatch}/>
           </Switch>
+          <ToastContainer />
         </div>
       </Router>
     )
