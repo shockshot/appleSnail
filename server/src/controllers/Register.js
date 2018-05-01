@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 
 import { loginPassport, tokenPassport, issueToken } from '../services';
-import { Mapper } from '../helpers';
+import { Mapper, defaultErrorHandler } from '../helpers';
 import { User } from '../viewModels';
 
 const hashRounds = 10;
@@ -24,10 +24,6 @@ router.use(function (req, res, next) {
   next();
 });
 
-
-const errHandler = (res, err) => {
-  res.status(500).send('err:'+err);
-}
 
 
 
@@ -47,7 +43,7 @@ router.get('/duplicateCheck/:id', (req, res) => {
       userId: id,
       ok: result>0 ? false: true
     });
-  }).catch(err => errHandler(res, err))
+  }).catch(err => defaultErrorHandler(res, err))
 });
 
 
@@ -71,7 +67,7 @@ router.post('/user', (req, res) => {
     }
     return db.User.create(user);
   })
-  .catch( err => errHandler(res, err))
+  .catch( err => defaultErrorHandler(res, err))
   .then( result => {
     console.log("result", result);
     if(result){
@@ -84,7 +80,7 @@ router.post('/user', (req, res) => {
         Authorization: issueToken(result)
       });
     }
-  }).catch(err => errHandler(res, err));  
+  }).catch(err => defaultErrorHandler(res, err));  
 
 });
 
@@ -119,7 +115,7 @@ router.post('/companyWithShop', tokenPassport.auth,
 
         return db.Company.create(company, {transaction});
       })
-      .catch(err => errHandler(res, err))
+      .catch(err => defaultErrorHandler(res, err))
       .then(result => {
         //insert shop
         company = result.dataValues;
@@ -137,7 +133,7 @@ router.post('/companyWithShop', tokenPassport.auth,
 
         return db.Shop.create(shop, {transaction})
       })
-      .catch(err => errHandler(res, err))
+      .catch(err => defaultErrorHandler(res, err))
       .then((result) => {
         shop = result.dataValues;
         console.log('commit');
@@ -150,7 +146,7 @@ router.post('/companyWithShop', tokenPassport.auth,
       })
       .catch(err=>{
 
-        errHandler(res, err)
+        defaultErrorHandler(res, err)
         return transaction.rollback();
       })
     })

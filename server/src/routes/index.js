@@ -3,6 +3,7 @@ import express from 'express';
 import users from '../controllers/Users';
 import sales from '../controllers/Sales';
 import register from '../controllers/Register';
+import serviceCategory from '../controllers/ServiceCategory';
 
 const router = express.Router();
 
@@ -17,5 +18,6 @@ const router = express.Router();
 router.use('/users', users);
 router.use('/sales', sales);
 router.use('/register', register);
+router.use('/serviceCategory', serviceCategory);
 
 export default router;

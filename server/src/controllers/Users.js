@@ -10,7 +10,7 @@ import { loginPassport, tokenPassport, issueToken } from '../services';
 // import tokenPassport from '../services/tokenPassport';
 // import {issueToken} from '../services/tokenService';
 
-import { Mapper } from '../helpers';
+import { Mapper, defaultErrorHandler } from '../helpers';
 import { User } from '../viewModels';
 
 
@@ -26,10 +26,6 @@ router.use(function (req, res, next) {
   next();
 });
 
-
-const errHandler = (res, err) => {
-  res.status(500).send('err:'+err);
-}
 
 //////////////////////////////////////////////////////
 // /api/users/login
@@ -71,7 +67,7 @@ router.post('/login',
       user: Mapper.map(result.dataValues, User)
     });
 
-  }).catch(err => errHandler(res, err));
+  }).catch(err => defaultErrorHandler(res, err));
 
 });
 
@@ -106,7 +102,7 @@ router.get('/duplicateCheck/:id', (req, res) => {
       userId: id,
       ok: result>0 ? false: true
     });
-  }).catch(err => errHandler(res, err))
+  }).catch(err => defaultErrorHandler(res, err))
 });
 
 
@@ -130,7 +126,7 @@ router.post('/', (req, res) => {
     }
     return db.User.create(user);
   })
-  .catch( err => errHandler(res, err))
+  .catch( err => defaultErrorHandler(res, err))
   .then( result => {
     console.log("result", result);
     if(result){
@@ -142,7 +138,7 @@ router.post('/', (req, res) => {
         phoneNo: result.phoneNo
       });
     }
-  }).catch(err => errHandler(res, err));  
+  }).catch(err => defaultErrorHandler(res, err));  
 
 
 });

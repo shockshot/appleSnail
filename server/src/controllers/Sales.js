@@ -5,10 +5,9 @@ import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
 import tokenPassport from '../services/tokenPassport';
+import { defaultErrorHandler } from '../helpers';
 
 const router = express.Router();
-const env = process.env.NODE_ENV || "development";
-const config = require('../../config/config.json')[env].jwt;
 
 
 /** middlewares */
@@ -23,9 +22,7 @@ router.use(function (req, res, next) {
 // token 확인
 router.use(tokenPassport.auth );
 
-const errHandler = (res, err) => {
-  res.status(200).send('err:'+err);
-}
+
 
 
 //search. 
@@ -54,9 +51,7 @@ router.get('/:id',
       }else{
         res.status(404).send({message: 'there is no data'});
       }
-    }).catch(err => {
-      res.status(500).send({message: 'internal service error'});
-    });
+    }).catch(err => defaultErrorHandler(res, err));
 });
 
 
