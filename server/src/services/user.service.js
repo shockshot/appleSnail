@@ -1,5 +1,5 @@
 import db from '../models';
-import {defaultErrorHandler, Mapper } from '../helpers';
+import {defaultErrorHandler, Mapper, ModelAttributes } from '../helpers';
 import { User } from '../viewModels';
 
 
@@ -11,14 +11,29 @@ export const getUser = (userNo) => {
   db.ShopEmployee.belongsTo(db.Shop, {foreignKey: 'shopNo'});
   
   return db.User.findOne({
-    where: {userNo: userNo},
+    where: {
+      userNo: userNo,
+      del: 0
+    },
+    attributes: ModelAttributes.user,
     include:{
       model: db.Employee,
+      attributes: ModelAttributes.employee,
+      where: {del: 0},
       include: [
-        db.Company,
+        { 
+          model: db.Company,
+          attributes: ModelAttributes.company,
+          where: {del: 0}
+        },
         {
           model: db.ShopEmployee,
-          include: db.Shop
+          where: {del: 0},
+          attributes: ModelAttributes.shopEmployee,
+          include: {
+            model: db.Shop,
+            where: {del: 0}
+          }
         }
       ]
     }
@@ -31,8 +46,8 @@ export const getUser = (userNo) => {
     // console.log('#employee:', employee);
     // console.log('#company:', company);
     // console.log('#shopEmployee:', shopEmployee);
-
-    Mapper.map(user, User);
+    // console.log('#result:', result.constructor.name)
+    console.log('#mapped:', Mapper.map(result, User));
 
     // return {
     //   userNo : user.userNo,

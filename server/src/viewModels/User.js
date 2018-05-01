@@ -1,13 +1,7 @@
-import BaseModel from './BaseModel';
-
-export class User extends BaseModel{
-  userNo;
-  userId;
-  userName;
-  phoneNo;
-  employee;
-
-  static getFieldNames() {
-    return User.prototype
-  }
-}
+export const User = {
+   userNo  : null
+  ,userId  : null
+  ,userName: null
+  ,phoneNo : null
+  ,employee: null
+};
