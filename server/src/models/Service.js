@@ -18,7 +18,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     serviceCategoryNo: {
       type: DataTypes.INTEGER(10).UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'ServiceCategory',
+        key: 'serviceCategoryNo'
+      }
     },
     serviceName: {
       type: DataTypes.STRING(200),

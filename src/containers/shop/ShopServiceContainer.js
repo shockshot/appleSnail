@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+
+import ShopServiceList from 'components/shop/ShopServiceList';
 
 // import { Logger } from 'helpers';
 
@@ -10,7 +13,13 @@ class ShopServiceContainer extends Component {
   render(){
     return(
       <div>
-        {this.constructor.name}
+        <Breadcrumb>
+          <BreadcrumbItem active>서비스관리</BreadcrumbItem>
+        </Breadcrumb>
+
+        {/* {this.constructor.name} */}
+        <ShopServiceList />
+
       </div>
     )
   }
