@@ -12,13 +12,12 @@ export const issueToken = (user) => {
   };
 
   // console.log('##user', user.Employees);
-  if(user.Employees.length){
-    // console.log('employee', );
-    const employee = user.Employees[0].dataValues; 
-
-    const company = employee.Company.dataValues;
-
-    console.log('employee', employee);
+  
+  // console.log('employee', );
+  const employee = user.Employee; 
+  
+  if(employee){
+    const company = employee.Company;
     payload.cn = company.companyNo;
   }
 

@@ -1,7 +1,7 @@
 export const User = {
-   userNo  : null
-  ,userId  : null
-  ,userName: null
-  ,phoneNo : null
-  ,employee: null
+  userNo  : null,
+  userId  : null,
+  userName: null,
+  phoneNo : null,
+  Employee: null
 };

@@ -98,57 +98,69 @@ router.post('/companyWithShop', tokenPassport.auth,
       let company = null;
 
       return db.User.findOne({where: {userNo: req.user.no}})
-      .then(({dataValues}) => {
-        //insert company
-        console.log('dataValues', dataValues);
-        user = dataValues;
+        .then(({dataValues}) => {
+          //insert company
+          console.log('dataValues', dataValues);
+          user = dataValues;
 
-        let company = {
-          companyName: data.companyName,
-          businessNo:  data.businessNo,
-          telNo:       data.telNo,
-          website:     data.website,
-          ownerName:   data.ownerName,
-          addressNo:   '',
-          createdUser: user.userNo
-        }
+          let company = {
+            companyName: data.companyName,
+            businessNo:  data.businessNo,
+            telNo:       data.telNo,
+            website:     data.website,
+            ownerName:   data.ownerName,
+            addressNo:   '',
+            createdUser: user.userNo
+          }
 
-        return db.Company.create(company, {transaction});
-      })
-      .catch(err => defaultErrorHandler(res, err))
-      .then(result => {
-        //insert shop
-        company = result.dataValues;
-        console.log('company insert result:', company);
+          return db.Company.create(company, {transaction});
+        })
+        .catch(err => defaultErrorHandler(res, err))
+        .then(result => {
+          //insert shop
+          company = result.dataValues;
+          console.log('company insert result:', company);
 
-        const shop = { 
-          companyNo:   company.companyNo,
-          businessNo:  company.businessNo,
-          shopName:    data.shopName,
-          openDate:    data.openDate,
-          closeDate:   '99991231',
-          remark:      data.remark,
-          createdUser: user.userNo
-        }
+          const shop = { 
+            companyNo:   company.companyNo,
+            businessNo:  company.businessNo,
+            shopName:    data.shopName,
+            openDate:    data.openDate,
+            closeDate:   '99991231',
+            remark:      data.remark,
+            createdUser: user.userNo
+          }
 
-        return db.Shop.create(shop, {transaction})
-      })
-      .catch(err => defaultErrorHandler(res, err))
-      .then((result) => {
-        shop = result.dataValues;
-        console.log('commit');
-        res.json({
-          shop: shop,
-          company: company
-        });
+          return db.Shop.create(shop, {transaction})
+        })
+        .catch(err => defaultErrorHandler(res, err))
+        .then((result) => {
+          shop = result.dataValues;
 
-        return transaction.commit();
-      })
-      .catch(err=>{
+          const employee = {
+            userNo: user.userNo,
+            companyNo: company.companyNo,
+            position: '대표',
+            joinDate: '00000101',
+            retireDate: '99991231',
+            employeeState: 'OWNER'
+          }
 
-        defaultErrorHandler(res, err)
-        return transaction.rollback();
-      })
+
+
+          // res.json({
+          //   shop: shop,
+          //   company: company
+          // });
+
+          console.log('commit');
+          return transaction.commit();
+        })
+        .catch(err=>{
+
+          defaultErrorHandler(res, err)
+          return transaction.rollback();
+        })
     })
 });
 

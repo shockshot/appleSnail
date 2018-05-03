@@ -29,10 +29,9 @@ router.use(tokenPassport.auth );
 router.get('/',
   (req, res) => {
     const user = req.user;
-    
-    userService.getUser(1);
-    res.send({});
-
+    userService.getUser(user.no).then(result => {
+      res.json(result);
+    }).catch(err => defaultErrorHandler(res, err))
     
 });
 

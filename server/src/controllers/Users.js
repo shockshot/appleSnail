@@ -6,12 +6,13 @@ import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
-import { loginPassport, tokenPassport, issueToken } from '../services';
+import { loginPassport, tokenPassport, issueToken, userService } from '../services';
 // import tokenPassport from '../services/tokenPassport';
 // import {issueToken} from '../services/tokenService';
 
 import { Mapper, defaultErrorHandler } from '../helpers';
 import { User } from '../viewModels';
+
 
 
 const hashRounds = 10;
@@ -34,42 +35,24 @@ router.use(function (req, res, next) {
 router.post('/login', 
   loginPassport.init, loginPassport.auth, 
   (req, res) => {
-
-  const user = req.user;
-  db.User.hasMany(db.Employee, {foreignKey: 'userNo'});
-  db.Employee.belongsTo(db.Company, {foreignKey: 'companyNo'});
-  db.Employee.hasMany(db.ShopEmployee, {foreignKey: 'employeeNo'});
-  db.ShopEmployee.belongsTo(db.Shop, {foreignKey: 'shopNo'});
-
   
-  db.User.findOne({
-    where: {userNo: user.userNo},
-    include:{
-      model: db.Employee,
-      include: [
-        db.Company,
-        {
-          model: db.ShopEmployee,
-          include: db.Shop
-        }
-      ]
-    }
-  }).then(result => {
-    // console.log('#result:', result.dataValues )
-    // issuing token.
-    
-    const token = issueToken(result.dataValues);
-    console.log('#token:', token);
-    
-    res.setHeader('Authorization', token);
-    res.status(200).send({
-      Authorization: token,
-      user: Mapper.map(result.dataValues, User)
-    });
+    userService.getUser(req.user.userNo)
+    .then(result => {
+      // console.log('#result:', result.dataValues )
+      // issuing token.
+      
+      const token = issueToken(result);
+      console.log('#token:', token);
+      
+      res.setHeader('Authorization', token);
+      res.status(200).send({
+        Authorization: token,
+        user: result
+      });
 
-  }).catch(err => defaultErrorHandler(res, err));
-
-});
+    }).catch(err => defaultErrorHandler(res, err));
+  }
+);
 
 
 
