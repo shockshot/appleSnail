@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 import ShopServiceList from 'components/shop/ShopServiceList';
+import * as ServiceCategoryActions from 'actions/ServiceCategoryActions';
 
 // import { Logger } from 'helpers';
 
 class ShopServiceContainer extends Component {
 
+  constructor(props){
+    super(props);
+
+    this.props.getServiceCategoryList();
+  }
 
   render(){
     return(
@@ -18,7 +24,7 @@ class ShopServiceContainer extends Component {
         </Breadcrumb>
 
         {/* {this.constructor.name} */}
-        <ShopServiceList />
+        <ShopServiceList list={this.props.list}/>
 
       </div>
     )
@@ -28,14 +34,15 @@ class ShopServiceContainer extends Component {
 
 
 // export default SalesDetailContainer;
-const mapStateToProps = () => {
+const mapStateToProps = ({serviceCategory}) => {
   return {
+    list : serviceCategory.list
   };
 };
 
 const mapDispatchProps = (dispatch) => {
   return {
-      // handleActions: bindActionCreators(salesActions, dispatch)
+      getServiceCategoryList: bindActionCreators(ServiceCategoryActions.reqList, dispatch)
   };
 };
 

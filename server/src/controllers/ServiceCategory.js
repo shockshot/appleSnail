@@ -3,8 +3,8 @@ import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
 import tokenPassport from '../services/tokenPassport';
-import { defaultErrorHandler } from '../helpers';
-import { userService } from '../services';
+import { defaultErrorHandler, Mapper } from '../helpers';
+import { serviceCategoryService } from '../services';
 
 const router = express.Router();
 
@@ -29,10 +29,11 @@ router.use(tokenPassport.auth );
 router.get('/',
   (req, res) => {
     const user = req.user;
-    userService.getUser(user.no).then(result => {
-      res.json(result);
-    }).catch(err => defaultErrorHandler(res, err))
-    
+    const companyNo = user.cn;
+    serviceCategoryService.getServiceCategoryList(companyNo).then(result => {
+      console.log('######result', result);
+      res.json(Mapper.map(result));
+    }).catch(err => defaultErrorHandler(res, err)) 
 });
 
 

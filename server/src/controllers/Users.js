@@ -40,14 +40,15 @@ router.post('/login',
     .then(result => {
       // console.log('#result:', result.dataValues )
       // issuing token.
+      const user = Mapper.map(result);
       
-      const token = issueToken(result);
+      const token = issueToken(user);
       console.log('#token:', token);
       
       res.setHeader('Authorization', token);
       res.status(200).send({
         Authorization: token,
-        user: result
+        user: user
       });
 
     }).catch(err => defaultErrorHandler(res, err));
@@ -73,6 +74,7 @@ router.get('/checkAuth',
 // GET /api/users/duplicateCheck
 // 아이디 중복 확인
 //////////////////////////////////////////////////////
+/*
 router.get('/duplicateCheck/:id', (req, res) => {
   console.log('req:', req.params.id);
   const id = req.params.id.replace(/[^0-9\.@a-zA-Z\-_]/gi, '');
@@ -87,12 +89,13 @@ router.get('/duplicateCheck/:id', (req, res) => {
     });
   }).catch(err => defaultErrorHandler(res, err))
 });
-
+*/
 
 //////////////////////////////////////////////////////
 // POST /api/users
 // 회원 등록
 //////////////////////////////////////////////////////
+/*
 router.post('/', (req, res) => {
   console.log('req body:', req.body);
   // res.json(req.body);
@@ -124,7 +127,7 @@ router.post('/', (req, res) => {
   }).catch(err => defaultErrorHandler(res, err));  
 
 
-});
+});*/
 
 
 export default router;

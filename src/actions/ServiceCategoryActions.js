@@ -28,7 +28,7 @@ export const reqList = () => (dispatch) => {
   dispatch(createAction(SERVICE_CATEGORY.LIST)());
   return HttpHelper.get(serviceUrl)
     .then(response => {
-      dispatch(createAction(SERVICE_CATEGORY.LIST_SUCCESS)(response));
+      dispatch(createAction(SERVICE_CATEGORY.LIST_SUCCESS)(response.data));
 
     })
     .catch(err => {

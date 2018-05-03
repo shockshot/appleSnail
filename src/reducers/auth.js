@@ -9,7 +9,6 @@ export default handleActions({
     return {
       ...state,
       isLogin: null,
-      userName: null,
       userId: payload.userId,
       Authorization: null,
       status: 0
@@ -19,10 +18,7 @@ export default handleActions({
     return {
       ...state,
       isLogin: true,
-      userNo: payload.userNo,
-      userId: payload.userId,
-      userName: payload.userName,
-      Authorization: payload.Authorization,
+      ...payload,
       status: 1
     }
   },
@@ -30,9 +26,6 @@ export default handleActions({
     return {
       ...state,
       isLogin: false,
-      userNo: null,
-      userId: null,
-      userName: null,
       Authorization: null,
       status: -1
     }

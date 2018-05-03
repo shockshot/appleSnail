@@ -43,6 +43,8 @@ export const loginSuccess = ({Authorization, user}) => {
 			userNo: userInfo.no,
 			userId: userInfo.id,
 			userName: userInfo.nm,
+			company: user.Employee ? user.Employee.Company : null ,
+			shopList: user.Employee ? user.Employee.ShopEmployees.map(shopEmployee=>shopEmployee.Shop) : [],
 			Authorization
 		}
 	}

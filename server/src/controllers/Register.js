@@ -96,6 +96,8 @@ router.post('/companyWithShop', tokenPassport.auth,
       let user = null;
       let shop = null;
       let company = null;
+      let employee = null;
+      let shopEmployee = null;
 
       return db.User.findOne({where: {userNo: req.user.no}})
         .then(({dataValues}) => {
@@ -103,7 +105,7 @@ router.post('/companyWithShop', tokenPassport.auth,
           console.log('dataValues', dataValues);
           user = dataValues;
 
-          let company = {
+          let _company = {
             companyName: data.companyName,
             businessNo:  data.businessNo,
             telNo:       data.telNo,
@@ -113,15 +115,30 @@ router.post('/companyWithShop', tokenPassport.auth,
             createdUser: user.userNo
           }
 
-          return db.Company.create(company, {transaction});
+          return db.Company.create(_company, {transaction});
         })
         .catch(err => defaultErrorHandler(res, err))
         .then(result => {
-          //insert shop
+          //insert employee
           company = result.dataValues;
-          console.log('company insert result:', company);
 
-          const shop = { 
+          const _employee = {
+            userNo: user.userNo,
+            companyNo: company.companyNo,
+            position: '대표',
+            joinDate: '00000101',
+            retireDate: '99991231',
+            employeeState: 'OWNER'
+          }
+
+          return db.Employee.create(_employee, {transaction})
+        })
+        .catch(err => defaultErrorHandler(res, err))
+        .then((result) => {
+          // shop = result.dataValues;
+          employee = result.dataValues;
+
+          const _shop = { 
             companyNo:   company.companyNo,
             businessNo:  company.businessNo,
             shopName:    data.shopName,
@@ -131,28 +148,31 @@ router.post('/companyWithShop', tokenPassport.auth,
             createdUser: user.userNo
           }
 
-          return db.Shop.create(shop, {transaction})
-        })
-        .catch(err => defaultErrorHandler(res, err))
-        .then((result) => {
+          return db.Shop.create(_shop, {transaction})
+
+        }).catch(err => defaultErrorHandler(res, err))
+        .then( result => {
           shop = result.dataValues;
 
-          const employee = {
-            userNo: user.userNo,
-            companyNo: company.companyNo,
-            position: '대표',
-            joinDate: '00000101',
-            retireDate: '99991231',
-            employeeState: 'OWNER'
+          const _shopEmployee = {
+            shopNo : shop.shopNo,
+            employeeNo : employee.employeeNo,
+            owner : user.userName,
+            authority : null,
+            remark : null
           }
 
+          return db.ShopEmployee.create(_shopEmployee, {transaction})
+        }).catch(err => defaultErrorHandler(res, err))
+        .then( result => {
+          shopEmployee = result.dataValues;
 
-
-          // res.json({
-          //   shop: shop,
-          //   company: company
-          // });
-
+          res.json({
+            shop: shop,
+            company: company,
+            employee: employee,
+            shopEmployee: shopEmployee
+          });
           console.log('commit');
           return transaction.commit();
         })

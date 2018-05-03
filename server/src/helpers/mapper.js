@@ -1,7 +1,11 @@
 import models from '../viewModels'
 
 export const map = (result)  => {
-  if(!result) { return null; }
+  if(!result) { 
+    return null; 
+  }else if(result instanceof Array){
+    return result.map(item => map(item));
+  }
 
   const modelName = result.constructor.name;
   const from = result.dataValues;
