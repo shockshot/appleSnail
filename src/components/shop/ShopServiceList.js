@@ -1,7 +1,4 @@
 import React , { Component } from 'react';
-import { Button } from 'reactstrap';
-
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
 
 class ShopServiceList extends Component {
@@ -26,9 +23,8 @@ class ShopServiceList extends Component {
         )) : ''}
         </ul>
 
-        <Button>
-            <FontAwesomeIcon icon={faPlus} />
-        </Button>
+
+
       </div>
     )
   }

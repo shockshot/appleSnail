@@ -31,7 +31,7 @@ router.get('/',
     const user = req.user;
     const companyNo = user.cn;
     serviceCategoryService.getServiceCategoryList(companyNo).then(result => {
-      console.log('######result', result);
+      // console.log('######result', result);
       res.json(Mapper.map(result));
     }).catch(err => defaultErrorHandler(res, err)) 
 });

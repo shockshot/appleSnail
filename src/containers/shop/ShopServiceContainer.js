@@ -3,7 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
+/**components */
 import ShopServiceList from 'components/shop/ShopServiceList';
+import ServiceCategoryForm from 'components/shop/ServiceCategoryForm';
+
 import * as ServiceCategoryActions from 'actions/ServiceCategoryActions';
 
 // import { Logger } from 'helpers';
@@ -25,6 +28,7 @@ class ShopServiceContainer extends Component {
 
         {/* {this.constructor.name} */}
         <ShopServiceList list={this.props.list}/>
+        <ServiceCategoryForm />
 
       </div>
     )
