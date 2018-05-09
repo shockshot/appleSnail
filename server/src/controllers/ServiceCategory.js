@@ -37,5 +37,67 @@ router.get('/',
 });
 
 
+//////////////////////////////////////////////////////
+// /api/serviceCategory/
+// 서비스 카테고리 post
+//////////////////////////////////////////////////////
+router.post('/',
+  (req, res) => {
+
+  const user = req.user;
+  serviceCategoryService.insertServiceCategory(req.body, user.no, user.cn )
+    .then(result => {
+      const serviceCategory = Mapper.map(result);
+      res.send(serviceCategory);
+    })
+    .catch(err => defaultErrorHandler(res, err));
+  
+});
+
+//////////////////////////////////////////////////////
+// /api/serviceCategory/:id
+// 서비스 카테고리 put
+//////////////////////////////////////////////////////
+router.put('/:id',
+  (req, res) => {
+    const user = req.user;
+    const id = req.params.id.replace(/[^0-9]/, '');
+    
+    serviceCategoryService.updateServiceCategory(id, req.body, user.no, user.cn)
+    .then(result => {
+      if(result > 0){
+        res.json({success: true});
+      }else{
+        res.json({success: false});
+      }
+    })
+    .catch(err => defaultErrorHandler(res, err));
+
+});
+
+
+//////////////////////////////////////////////////////
+// /api/serviceCategory/:id
+// 서비스 카테고리 delete
+//////////////////////////////////////////////////////
+router.delete('/:id',
+  (req, res) => {
+    const user = req.user;
+    const id = req.params.id.replace(/[^0-9]/, '');
+    
+    serviceCategoryService.deleteServiceCategory(id, user.no, user.cn)
+    .then(result => {
+      // const serviceCategory = Mapper.map(result);
+      if(result > 0){
+        res.json({success: true});
+      }else{
+        res.json({success: false});
+      }
+    })
+    .catch(err => defaultErrorHandler(res, err));
+
+});
+
+
 
 export default router;

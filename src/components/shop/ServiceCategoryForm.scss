@@ -1,0 +1,20 @@
+button.hiddenBtn, button.edittingBtn{display:none;}
+
+
+.form{
+  input{
+    border:1px solid #FFF;
+    // min-height:38px;
+  }
+  input[readonly]{background-color:rgba(0,0,0,0) }
+}
+
+.form:hover{
+  button.hiddenBtn{display:block;}
+
+}
+
+.edittingForm{
+  button.edittingBtn{display:block;}
+
+}

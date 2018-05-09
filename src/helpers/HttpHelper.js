@@ -27,7 +27,7 @@ const resultHandler = (promise) => {
                 throw new Error('http error:', result.status);
         }
     }).catch(err => {
-        Logger.err('error:', err);
+        Logger.error('error:', err);
     });
 }
 
@@ -58,21 +58,21 @@ export default class HttpHelper {
     static put(url, data, withAuth = true, config = {...this.config}) {
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpPut url:', url);
-        const p = httpClient.put(url, data);
+        const p = httpClient.put(url, data, config);
         return resultHandler(p);
     }
 
     static delete(url, withAuth = true, config = {...this.config}){
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpDelete url:', url);
-        const p = httpClient.delete(url);
+        const p = httpClient.delete(url, config);
         return resultHandler(p);
     }
 
     static patch(url, data, withAuth = true, config = {...this.config}) {
         if(withAuth){ config = addAuth(config); }
         Logger.debug('httpPatch url:', url);
-        const p = httpClient.patch(url, data, config = null);
+        const p = httpClient.patch(url, data, config);
         return resultHandler(p);
     }
 
