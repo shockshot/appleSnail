@@ -1,4 +1,5 @@
 import React , {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import {Form, Input, Label, FormGroup, Button /*, FormFeedback*/} from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -13,7 +14,7 @@ class ServiceCategoryForm extends Component {
   constructor(props){
     super(props);
     this.initialState = {
-      isEditting: props.serviceCategory.isEditting ? true : false,
+      isEditting: props.serviceCategory.isEditting,
       serviceCategoryNo: props.serviceCategory.serviceCategoryNo,
       serviceCategoryName: props.serviceCategory.serviceCategoryName ? props.serviceCategory.serviceCategoryName : '',
       categoryDescription: props.serviceCategory.categoryDescription ? props.serviceCategory.categoryDescription : ''
@@ -21,13 +22,24 @@ class ServiceCategoryForm extends Component {
     this.state = {...this.initialState};
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   Logger.debug('shouldComponentUpdate2', nextProps, nextState);
+  //   return true
+  // }  
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit({
       serviceCategoryNo: this.state.serviceCategoryNo,
       serviceCategoryName: this.state.serviceCategoryName,
-      categoryDescription: this.state.categoryDescription
+      categoryDescription: this.state.categoryDescription,
+      uuid: this.props.serviceCategory.uuid
     });
+  }
+
+  handleEdit = (e) => {
+    // this.setState({isEditting:true});
+    this.props.onEdit(this.props.serviceCategory.uuid);
   }
 
   handleChange = (e) => {
@@ -37,7 +49,8 @@ class ServiceCategoryForm extends Component {
   }
 
   handleCancel = () => {
-    this.setState(this.initialState);
+    // this.setState(this.initialState);
+    this.props.onCancel(this.props.serviceCategory.uuid);
   }
 
   handleDelete = () => {
@@ -50,7 +63,7 @@ class ServiceCategoryForm extends Component {
         <FormGroup>
           <Input name="serviceCategoryName" value={this.state.serviceCategoryName} placeholder={this.state.isEditting?"그룹 이름":''} readOnly={!this.state.isEditting} onChange={this.handleChange}/>
           <Input name="categoryDescription" value={this.state.categoryDescription} placeholder={this.state.isEditting?"설명":''} readOnly={!this.state.isEditting} onChange={this.handleChange}/>
-          <Button className={styles('hiddenBtn')+" btn-circle"} onClick={e=>this.setState({isEditting:true})}>
+          <Button className={styles('hiddenBtn')+" btn-circle"} onClick={this.handleEdit}>
             <FontAwesomeIcon icon={faEdit}/>
           </Button>
           <Button className={styles('hiddenBtn')+" btn-circle"}>
@@ -68,6 +81,14 @@ class ServiceCategoryForm extends Component {
   }
 }
 
+
+ServiceCategoryForm.propTypes = {
+  serviceCategory: PropTypes.object.isRequired
+}
+
+// ServiceCategoryForm.defaultProps = {
+
+// }
 
 
 export default ServiceCategoryForm;

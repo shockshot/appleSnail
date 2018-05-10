@@ -2,8 +2,10 @@
 
 import { HttpHelper, Logger } from 'helpers';
 import { createAction } from 'redux-actions';
+import uuid from 'uuid';
 
 const serviceUrl = '/api/serviceCategory'
+
 
 export const SERVICE_CATEGORY = {
   LIST         : "SERVICE_CATEGORY.LIST_REQUEST",
@@ -11,6 +13,8 @@ export const SERVICE_CATEGORY = {
   LIST_FAILURE : "SERVICE_CATEGORY.LIST_FAILURE",
 
   ADD          : "SERVICE_CATEGORY.ADD",
+  EDIT         : "SERVICE_CATEGORY.EDIT",
+  CANCEL       : "SERVICE_CATEGORY.CANCEL",
 
   POST         : "SERVICE_CATEGORY.POST_REQUEST",
   POST_SUCCESS : "SERVICE_CATEGORY.POST_SUCCESS",
@@ -30,8 +34,15 @@ export const reqList = () => (dispatch) => {
   dispatch(createAction(SERVICE_CATEGORY.LIST)());
   return HttpHelper.get(serviceUrl)
     .then(response => {
-      dispatch(createAction(SERVICE_CATEGORY.LIST_SUCCESS)(response.data));
-
+      if(response.data){
+        const data = response.data.map(item => {
+          return {
+            ...item,
+            uuid: uuid()
+          }
+        })
+        dispatch(createAction(SERVICE_CATEGORY.LIST_SUCCESS)(data));
+      }
     })
     .catch(err => {
       dispatch(createAction(SERVICE_CATEGORY.LIST_FAILURE)());
@@ -40,7 +51,20 @@ export const reqList = () => (dispatch) => {
 }
 
 //add new ServiceCategory
-export const add = createAction(SERVICE_CATEGORY.ADD);
+export const add = () => {
+  return {
+    type: SERVICE_CATEGORY.ADD,
+    payload: {
+      uuid: uuid(),
+      isEditting: true,
+      serviceCategoryNo: null,
+      serviceCategoryName: '',
+      categoryDescription: '',
+    }
+  }
+}
+export const edit = createAction(SERVICE_CATEGORY.EDIT);
+export const cancel = createAction(SERVICE_CATEGORY.CANCEL);
 
 export const reqPost = (serviceCategory) => dispatch => {
   dispatch(createAction(SERVICE_CATEGORY.POST)(serviceCategory));
@@ -55,12 +79,17 @@ export const reqPost = (serviceCategory) => dispatch => {
     })
 }
 
+//put request
 export const reqPut = (serviceCategory) => dispatch => {
   dispatch(createAction(SERVICE_CATEGORY.PUT)(serviceCategory));
   return HttpHelper.put(`${serviceUrl}/${serviceCategory.serviceCategoryNo}`, serviceCategory)
     .then(response => {
-      dispatch(createAction(SERVICE_CATEGORY.PUT_SUCCESS)(response.data));
-
+      Logger.debug('reqPut', response.data);
+      if(response.data.success){
+        dispatch(createAction(SERVICE_CATEGORY.PUT_SUCCESS)(serviceCategory));
+      }else{
+        dispatch(createAction(SERVICE_CATEGORY.PUT_FAILURE)());
+      }
     })
     .catch(err => {
       dispatch(createAction(SERVICE_CATEGORY.PUT_FAILURE)());

@@ -1,12 +1,17 @@
 import React , { Component } from 'react';
-import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { Button } from 'reactstrap';
+// import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
+// import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+// import { Button } from 'reactstrap';
 import ServiceCategoryForm from 'components/shop/ServiceCategoryForm';
 import { Logger } from 'helpers';
 import v4 from 'uuid';
 
 class ShopServiceList extends Component {
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   Logger.debug('shouldComponentUpdate1', nextProps, nextState);
+  //   return nextProps === nextState;
+  // }
 
   render(){
     return(
@@ -18,8 +23,10 @@ class ShopServiceList extends Component {
             <ServiceCategoryForm 
               onSubmit={this.props.onSubmit} 
               onDelete={this.props.onDelete}
+              onEdit={this.props.onEdit}
+              onCancel={this.props.onCancel}
               serviceCategory={serviceCategory} />
-              
+
             {serviceCategory.Services && serviceCategory.Services.length>0 ? (
               <ul>
                 {serviceCategory.Services.map(service => (

@@ -1,6 +1,5 @@
 import { SERVICE_CATEGORY } from 'actions/ServiceCategoryActions';
 import { handleActions } from 'redux-actions';
-import v4 from 'uuid';
 
 const initialState = {};
 
@@ -14,12 +13,7 @@ export default handleActions({
   [SERVICE_CATEGORY.LIST_SUCCESS]: (state, {payload}) => {
     return {
       ...state,
-      list: payload.map(item => {
-        return {
-          ...item,
-          uuid: v4()
-        }
-      })
+      list: payload
     }
   },
   [SERVICE_CATEGORY.LIST_FAILURE]: (state, {payload}) => {
@@ -28,17 +22,34 @@ export default handleActions({
       ...payload
     }
   },
-  [SERVICE_CATEGORY.ADD]: (state, action) => {
+  [SERVICE_CATEGORY.ADD]: (state, {payload}) => {
     return {
       ...state,
-      list: [...state.list, {
-        uuid: v4(),
-        isEditting: true,
-        serviceCategoryNo: null,
-        serviceCategoryName: '',
-        categoryDescription: '',
-
-      }]
+      list: [...state.list, payload]
+    }
+  },
+  [SERVICE_CATEGORY.EDIT]: (state, {payload}) => {
+    const uuid = payload;
+    const list = [...state.list];
+    const idx = list.findIndex(item => item.uuid === uuid);
+    list[idx].isEditting = true;
+    return {
+      ...state,
+      list: list
+    }
+  },
+  [SERVICE_CATEGORY.CANCEL]: (state, {payload}) => {
+    const uuid = payload;
+    const list = [...state.list];
+    const idx = list.findIndex(item => item.uuid === uuid);
+    if(list[idx].serviceCategoryNo){
+      list[idx].isEditting = false;
+    }else{
+      list.splice(idx,1);
+    }
+    return {
+      ...state,
+      list: list
     }
   },
   [SERVICE_CATEGORY.POST]: (state, action) => state,
@@ -50,7 +61,17 @@ export default handleActions({
   [SERVICE_CATEGORY.POST_FAILURE]: (state, action) => state,
 
   [SERVICE_CATEGORY.PUT]: (state, action) => state,
-  [SERVICE_CATEGORY.PUT_SUCCESS]: (state, action) => state,
+  [SERVICE_CATEGORY.PUT_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const serviceCategory = payload;
+    serviceCategory.isEditting = false;
+    const idx = list.findIndex(item => item.uuid === serviceCategory.uuid);
+    list[idx] = serviceCategory;
+    return {
+      ...state,
+      list: list
+    }
+  },
   [SERVICE_CATEGORY.PUT_FAILURE]: (state, action) => state,
 
   [SERVICE_CATEGORY.DEL]: (state, action) => state,

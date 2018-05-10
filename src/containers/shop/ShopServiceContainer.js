@@ -26,10 +26,6 @@ class ShopServiceContainer extends Component {
     this.props.getServiceCategoryList();
   }
 
-  handleAdd = () => {
-    this.props.addNewServiceCategory();
-  }
-
   handleSubmit = (serviceCategory) => {
     // Logger.debug('serviceCategory', serviceCategory);
     if(serviceCategory.serviceCategoryNo){//put
@@ -40,10 +36,6 @@ class ShopServiceContainer extends Component {
 
   }
 
-  handleDelete = (serviceCategoryNo) => {
-    this.props.delServiceCategory(serviceCategoryNo);
-  }
-
   render(){
     return(
       <div>
@@ -51,9 +43,14 @@ class ShopServiceContainer extends Component {
           <BreadcrumbItem active>서비스관리</BreadcrumbItem>
         </Breadcrumb>
 
-        <ShopServiceList list={this.props.list} onSubmit={this.handleSubmit} onDelete={this.handleDelete}/>
+        <ShopServiceList 
+          list={this.props.list} 
+          onSubmit={this.handleSubmit}
+          onEdit={this.props.editServiceCategory}
+          onCancel={this.props.cancelServiceCategory}
+          onDelete={this.props.delServiceCategory}/>
 
-        <Button className="btn-circle" onClick={this.handleAdd}>
+        <Button className="btn-circle" onClick={this.props.addNewServiceCategory}>
           <FontAwesomeIcon icon={faPlus}/>
         </Button>
       </div>
@@ -75,6 +72,8 @@ const mapDispatchProps = (dispatch) => {
   return {
       getServiceCategoryList: bindActionCreators(ServiceCategoryActions.reqList, dispatch),
       addNewServiceCategory: bindActionCreators(ServiceCategoryActions.add, dispatch),
+      editServiceCategory: bindActionCreators(ServiceCategoryActions.edit, dispatch),
+      cancelServiceCategory: bindActionCreators(ServiceCategoryActions.cancel, dispatch),
       postServiceCategory: bindActionCreators(ServiceCategoryActions.reqPost, dispatch),
       putServiceCategory: bindActionCreators(ServiceCategoryActions.reqPut, dispatch),
       delServiceCategory: bindActionCreators(ServiceCategoryActions.reqDel, dispatch),
