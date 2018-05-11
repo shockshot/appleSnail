@@ -52,5 +52,46 @@ export default handleActions({
       list: list
     }
   },
+
+  [SERVICE.POST]: (state, action) => state,
+  [SERVICE.POST_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const service = payload;
+    service.isEditting = false;
+    const idx = list.findIndex(item => item.uuid === service.uuid);
+    list[idx] = service;
+    return {
+      ...state,
+      list: list
+    }
+  },
+  [SERVICE.POST_FAILURE]: (state, action) => state,
+
+  [SERVICE.PUT]: (state, action) => state,
+  [SERVICE.PUT_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const service = payload;
+    const idx = list.findIndex(item => item.uuid === service.uuid);
+    service.isEditting = false;
+    list[idx] = service;
+    return {
+      ...state,
+      list: list
+    }
+  },
+  [SERVICE.PUT_FAILURE]: (state, action) => state,
+
+  [SERVICE.DEL]: (state, action) => state,
+  [SERVICE.DEL_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const service = payload;
+    const idx = list.findIndex(item => item.uuid === service.uuid);
+    list.splice(idx,1);
+    return {
+      ...state,
+      list:list
+    }
+  },
+  [SERVICE.DEL_FAILURE]: (state, action) => state,
 }, initialState);
 

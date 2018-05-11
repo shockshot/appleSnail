@@ -71,7 +71,6 @@ export default handleActions({
     const list = [...state.list];
     const serviceCategory = payload;
     const idx = list.findIndex(item => item.uuid === serviceCategory.uuid);
-    serviceCategory.Services = list[idx].Services;
     serviceCategory.isEditting = false;
     list[idx] = serviceCategory;
     return {

@@ -29,9 +29,10 @@ const ShopServiceList = (props) =>
               {/* {service.serviceName}, {service.price} */}
               <ServiceForm 
                 service={service}
+                onSubmit={service.serviceNo? props.onServiceActions.reqPut : props.onServiceActions.reqPost}
                 onEdit={props.onServiceActions.edit}
                 onCancel={props.onServiceActions.cancel}
-              />
+                onDelett={props.onServiceActions.reqDel}/>
             </li>
           ))}
         </ul>

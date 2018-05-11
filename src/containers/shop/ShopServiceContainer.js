@@ -29,16 +29,6 @@ class ShopServiceContainer extends Component {
     this.props.serviceActions.reqList();
   }
 
-  handleServiceCategorySubmit = (serviceCategory) => {
-    if(serviceCategory.serviceCategoryNo){//put
-      // this.props.putServiceCategory(serviceCategory);
-      this.props.serviceCategoryActions.reqPut(serviceCategory);
-    }else{ // post
-      // this.props.postServiceCategory(serviceCategory);
-      this.props.serviceCategoryActions.reqPost(serviceCategory);
-    }
-  }
-
   render(){
     return(
       <div>
@@ -59,13 +49,10 @@ class ShopServiceContainer extends Component {
       </div>
     )
   }
-
 }
-
 
 // export default SalesDetailContainer;
 const mapStateToProps = ({serviceCategory, service}) => {
-  // Logger.debug('state', serviceCategory.list);
   return {
     serviceCategoryList : serviceCategory.list,
     serviceList: service.list
@@ -74,13 +61,6 @@ const mapStateToProps = ({serviceCategory, service}) => {
 
 const mapDispatchProps = (dispatch) => {
   return {
-      // getServiceCategoryList: bindActionCreators(ServiceCategoryActions.reqList, dispatch),
-      // addNewServiceCategory:  bindActionCreators(ServiceCategoryActions.add, dispatch),
-      // editServiceCategory:    bindActionCreators(ServiceCategoryActions.edit, dispatch),
-      // cancelServiceCategory:  bindActionCreators(ServiceCategoryActions.cancel, dispatch),
-      // postServiceCategory:    bindActionCreators(ServiceCategoryActions.reqPost, dispatch),
-      // putServiceCategory:     bindActionCreators(ServiceCategoryActions.reqPut, dispatch),
-      // delServiceCategory:     bindActionCreators(ServiceCategoryActions.reqDel, dispatch),
       serviceCategoryActions: bindActionCreators(ServiceCategoryActions, dispatch),
       serviceActions: bindActionCreators(ServiceActions, dispatch)
   };

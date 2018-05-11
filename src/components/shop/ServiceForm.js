@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Options} from 'helpers';
+import {Options, Logger} from 'helpers';
 
 import {Form, Input, Label, FormGroup, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -36,8 +36,15 @@ class ServiceForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.props.onSubmit(this.state);
+  }
 
+  handleDelete = (e) => {
+    this.props.onDelete(this.state);
+  }
 
+  componentWillReceiveProps(nextProps){
+    Logger.debug('componentWillReceiveProps', nextProps.service);
   }
 
   render(){

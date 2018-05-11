@@ -25,7 +25,8 @@ export const insertService = (service, userNo, companyNo) => {
 }
 
 export const updateService = (serviceNo, service, userNo, companyNo) => {
-  return db.ServiceCategory.update({
+  console.log('service',service);
+  return db.Service.update({
     serviceName: service.serviceName,
     serviceDescription: service.serviceDescription,
     price: service.price,
