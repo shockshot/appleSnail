@@ -14,6 +14,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 // import ServiceCategoryForm from 'components/shop/ServiceCategoryForm';
 
 import * as ServiceCategoryActions from 'actions/ServiceCategoryActions';
+import * as ServiceActions from 'actions/ServiceActions';
+
 import { Logger } from 'helpers';
 
 // import { Logger } from 'helpers';
@@ -23,17 +25,18 @@ class ShopServiceContainer extends Component {
   constructor(props){
     super(props);
 
-    this.props.getServiceCategoryList();
+    this.props.serviceCategoryActions.reqList();
+    this.props.serviceActions.reqList();
   }
 
-  handleSubmit = (serviceCategory) => {
-    // Logger.debug('serviceCategory', serviceCategory);
+  handleServiceCategorySubmit = (serviceCategory) => {
     if(serviceCategory.serviceCategoryNo){//put
-      this.props.putServiceCategory(serviceCategory);
+      // this.props.putServiceCategory(serviceCategory);
+      this.props.serviceCategoryActions.reqPut(serviceCategory);
     }else{ // post
-      this.props.postServiceCategory(serviceCategory);
+      // this.props.postServiceCategory(serviceCategory);
+      this.props.serviceCategoryActions.reqPost(serviceCategory);
     }
-
   }
 
   render(){
@@ -44,11 +47,11 @@ class ShopServiceContainer extends Component {
         </Breadcrumb>
 
         <ShopServiceList 
-          list={this.props.list} 
-          onSubmit={this.handleSubmit}
-          onEdit={this.props.editServiceCategory}
-          onCancel={this.props.cancelServiceCategory}
-          onDelete={this.props.delServiceCategory}/>
+          serviceCategoryList={this.props.serviceCategoryList} 
+          onServiceCategoryActions={this.props.serviceCategoryActions}
+          serviceList={this.props.serviceList}          
+          onServiceActions={this.props.serviceActions}
+          />
 
         <Button className="btn-circle" onClick={this.props.addNewServiceCategory}>
           <FontAwesomeIcon icon={faPlus}/>
@@ -61,22 +64,25 @@ class ShopServiceContainer extends Component {
 
 
 // export default SalesDetailContainer;
-const mapStateToProps = ({serviceCategory}) => {
+const mapStateToProps = ({serviceCategory, service}) => {
   // Logger.debug('state', serviceCategory.list);
   return {
-    list : serviceCategory.list
+    serviceCategoryList : serviceCategory.list,
+    serviceList: service.list
   };
 };
 
 const mapDispatchProps = (dispatch) => {
   return {
-      getServiceCategoryList: bindActionCreators(ServiceCategoryActions.reqList, dispatch),
-      addNewServiceCategory: bindActionCreators(ServiceCategoryActions.add, dispatch),
-      editServiceCategory: bindActionCreators(ServiceCategoryActions.edit, dispatch),
-      cancelServiceCategory: bindActionCreators(ServiceCategoryActions.cancel, dispatch),
-      postServiceCategory: bindActionCreators(ServiceCategoryActions.reqPost, dispatch),
-      putServiceCategory: bindActionCreators(ServiceCategoryActions.reqPut, dispatch),
-      delServiceCategory: bindActionCreators(ServiceCategoryActions.reqDel, dispatch),
+      // getServiceCategoryList: bindActionCreators(ServiceCategoryActions.reqList, dispatch),
+      // addNewServiceCategory:  bindActionCreators(ServiceCategoryActions.add, dispatch),
+      // editServiceCategory:    bindActionCreators(ServiceCategoryActions.edit, dispatch),
+      // cancelServiceCategory:  bindActionCreators(ServiceCategoryActions.cancel, dispatch),
+      // postServiceCategory:    bindActionCreators(ServiceCategoryActions.reqPost, dispatch),
+      // putServiceCategory:     bindActionCreators(ServiceCategoryActions.reqPut, dispatch),
+      // delServiceCategory:     bindActionCreators(ServiceCategoryActions.reqDel, dispatch),
+      serviceCategoryActions: bindActionCreators(ServiceCategoryActions, dispatch),
+      serviceActions: bindActionCreators(ServiceActions, dispatch)
   };
 };
 

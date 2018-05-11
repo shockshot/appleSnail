@@ -1,66 +1,71 @@
-import React , {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
-import {Form, Input, Label, FormGroup, Button /*, FormFeedback*/} from 'reactstrap';
+import {Options} from 'helpers';
+
+import {Form, Input, Label, FormGroup, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCheck, faMinus, faTimes, faEdit } from '@fortawesome/fontawesome-free-solid';
 
-import { Logger } from 'helpers';
-
 import classNames from 'classnames/bind';
-import scss from './ServiceCategoryForm.scss';
+import scss from './ServiceForm.scss';
 const styles = classNames.bind(scss);
 
-class ServiceCategoryForm extends Component {
+class ServiceForm extends Component {
+
   constructor(props){
     super(props);
     this.initialState = {
-      ...props.serviceCategory,
-      categoryDescription: props.serviceCategory.categoryDescription || ''
+      ...props.service
     };
     this.state = {...this.initialState};
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-  }
-
-  handleEdit = (e) => {
-    // this.setState({isEditting:true});
-    this.props.onEdit(this.props.serviceCategory.uuid);
-  }
-
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]:e.target.value
+    });
   }
 
-  handleCancel = () => {
-    // this.setState(this.initialState);
-    this.props.onCancel(this.props.serviceCategory.uuid);
-  }
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-  handleDelete = () => {
-    this.props.onDelete(this.state);
+
   }
 
   render(){
     return (
       <Form inline onSubmit={this.handleSubmit} className={this.state.isEditting ? styles('edittingForm') : styles('form')}>
         <FormGroup>
-          <Input name="serviceCategoryName" 
-                value={this.state.serviceCategoryName} 
-                placeholder={this.state.isEditting?"그룹 이름":''} 
+          <Input name="serviceName" 
+                value={this.state.serviceName} 
+                placeholder={this.state.isEditting?"서비스명":''} 
                 disabled={!this.state.isEditting} 
                 onChange={this.handleChange}
                 />
-          <Input name="categoryDescription" 
-                value={this.state.categoryDescription} 
+
+          <Input name="serviceDescription" 
+                value={this.state.serviceDescription} 
                 placeholder={this.state.isEditting?"설명":''} 
                 disabled={!this.state.isEditting} 
                 onChange={this.handleChange}/>
+
+          <Input name="price" 
+                type="number"
+                value={this.state.price}
+                placeholder={this.state.isEditting?0:''} 
+                disabled={!this.state.isEditting} 
+                onChange={this.handleChange}
+                />
+
+          <Input name="timeRequired" 
+                type="select"
+                value={this.state.timeRequired}
+                placeholder={this.state.isEditting?0:''} 
+                disabled={!this.state.isEditting} 
+                onChange={this.handleChange}>
+                {Options.spread('timeUnits')}
+          </Input>
+
           <Button className={styles('hiddenBtn')+" btn-circle"} onClick={this.handleEdit}>
             <FontAwesomeIcon icon={faEdit}/>
           </Button>
@@ -79,14 +84,4 @@ class ServiceCategoryForm extends Component {
   }
 }
 
-
-// ServiceCategoryForm.propTypes = {
-//   serviceCategory: PropTypes.object.isRequired
-// }
-
-// ServiceCategoryForm.defaultProps = {
-
-// }
-
-
-export default ServiceCategoryForm;
+export default ServiceForm;

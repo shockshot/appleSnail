@@ -2,11 +2,14 @@ button.hiddenBtn, button.edittingBtn{display:none;}
 
 
 .form{
-  input{
+  input, select{
     border:1px solid rgba(0,0,0,0);
     // min-height:38px;
   }
-  input:disabled{background-color:rgba(0,0,0,0) }
+  input:disabled, select:disabled{
+    background-color:rgba(0,0,0,0) ;
+    -webkit-appearance: none;
+  }
 }
 
 .form:hover{

@@ -3,6 +3,6 @@ export const ServiceCategory = {
   companyNo: null,
   serviceCategoryName: null,
   categoryDescription: null,
-  Services: null
+  // Services: null
   // ,parentServiceCategoryNo: null
 }
