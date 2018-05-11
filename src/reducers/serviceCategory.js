@@ -53,15 +53,7 @@ export default handleActions({
     }
   },
   [SERVICE_CATEGORY.POST]: (state, action) => state,
-  [SERVICE_CATEGORY.POST_SUCCESS]: (state, action) => {
-    return {
-      ...state
-    }
-  },
-  [SERVICE_CATEGORY.POST_FAILURE]: (state, action) => state,
-
-  [SERVICE_CATEGORY.PUT]: (state, action) => state,
-  [SERVICE_CATEGORY.PUT_SUCCESS]: (state, {payload}) => {
+  [SERVICE_CATEGORY.POST_SUCCESS]: (state, {payload}) => {
     const list = [...state.list];
     const serviceCategory = payload;
     serviceCategory.isEditting = false;
@@ -72,10 +64,34 @@ export default handleActions({
       list: list
     }
   },
+  [SERVICE_CATEGORY.POST_FAILURE]: (state, action) => state,
+
+  [SERVICE_CATEGORY.PUT]: (state, action) => state,
+  [SERVICE_CATEGORY.PUT_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const serviceCategory = payload;
+    const idx = list.findIndex(item => item.uuid === serviceCategory.uuid);
+    serviceCategory.Services = list[idx].Services;
+    serviceCategory.isEditting = false;
+    list[idx] = serviceCategory;
+    return {
+      ...state,
+      list: list
+    }
+  },
   [SERVICE_CATEGORY.PUT_FAILURE]: (state, action) => state,
 
   [SERVICE_CATEGORY.DEL]: (state, action) => state,
-  [SERVICE_CATEGORY.DEL_SUCCESS]: (state, action) => state,
+  [SERVICE_CATEGORY.DEL_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const serviceCategory = payload;
+    const idx = list.findIndex(item => item.uuid === serviceCategory.uuid);
+    list.splice(idx,1);
+    return {
+      ...state,
+      list:list
+    }
+  },
   [SERVICE_CATEGORY.DEL_FAILURE]: (state, action) => state,
 }, initialState);
 

@@ -3,6 +3,7 @@
 import { HttpHelper, Logger } from 'helpers';
 import { createAction } from 'redux-actions';
 import uuid from 'uuid';
+import {addMessage} from './ToastActions';
 
 const serviceUrl = '/api/serviceCategory'
 
@@ -70,8 +71,10 @@ export const reqPost = (serviceCategory) => dispatch => {
   dispatch(createAction(SERVICE_CATEGORY.POST)(serviceCategory));
   return HttpHelper.post(serviceUrl, serviceCategory)
     .then(response => {
-      dispatch(createAction(SERVICE_CATEGORY.POST_SUCCESS)(response.data));
-
+      const data = response.data;
+      data.uuid = serviceCategory.uuid;
+      dispatch(createAction(SERVICE_CATEGORY.POST_SUCCESS)(data));
+      dispatch(addMessage('등록 성공'));
     })
     .catch(err => {
       dispatch(createAction(SERVICE_CATEGORY.POST_FAILURE)());
@@ -87,6 +90,7 @@ export const reqPut = (serviceCategory) => dispatch => {
       Logger.debug('reqPut', response.data);
       if(response.data.success){
         dispatch(createAction(SERVICE_CATEGORY.PUT_SUCCESS)(serviceCategory));
+        dispatch(addMessage('수정 성공'));
       }else{
         dispatch(createAction(SERVICE_CATEGORY.PUT_FAILURE)());
       }
@@ -101,8 +105,12 @@ export const reqDel = (serviceCategory) => dispatch => {
   dispatch(createAction(SERVICE_CATEGORY.DEL)(serviceCategory));
   return HttpHelper.delete(`${serviceUrl}/${serviceCategory.serviceCategoryNo}`)
     .then(response => {
-      dispatch(createAction(SERVICE_CATEGORY.DEL_SUCCESS)(response.data));
-
+      if(response.data.success){
+        dispatch(createAction(SERVICE_CATEGORY.DEL_SUCCESS)(serviceCategory.uuid));
+        dispatch(addMessage('삭제 성공'));
+      }else{
+        dispatch(createAction(SERVICE_CATEGORY.DEL_FAILURE)());
+      }
     })
     .catch(err => {
       dispatch(createAction(SERVICE_CATEGORY.DEL_FAILURE)());

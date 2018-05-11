@@ -6,7 +6,7 @@ button.hiddenBtn, button.edittingBtn{display:none;}
     border:1px solid #FFF;
     // min-height:38px;
   }
-  input[readonly]{background-color:rgba(0,0,0,0) }
+  input:disabled{background-color:rgba(0,0,0,0) }
 }
 
 .form:hover{

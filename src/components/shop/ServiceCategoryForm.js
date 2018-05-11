@@ -17,7 +17,8 @@ class ServiceCategoryForm extends Component {
       isEditting: props.serviceCategory.isEditting,
       serviceCategoryNo: props.serviceCategory.serviceCategoryNo,
       serviceCategoryName: props.serviceCategory.serviceCategoryName ? props.serviceCategory.serviceCategoryName : '',
-      categoryDescription: props.serviceCategory.categoryDescription ? props.serviceCategory.categoryDescription : ''
+      categoryDescription: props.serviceCategory.categoryDescription ? props.serviceCategory.categoryDescription : '',
+      uuid: props.serviceCategory.uuid
     };
     this.state = {...this.initialState};
   }
@@ -29,12 +30,7 @@ class ServiceCategoryForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit({
-      serviceCategoryNo: this.state.serviceCategoryNo,
-      serviceCategoryName: this.state.serviceCategoryName,
-      categoryDescription: this.state.categoryDescription,
-      uuid: this.props.serviceCategory.uuid
-    });
+    this.props.onSubmit(this.state);
   }
 
   handleEdit = (e) => {
@@ -54,22 +50,31 @@ class ServiceCategoryForm extends Component {
   }
 
   handleDelete = () => {
-    this.props.onDelete(this.state.serviceCategoryNo);
+    this.props.onDelete(this.state);
   }
 
   render(){
     return (
       <Form inline onSubmit={this.handleSubmit} className={this.state.isEditting ? styles('edittingForm') : styles('form')}>
         <FormGroup>
-          <Input name="serviceCategoryName" value={this.state.serviceCategoryName} placeholder={this.state.isEditting?"그룹 이름":''} readOnly={!this.state.isEditting} onChange={this.handleChange}/>
-          <Input name="categoryDescription" value={this.state.categoryDescription} placeholder={this.state.isEditting?"설명":''} readOnly={!this.state.isEditting} onChange={this.handleChange}/>
+          <Input name="serviceCategoryName" 
+                value={this.state.serviceCategoryName} 
+                placeholder={this.state.isEditting?"그룹 이름":''} 
+                disabled={!this.state.isEditting} 
+                onChange={this.handleChange}
+                />
+          <Input name="categoryDescription" 
+                value={this.state.categoryDescription} 
+                placeholder={this.state.isEditting?"설명":''} 
+                disabled={!this.state.isEditting} 
+                onChange={this.handleChange}/>
           <Button className={styles('hiddenBtn')+" btn-circle"} onClick={this.handleEdit}>
             <FontAwesomeIcon icon={faEdit}/>
           </Button>
-          <Button className={styles('hiddenBtn')+" btn-circle"}>
+          <Button className={styles('hiddenBtn')+" btn-circle"} onClick={this.handleDelete}>
             <FontAwesomeIcon icon={faMinus}/>
           </Button>
-          <Button className={styles('edittingBtn')+" btn-circle"}>
+          <Button className={styles('edittingBtn')+" btn-circle"} type="submit">
             <FontAwesomeIcon icon={faCheck}/>
           </Button>
           <Button className={styles('edittingBtn')+" btn-circle"} onClick={this.handleCancel}>
