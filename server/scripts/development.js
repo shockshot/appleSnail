@@ -2,7 +2,7 @@
 process.env.NODE_ENV = 'development';
 
 var nodemon = require('nodemon');
-nodemon('--exec babel-node --presets=es2016,react ./src/main.js --watch ./src');
+nodemon('--exec babel-node --presets=env,react ./src/main.js --watch ./src');
 
 nodemon.on('start', function() {
   console.log('[nodemon]App has started');

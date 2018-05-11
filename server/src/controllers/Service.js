@@ -1,6 +1,5 @@
 
 import express from 'express';
-import db from '../models';
 import bodyParser from 'body-parser';
 import tokenPassport from '../services/tokenPassport';
 import { defaultErrorHandler, Mapper } from '../helpers';
@@ -24,7 +23,7 @@ router.use(tokenPassport.auth );
 
 //////////////////////////////////////////////////////
 // /api/service/
-// 서비스 카테고리 리스트 + 서비스 리스트
+// 서비스 리스트
 //////////////////////////////////////////////////////
 router.get('/',
   (req, res) => {
@@ -36,6 +35,67 @@ router.get('/',
     }).catch(err => defaultErrorHandler(res, err)) 
 });
 
+
+//////////////////////////////////////////////////////
+// /api/service/
+// 서비스 post
+//////////////////////////////////////////////////////
+router.post('/',
+  (req, res) => {
+
+  const user = req.user;
+  serviceService.insertService(req.body, user.no, user.cn )
+    .then(result => {
+      const serviceCategory = Mapper.map(result);
+      res.send(serviceCategory);
+    })
+    .catch(err => defaultErrorHandler(res, err));
+  
+});
+
+//////////////////////////////////////////////////////
+// /api/service/:id
+// 서비스 카테고리 put
+//////////////////////////////////////////////////////
+router.put('/:id',
+  (req, res) => {
+    const user = req.user;
+    const id = req.params.id.replace(/[^0-9]/, '');
+    
+    serviceService.updateService(id, req.body, user.no, user.cn)
+    .then(result => {
+      if(result > 0){
+        res.json({success: true});
+      }else{
+        res.json({success: false});
+      }
+    })
+    .catch(err => defaultErrorHandler(res, err));
+
+});
+
+
+//////////////////////////////////////////////////////
+// /api/service/:id
+// 서비스 카테고리 delete
+//////////////////////////////////////////////////////
+router.delete('/:id',
+  (req, res) => {
+    const user = req.user;
+    const id = req.params.id.replace(/[^0-9]/, '');
+    
+    serviceService.deleteService(id, user.no, user.cn)
+    .then(result => {
+      // const serviceCategory = Mapper.map(result);
+      if(result > 0){
+        res.json({success: true});
+      }else{
+        res.json({success: false});
+      }
+    })
+    .catch(err => defaultErrorHandler(res, err));
+
+});
 
 
 export default router;

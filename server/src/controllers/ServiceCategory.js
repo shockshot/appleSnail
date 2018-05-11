@@ -1,6 +1,5 @@
 
 import express from 'express';
-import db from '../models';
 import bodyParser from 'body-parser';
 import tokenPassport from '../services/tokenPassport';
 import { defaultErrorHandler, Mapper } from '../helpers';
@@ -24,7 +23,7 @@ router.use(tokenPassport.auth );
 
 //////////////////////////////////////////////////////
 // /api/serviceCategory/
-// 서비스 카테고리 리스트 + 서비스 리스트
+// 서비스 카테고리 리스트
 //////////////////////////////////////////////////////
 router.get('/',
   (req, res) => {
