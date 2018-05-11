@@ -24,7 +24,7 @@ const ShopServiceList = (props) =>
         serviceCategory={serviceCategory} />
 
         <ul>
-          {props.serviceList.filter(service=>service.serviceCategoryNo===serviceCategory.serviceCategoryNo).map(service => (
+          {props.serviceList ? props.serviceList.filter(service=>service.serviceCategoryNo===serviceCategory.serviceCategoryNo).map(service => (
             <li key={uuid()}>
               {/* {service.serviceName}, {service.price} */}
               <ServiceForm 
@@ -34,7 +34,7 @@ const ShopServiceList = (props) =>
                 onCancel={props.onServiceActions.cancel}
                 onDelett={props.onServiceActions.reqDel}/>
             </li>
-          ))}
+          )): ''}
         </ul>
 
         {serviceCategory.serviceCategoryNo ? (
