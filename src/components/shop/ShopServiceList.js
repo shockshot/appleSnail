@@ -1,7 +1,9 @@
 import React , { Component } from 'react';
-// import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
-// import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-// import { Button } from 'reactstrap';
+
+import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Button } from 'reactstrap';
+
 import ServiceCategoryForm from 'components/shop/ServiceCategoryForm';
 import ServiceForm from 'components/shop/ServiceForm';
 
@@ -25,10 +27,20 @@ const ShopServiceList = (props) =>
           {props.serviceList.filter(service=>service.serviceCategoryNo===serviceCategory.serviceCategoryNo).map(service => (
             <li key={uuid()}>
               {/* {service.serviceName}, {service.price} */}
-              <ServiceForm service={service}/>
+              <ServiceForm 
+                service={service}
+                onEdit={props.onServiceActions.edit}
+                onCancel={props.onServiceActions.cancel}
+              />
             </li>
           ))}
         </ul>
+
+        {serviceCategory.serviceCategoryNo ? (
+        <Button className="btn-circle" onClick={()=>props.onServiceActions.add(serviceCategory.serviceCategoryNo)}>
+          <FontAwesomeIcon icon={faPlus}/>
+        </Button>
+        ) : ''}
       
     </li>
   )) : ''}

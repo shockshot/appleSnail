@@ -26,6 +26,14 @@ class ServiceForm extends Component {
     });
   }
 
+  handleEdit = (e) => {
+    this.props.onEdit(this.state.uuid);
+  }
+
+  handleCancel = (e) => {
+    this.props.onCancel(this.state.uuid);
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 

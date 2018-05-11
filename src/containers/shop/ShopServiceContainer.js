@@ -53,7 +53,7 @@ class ShopServiceContainer extends Component {
           onServiceActions={this.props.serviceActions}
           />
 
-        <Button className="btn-circle" onClick={this.props.addNewServiceCategory}>
+        <Button className="btn-circle" onClick={this.props.serviceCategoryActions.add}>
           <FontAwesomeIcon icon={faPlus}/>
         </Button>
       </div>

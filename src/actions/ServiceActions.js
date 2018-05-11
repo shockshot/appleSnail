@@ -52,15 +52,18 @@ export const reqList = () => (dispatch) => {
 }
 
 //add new ServiceCategory
-export const add = () => {
+export const add = (serviceCategoryNo) => {
   return {
     type: SERVICE.ADD,
     payload: {
       uuid: uuid(),
+      serviceCategoryNo: serviceCategoryNo,
       isEditting: true,
-      serviceCategoryNo: null,
-      serviceCategoryName: '',
-      categoryDescription: '',
+      serviceNo: null,
+      serviceName: '',
+      serviceDescription: '',
+      price:0,
+      timeRequired:0
     }
   }
 }

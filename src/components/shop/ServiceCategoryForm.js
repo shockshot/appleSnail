@@ -39,7 +39,7 @@ class ServiceCategoryForm extends Component {
 
   handleCancel = () => {
     // this.setState(this.initialState);
-    this.props.onCancel(this.props.serviceCategory.uuid);
+    this.props.onCancel(this.state.uuid);
   }
 
   handleDelete = () => {
