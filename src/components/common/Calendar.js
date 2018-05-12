@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { DateUtils } from 'utils';
 import classNames from 'classnames/bind';
 import styles from './Calendar.scss';
-import v4 from 'uuid';
 
+import {Form, Input, Label, FormGroup, Button /*, FormFeedback*/} from 'reactstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/fontawesome-free-solid';
+
+import uuid from 'uuid';
 const st = classNames.bind(styles);
+
+
+
 const weekTitles = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 class Calendar extends Component {
@@ -22,7 +29,15 @@ class Calendar extends Component {
   render(){
     return (
       <div className={st('calendar')}>
-        <h2>{this.viewDay.getFullYear()}년 {this.viewDay.getMonth()+1}월</h2>
+        <h2>
+          <Button className="btn-circle">
+            <FontAwesomeIcon icon={faAngleLeft}/>
+          </Button>
+          {this.viewDay.getFullYear()}년 {this.viewDay.getMonth()+1}월
+          <Button className="btn-circle">
+            <FontAwesomeIcon icon={faAngleRight}/>
+          </Button>
+        </h2>
         <ul className={st("calendar-week")}>
           <li>
             <ul className={st("calendar-header")}>
@@ -32,11 +47,11 @@ class Calendar extends Component {
             </ul>
           </li>
           {this.datesArray.map(week => 
-          <li key={v4()}>
+          <li key={uuid()}>
             <ul>
               {week.map(date => 
                 <li className={st("cal-col", "cal-day") + ' '+(DateUtils.isToday(date)?st('today'):'' )} 
-                  key={v4()}
+                  key={uuid()}
                   >
                   <div className={st("dateLabel")}>
                     {date.getDate()}

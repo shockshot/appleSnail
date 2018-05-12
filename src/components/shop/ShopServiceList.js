@@ -32,7 +32,7 @@ const ShopServiceList = (props) =>
                 onSubmit={service.serviceNo? props.onServiceActions.reqPut : props.onServiceActions.reqPost}
                 onEdit={props.onServiceActions.edit}
                 onCancel={props.onServiceActions.cancel}
-                onDelete={props.onServiceActions.reqDel}/>
+                onDelett={props.onServiceActions.reqDel}/>
             </li>
           )): ''}
         </ul>
