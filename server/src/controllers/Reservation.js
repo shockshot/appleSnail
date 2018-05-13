@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import tokenPassport from '../services/tokenPassport';
 import { defaultErrorHandler, Mapper } from '../helpers';
-import { serviceService } from '../services';
+import { reservationService } from '../services';
 
 const router = express.Router();
 
@@ -29,12 +29,20 @@ router.post('/search',
   (req, res) => {
     const user = req.user;
     const companyNo = user.cn;
+
+    const criteria = {
+      companyNo
+    }
+
+    reservationService.getReservationList(criteria).then(result => {
+      res.send(result);
+    }).catch(err=> defaultErrorHandler(res, err));
+    
     // serviceService.getServiceList(companyNo).then(result => {
     //   // console.log('######result', result);
     //   res.json(Mapper.map(result));
     // }).catch(err => defaultErrorHandler(res, err)) 
-
-    res.json({});
+    
 });
 
 
