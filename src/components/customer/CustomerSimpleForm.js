@@ -14,24 +14,22 @@ class CustomerSimpleForm extends Component {
 
   constructor(props){
     super(props);
-    // this.initialState = {
-    //   ...props.customer
-    // };
-    // this.state = {...this.initialState};
+    this.initialState = {
+      sex: 'FEMALE'
+    };
+    this.state = {...this.initialState};
   }
 
   handleChange = (e) => {
     this.setState({
       [e.target.name]:e.target.value
     });
-    
-    Logger.debug('state:', this.state)
+    // Logger.debug('state:', this.state)
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-
-    
+    this.props.onSubmit(this.state);
   }
 
 

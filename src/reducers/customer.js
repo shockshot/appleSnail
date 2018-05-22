@@ -22,4 +22,15 @@ export default handleActions({
       ...payload
     }
   },
+
+  [CUSTOMER.POST]: (state, action) => state,
+  [CUSTOMER.POST_SUCCESS]: (state, {payload}) => {
+    return {
+      ...state,
+      list: [...state.list, payload]
+    }
+  },
+  [CUSTOMER.POST_FAILURE]: (state, action) => state,
+
+
 }, initialState);

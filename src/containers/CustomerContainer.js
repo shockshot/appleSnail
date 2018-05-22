@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reqList } from 'actions/CustomerActions';
+import * as CustomerActions from 'actions/CustomerActions';
 
 import CustomerList from 'components/customer/CustomerList';
 import CustomerSimpleForm from 'components/customer/CustomerSimpleForm';
@@ -19,7 +19,7 @@ class CustomerContainer extends Component {
   render(){
     return (
       <div>
-        <CustomerSimpleForm />
+        <CustomerSimpleForm onSubmit={this.props.postCustomer}/>
         <CustomerList dataList={this.props.customerList}/>
       </div>
     )
@@ -36,7 +36,9 @@ const mapStateToProps = ({customer}) => {
 
 const mapDispatchProps = (dispatch) => {
   return {
-    getCustomerList: () => dispatch(reqList())
+    // getCustomerList: () => dispatch(reqList())
+    getCustomerList: bindActionCreators(CustomerActions.reqList, dispatch),
+    postCustomer: bindActionCreators(CustomerActions.reqPost, dispatch)
   };
 };
 

@@ -5,6 +5,7 @@ import tokenPassport from '../services/tokenPassport';
 import { defaultErrorHandler, Mapper } from '../helpers';
 // import { reservationService } from '../services';
 import { customerService } from '../services';
+import { map } from '../helpers/mapper';
 
 const router = express.Router();
 
@@ -36,10 +37,42 @@ router.post('/search',
     }
 
     customerService.getCustomerList(criteria).then(result => {
-      res.send(result);
+      if(!result){
+        res.status(204).send({message: 'there is no data'});
+      }else{
+        // const data = result.map(result => Mapper.map(result.dataValues) );
+        res.json(Mapper.map(result));
+      }
     }).catch(err=> defaultErrorHandler(res, err));
     
 });
 
+
+router.post('/',
+  (req, res) => {
+    const user = req.user;
+    const companyNo = user.cn;
+    const customer = req.body;
+
+    console.log('user', user);
+
+    customer.companyNo = companyNo;
+    customer.managerNo = customer.managerNo | user.no;
+    customer.createdUser = user.no;
+
+    
+    customerService.insertCustomerList(customer).then(result => {
+      if(!result){
+        res.status(204).send({message: 'there is no data'});
+      }else{
+        res.status(200).json(Mapper.map(result));
+      }
+    }).catch(err=> defaultErrorHandler(res, err));
+
+    // const customer = {
+    //   companyNo
+    // }
+
+});
 
 export default router;

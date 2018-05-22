@@ -3,7 +3,7 @@
 import { HttpHelper, Logger } from 'helpers';
 import { createAction } from 'redux-actions';
 import uuid from 'uuid';
-// import {addMessage} from './ToastActions';
+import {addMessage} from './ToastActions';
 
 const serviceUrl = '/api/customers'
 
@@ -12,6 +12,11 @@ export const CUSTOMER = {
   LIST         : "CUSTOMER.LIST_REQUEST",
   LIST_SUCCESS : "CUSTOMER.LIST_SUCCESS",
   LIST_FAILURE : "CUSTOMER.LIST_FAILURE",
+
+  POST         : "CUSTOMER.POST_REQUEST",
+  POST_SUCCESS : "CUSTOMER.POST_SUCCESS",
+  POST_FAILURE : "CUSTOMER.POST_FAILURE",
+  
 }
 
 //request list
@@ -33,4 +38,22 @@ export const reqList = (criteria = {}) => (dispatch) => {
       dispatch(createAction(CUSTOMER.LIST_FAILURE)());
       Logger.error('error:', err);
     })
+}
+
+
+export const reqPost = (customer) => (dispatch) => {
+  dispatch(createAction(CUSTOMER.POST)());
+  return HttpHelper.post(serviceUrl, customer)
+  .then(response => {
+    if(response.data){
+      const data = response.data;
+      data.uuid = uuid();
+      dispatch(createAction(CUSTOMER.POST_SUCCESS)(data));
+      dispatch(addMessage('등록 성공'));
+    }
+  })
+  .catch(err => {
+    dispatch(createAction(CUSTOMER.POST_FAILURE)());
+    Logger.error('error:', err);
+  })
 }
