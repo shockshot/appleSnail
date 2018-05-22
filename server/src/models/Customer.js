@@ -44,6 +44,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(2000),
       allowNull: true
     },
+    managerNo: {
+      type: DataTypes.INTEGER(10).UNSIGNED,
+      allowNull: true,
+      references: {
+        model: 'Employee',
+        key: 'employeeNo'
+      }
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: true,

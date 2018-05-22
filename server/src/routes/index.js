@@ -6,6 +6,7 @@ import register from '../controllers/Register';
 import serviceCategory from '../controllers/ServiceCategory';
 import service from '../controllers/Service';
 import reservation from '../controllers/Reservation';
+import customer from '../controllers/Customer';
 
 const router = express.Router();
 
@@ -23,5 +24,6 @@ router.use('/register', register);
 router.use('/serviceCategory', serviceCategory);
 router.use('/service', service);
 router.use('/reservation', reservation);
+router.use('/customers', customer);
 
 export default router;

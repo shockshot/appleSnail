@@ -10,7 +10,7 @@ import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, Breadcrumb
 
 class SalesList extends Component {
 
-    constructor(props){
+    constructor(props = {}){
         super(props);
 
         this.state = {

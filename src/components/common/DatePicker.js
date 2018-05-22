@@ -10,9 +10,9 @@ const DatePicker = ({dateFormat = 'YYYYMMDD', name, selected = (new Date()), onC
   selected={ selected instanceof Date ? moment(selected) :  moment(selected, dateFormat)  }
   onChange={(e) => {
     onChange({
-      selectedDate: e.format(dateFormat),
+      selectedDate: e ? e.format(dateFormat) : null,
       name: name,
-      target: { name: name , value: e.format(dateFormat)}
+      target: { name: name , value: e ? e.format(dateFormat) : null }
     });
   }}
   name={name}

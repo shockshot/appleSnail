@@ -1,0 +1,33 @@
+.customerItem:nth-child(1){
+  // margin-top:0;
+}
+.customerItem {
+  border:1px solid #ddd;
+  margin-top: 1rem;
+  padding:0.5rem;
+
+  .customerNo{
+
+  }
+  
+  .customerName{
+    display:inline-block;
+  }
+
+  .buttons{
+    display:none;
+    position: relative;
+    float:right;
+  }
+
+  .sex{
+    color:#def;
+  }
+}
+
+.customerItem:hover{
+  .buttons{
+    display:block;
+  }
+}
+
