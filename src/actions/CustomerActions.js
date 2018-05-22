@@ -16,6 +16,10 @@ export const CUSTOMER = {
   POST         : "CUSTOMER.POST_REQUEST",
   POST_SUCCESS : "CUSTOMER.POST_SUCCESS",
   POST_FAILURE : "CUSTOMER.POST_FAILURE",
+
+  DEL         : "CUSTOMER.DEL_REQUEST",
+  DEL_SUCCESS : "CUSTOMER.DEL_SUCCESS",
+  DEL_FAILURE : "CUSTOMER.DEL_FAILURE",
   
 }
 
@@ -54,6 +58,24 @@ export const reqPost = (customer) => (dispatch) => {
   })
   .catch(err => {
     dispatch(createAction(CUSTOMER.POST_FAILURE)());
+    Logger.error('error:', err);
+  })
+}
+
+
+
+export const reqDel = (customer) => (dispatch) => {
+
+  dispatch(createAction(CUSTOMER.DEL)());
+  return HttpHelper.delete( `${serviceUrl}/${customer.customerNo}`)
+  .then(response => {
+    if(response.data.success){
+      dispatch(createAction(CUSTOMER.DEL_SUCCESS)(customer.uuid));
+      dispatch(addMessage('삭제 성공'));
+    }
+  })
+  .catch(err => {
+    dispatch(createAction(CUSTOMER.DEL_FAILURE)());
     Logger.error('error:', err);
   })
 }

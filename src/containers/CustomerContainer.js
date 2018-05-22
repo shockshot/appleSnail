@@ -16,11 +16,16 @@ class CustomerContainer extends Component {
 
   }
 
+  handleDelete = (customer) => {
+    // Logger.debug('handleDelete', customer);
+    this.props.delCustomer(customer);
+  }
+
   render(){
     return (
       <div>
         <CustomerSimpleForm onSubmit={this.props.postCustomer}/>
-        <CustomerList dataList={this.props.customerList}/>
+        <CustomerList dataList={this.props.customerList} onDelete={this.handleDelete}/>
       </div>
     )
   }
@@ -38,7 +43,8 @@ const mapDispatchProps = (dispatch) => {
   return {
     // getCustomerList: () => dispatch(reqList())
     getCustomerList: bindActionCreators(CustomerActions.reqList, dispatch),
-    postCustomer: bindActionCreators(CustomerActions.reqPost, dispatch)
+    postCustomer: bindActionCreators(CustomerActions.reqPost, dispatch),
+    delCustomer: bindActionCreators(CustomerActions.reqDel, dispatch)
   };
 };
 

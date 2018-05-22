@@ -7,7 +7,7 @@ const styles = classNames.bind(require('./CustomerList.scss'));
 const CustomerList = (props) => 
 <ul className={styles('customerList')}>
   { props.dataList ? props.dataList.map(item => 
-    <CustomerItem customer={item} key={item.uuid}/>
+    <CustomerItem customer={item} key={item.uuid} onDelete={ e => props.onDelete(item)}/>
   ) : '등록된 고객이 없습니다.'}
 </ul>
 

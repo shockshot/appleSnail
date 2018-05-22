@@ -24,8 +24,8 @@ router.use(tokenPassport.auth );
 
 
 //////////////////////////////////////////////////////
-// /api/service/
-// 서비스 리스트
+// /api/customers/search
+// 고객 리스트
 //////////////////////////////////////////////////////
 router.post('/search',
   (req, res) => {
@@ -47,7 +47,10 @@ router.post('/search',
     
 });
 
-
+//////////////////////////////////////////////////////
+// /api/customers/
+// 고객 등록
+//////////////////////////////////////////////////////
 router.post('/',
   (req, res) => {
     const user = req.user;
@@ -61,7 +64,7 @@ router.post('/',
     customer.createdUser = user.no;
 
     
-    customerService.insertCustomerList(customer).then(result => {
+    customerService.insertCustomer(customer).then(result => {
       if(!result){
         res.status(204).send({message: 'there is no data'});
       }else{
@@ -69,9 +72,28 @@ router.post('/',
       }
     }).catch(err=> defaultErrorHandler(res, err));
 
-    // const customer = {
-    //   companyNo
-    // }
+});
+
+
+//////////////////////////////////////////////////////
+// /api/customers/:customerNo
+// 고객 삭제
+//////////////////////////////////////////////////////
+router.delete('/:id',
+  (req, res) => {
+    const user = req.user;
+    const id = req.params.id.replace(/[^0-9]/, '');
+    
+    customerService.deleteCustomer(id, user.cn, user.no)
+    .then(result => {
+      // const serviceCategory = Mapper.map(result);
+      if(result > 0){
+        res.json({success: true});
+      }else{
+        res.json({success: false});
+      }
+    })
+    .catch(err => defaultErrorHandler(res, err));
 
 });
 

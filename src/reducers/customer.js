@@ -32,5 +32,17 @@ export default handleActions({
   },
   [CUSTOMER.POST_FAILURE]: (state, action) => state,
 
+  [CUSTOMER.DEL]: (state, action) => state,
+  [CUSTOMER.DEL_SUCCESS]: (state, {payload}) => {
+    const list = [...state.list];
+    const idx = list.findIndex(item => item.uuid === payload);
+    list.splice(idx,1);
+    return {
+      ...state,
+      list:list
+    }
+  },
+  [CUSTOMER.DEL_FAILURE]: (state, action) => state,
+
 
 }, initialState);

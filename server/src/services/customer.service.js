@@ -11,7 +11,7 @@ export const getCustomerList = (criteria) => {
 }
 
 
-export const insertCustomerList = (customer) => {
+export const insertCustomer = (customer) => {
   return db.Customer.count({
     where: {
       companyNo: customer.companyNo,
@@ -27,5 +27,17 @@ export const insertCustomerList = (customer) => {
     }
   })
 
-  // return db.Customer.create(customer);
+}
+
+export const deleteCustomer = (customerNo, companyNo, userNo) => {
+  return db.Customer.update({
+    del: 1,
+    updatedUser: userNo
+  }, {
+    where: {
+      customerNo: customerNo,
+      companyNo: companyNo,
+      del: 0
+    }
+  })
 }

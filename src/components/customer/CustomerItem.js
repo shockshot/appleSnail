@@ -13,7 +13,7 @@ const styles = classNames.bind(require('./CustomerItem.scss'));
 const CustomerItem = (props) => 
 <li className={styles('customerItem')}>
   <div className={styles('buttons')}>
-    <Button className={styles('hiddenBtn')+" btn-circle"} onClick={this.handleEdit}>
+    <Button className={styles('hiddenBtn')+" btn-circle"} onClick={props.onDelete}>
       <FontAwesomeIcon icon={faTrashAlt}/>
     </Button>
   </div>
