@@ -17,9 +17,9 @@ export const SALES = {
   REGISTER_SUCCESS:   "SALES.REGISTER_SUCCESS",
   REGISTER_FAILURE:   "SALES.REGISTER_FAILURE",
 
-  POST:           "SALES_POST",
-  PUT:            "SALES_PUT",
-  DELETE:         "SALES_DELETE",
+  POST:               "SALES_POST",
+  PUT:                "SALES_PUT",
+  DELETE:             "SALES_DELETE",
 }
 
 export const defaultSearchCondition = {

@@ -1,5 +1,6 @@
 $header-background:#ccc;
 $border-color:#ddd;
+$btn-color: #666;
 
 .calendar ul{
   list-style-type: none;
@@ -38,8 +39,31 @@ li.cal-day {
     text-align:center;
     min-height:5rem;
     width:1rem;
+    display:inline-block;
+  }
+  >div.dateContent{
+    width:calc(100% - 1rem);
+    display:inline-block;
+  }
+  >div{ 
+    .btn-trans{
+      background-color: rgba($btn-color, 0.1);
+      border:1px solid;
+      border-color: rgba($btn-color, 0.05);
+    }
   }
 }
+
+li.cal-day:hover{
+  >div{
+    .btn-trans{
+      background-color: rgba($btn-color, 1.0);
+      border:1px solid;
+      border-color: rgba($btn-color, 1.0);
+    }
+  }
+}
+
 li.cal-day.today{
   background-color:#ffa
 }

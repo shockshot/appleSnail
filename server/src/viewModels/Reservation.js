@@ -3,7 +3,7 @@ export const Reservation = {
   shopNo: null,
   customerNo: null,
   customerName: null,
-  phoneNo: null,
+  phoneNumber: null,
   employeeNo: null,
   reservationStatus: null,
   reservationDateTime: null,

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import DefaultPageTemplate from 'containers/DefaultPageTemplate';
-// import { DateUtils } from '../utils/DateUtils';
-import Calendar from 'components/common/Calendar';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import ReservationContainer from 'containers/ReservationContainer';
 
 class Reservation extends Component {
 
@@ -15,7 +14,7 @@ class Reservation extends Component {
                 <BreadcrumbItem active>예약관리</BreadcrumbItem>
             </Breadcrumb>
 
-            <Calendar viewDay={new Date()}/>
+            <ReservationContainer />
 
             </DefaultPageTemplate>
         );

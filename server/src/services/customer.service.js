@@ -29,7 +29,7 @@ export const insertCustomer = (customer) => {
 
 }
 
-export const deleteCustomer = (customerNo, companyNo, userNo) => {
+export const deleteCustomer = (customerNo, userNo, companyNo) => {
   return db.Customer.update({
     del: 1,
     updatedUser: userNo

@@ -5,7 +5,7 @@ import styles from './Calendar.scss';
 
 import {Form, Input, Label, FormGroup, Button /*, FormFeedback*/} from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/fontawesome-free-solid';
+import { faAngleLeft, faAngleRight, faPlus } from '@fortawesome/fontawesome-free-solid';
 
 import uuid from 'uuid';
 const st = classNames.bind(styles);
@@ -21,9 +21,7 @@ class Calendar extends Component {
     this.today = new Date();
     this.viewDay = props.viewDay;
     const firstDate = DateUtils.getFirstDateOfCalendar(this.viewDay);
-    const lastDate = DateUtils.getLastDateOfCalendar(this.viewDay);
-    const counts = DateUtils.countDaysBetween(firstDate, lastDate)+1;
-    this.datesArray = DateUtils.getCalendarArray(firstDate, counts);
+    this.datesArray = DateUtils.getCalendarArray(firstDate, DateUtils.countDaysBetween(firstDate, DateUtils.getLastDateOfCalendar(this.viewDay))+1);
   }
 
   render(){
@@ -56,8 +54,13 @@ class Calendar extends Component {
                   <div className={st("dateLabel")}>
                     {date.getDate()}
                   </div>
-                  <div>
+                  <div className={st("dateContent")}>
                     
+                  </div>
+                  <div>
+                    <Button className={'btn-circle-sm '+st('btn-trans')} onClick={this.props.onNewReservation} >
+                      <FontAwesomeIcon icon={faPlus}/>
+                    </Button>
                   </div>
                 </li>
               )}

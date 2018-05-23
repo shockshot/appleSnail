@@ -84,7 +84,7 @@ router.delete('/:id',
     const user = req.user;
     const id = req.params.id.replace(/[^0-9]/, '');
     
-    customerService.deleteCustomer(id, user.cn, user.no)
+    customerService.deleteCustomer(id, user.no, user.cn)
     .then(result => {
       // const serviceCategory = Mapper.map(result);
       if(result > 0){
