@@ -35,7 +35,7 @@ router.post('/search',
     }
 
     reservationService.getReservationList(criteria).then(result => {
-      res.send(result);
+      res.send(Mapper.map(result));
     }).catch(err=> defaultErrorHandler(res, err));
     
     // serviceService.getServiceList(companyNo).then(result => {

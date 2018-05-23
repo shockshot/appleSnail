@@ -16,7 +16,8 @@ export const getReservationList = (criteria) => {
       include: {
         model: db.Service,
         where: {del:0}
-      }
+      },
+      required: false
     },{
       model: db.Shop,
       where: {del:0, companyNo: criteria.companyNo}

@@ -13,5 +13,6 @@ export const Reservation = {
   reservationMethod: null,
   regDate: null,
   remark: null,
-  ReservationServices: null
+  ReservationServices: null,
+  Shop: null
 }

@@ -7,18 +7,32 @@ import { faSearch } from '@fortawesome/fontawesome-free-solid';
 
 class ReservationForm extends Component {
 
-  toggle = () => {}
+  constructor(props){
+    super(props);
+    this.state = {
+      reservationDate: props.reservationDate,
+      reservationTime: props.reservationTime
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({...nextProps});
+  }
+
+  handleChange = (e) => {
+    
+  }
 
   render(){
     return (
-      <Modal isOpen={this.props.isOpened} toggle={this.props.toggle} centered={true}>
+      <Modal isOpen={this.props.isOpened} toggle={this.props.toggle} centered={true} fade={false} >
         <ModalHeader toggle={this.props.toggle}>예약 등록</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup row>
                 <Label sm={3}>예약일시</Label>
                 <Col sm={4}>
-                  <DatePicker />
+                  <DatePicker selected={this.state.reservationDate} name="reservaionDate" onChange={this.handleChange} />
                 </Col>
                 <Col sm={2}>
                   <Input type="select">
@@ -27,6 +41,13 @@ class ReservationForm extends Component {
                     <option>11시</option>
                     <option>12시</option>
                     <option>13시</option>
+                    <option>14시</option>
+                    <option>15시</option>
+                    <option>16시</option>
+                    <option>17시</option>
+                    <option>18시</option>
+                    <option>19시</option>
+                    <option>20시</option>
                   </Input>
                 </Col>
                 <Col sm={2}>
@@ -52,7 +73,7 @@ class ReservationForm extends Component {
                       <Input placeholder="휴대폰번호" name="phoneNumber"/>
                     </Col>
                     <Col sm={2}>
-                      <Button>
+                      <Button type="button">
                         <FontAwesomeIcon icon={faSearch}/>
                       </Button>
                     </Col>

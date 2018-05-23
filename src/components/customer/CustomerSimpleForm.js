@@ -42,6 +42,7 @@ class CustomerSimpleForm extends Component {
             <Input name="customerName" 
                   placeholder="성명" 
                   onChange={this.handleChange}
+                  required
                   />
           </Col>
           <Label for="phoneNumber" sm={1}>휴대폰</Label>
@@ -49,6 +50,7 @@ class CustomerSimpleForm extends Component {
             <Input name="phoneNumber" 
                   placeholder="01012345678" 
                   onChange={this.handleChange}
+                  required
                   />
           </Col>
           <Label for="birthDate" sm={1}>생년월일</Label>

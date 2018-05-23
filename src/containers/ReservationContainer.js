@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import * as reservationActions from 'actions/ReservationActions';
+
 import Calendar from 'components/reservation/Calendar';
 import ReservationForm from 'components/reservation/ReservationForm';
 
@@ -13,8 +15,21 @@ class ReservationContainer extends Component {
     super(props);
 
     this.state = {
-      isFormOpened : true
+      isFormOpened : false,
+      viewDay: new Date()
     }
+
+    const critetria = {};
+    this.props.getReservationList(critetria);
+  }
+
+  handleChangeViewDay = (newViewDay) => {
+    // Logger.debug('newViewDay', newViewDay);
+    this.setState({
+      viewDay: newViewDay
+    });
+
+    Logger.debug('state:', this.state);
   }
 
   closeForm = () => {
@@ -32,7 +47,13 @@ class ReservationContainer extends Component {
   render(){
     return (
       <div>
-      <Calendar viewDay={new Date()} onNewReservation={this.openForm}/>
+      <Calendar 
+        viewDay={this.state.viewDay} 
+        reservationList={this.props.list}
+        onNewReservation={this.openForm} 
+        onChangeViewDay={this.handleChangeViewDay}
+        
+        />
       <ReservationForm isOpened={this.state.isFormOpened} toggle={this.closeForm}/>
       </div>
     )
@@ -43,13 +64,14 @@ class ReservationContainer extends Component {
 const mapStateToProps = ({reservation}) => {
   // Logger.debug('customer', customer);
   return {
-
+    list: reservation.list
   };
 };
 
 const mapDispatchProps = (dispatch) => {
   return {
     // getCustomerList: () => dispatch(reqList())
+    getReservationList: bindActionCreators(reservationActions.reqList, dispatch)
   };
 };
 

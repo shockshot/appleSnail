@@ -24,6 +24,6 @@ router.use('/register', register);
 router.use('/serviceCategory', serviceCategory);
 router.use('/service', service);
 router.use('/reservation', reservation);
-router.use('/customers', customer);
+router.use('/customer', customer);
 
 export default router;

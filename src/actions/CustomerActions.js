@@ -5,9 +5,9 @@ import { createAction } from 'redux-actions';
 import uuid from 'uuid';
 import {addMessage} from './ToastActions';
 
-const serviceUrl = '/api/customers'
+const serviceUrl = '/api/customer'
 
-
+//actions
 export const CUSTOMER = {
   LIST         : "CUSTOMER.LIST_REQUEST",
   LIST_SUCCESS : "CUSTOMER.LIST_SUCCESS",

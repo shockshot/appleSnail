@@ -6,5 +6,6 @@ export {default as toast    } from './toast'
 export {default as serviceCategory } from './serviceCategory'
 export {default as service} from './service'
 export {default as customer} from './customer'
+export {default as reservation } from './reservation'
 
 // export { auth , sales, register };

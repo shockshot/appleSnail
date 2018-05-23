@@ -16,7 +16,7 @@ export const map = (result)  => {
   return Object.keys(to).reduce((obj, key) => {
     if(from[key] instanceof Array){
       obj[key] = from[key].map(i => map(i));
-    }else if(from[key] instanceof Object){
+    }else if(from[key] instanceof Object && !( from[key] instanceof Date || from[key] instanceof Number || from[key] instanceof String )){
       obj[key] = map(from[key]);
     }else{
       obj[key] = from[key];
