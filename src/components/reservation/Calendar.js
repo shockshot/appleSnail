@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { DateUtils } from 'utils';
-import classNames from 'classnames/bind';
-import styles from './Calendar.scss';
+
 
 import {Form, Input, Label, FormGroup, Button /*, FormFeedback*/} from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -10,6 +9,9 @@ import { faAngleLeft, faAngleRight, faPlus } from '@fortawesome/fontawesome-free
 import {Logger} from 'helpers';
 
 import uuid from 'uuid';
+
+import classNames from 'classnames/bind';
+import styles from './Calendar.scss';
 const st = classNames.bind(styles);
 
 const weekTitles = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -106,12 +108,14 @@ class Calendar extends Component {
                     {date.getDate()}
                   </div>
                   <div className={st("dateContent")}>
-                    {this.state.reservationList ? this.state.reservationList.filter(reservation => DateUtils.isSameDate(new Date(reservation.reservationDateTime), date) ).map(reservation => (
-                      <Reservation reservation={reservation}/>
-                    )) : '' }
+                    {this.state.reservationList ? 
+                      this.state.reservationList
+                        .filter(reservation => DateUtils.isSameDate(new Date(reservation.reservationDateTime), date) )
+                        .map(reservation => <Reservation reservation={reservation} key={uuid()}/>) : 
+                      ''}
                   </div>
                   <div>
-                    <Button className={'btn-circle-sm '+st('btn-trans')} onClick={this.props.onNewReservation} >
+                    <Button className={'btn-circle-sm '+st('btn-trans')} onClick={e=>this.props.onNewReservation(date)} >
                       <FontAwesomeIcon icon={faPlus}/>
                     </Button>
                   </div>

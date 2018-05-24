@@ -22,8 +22,8 @@ router.use(tokenPassport.auth );
 
 
 //////////////////////////////////////////////////////
-// /api/service/
-// 서비스 리스트
+// POST /api/reservation/search
+// 예약 리스트
 //////////////////////////////////////////////////////
 router.post('/search',
   (req, res) => {
@@ -38,10 +38,23 @@ router.post('/search',
       res.send(Mapper.map(result));
     }).catch(err=> defaultErrorHandler(res, err));
     
-    // serviceService.getServiceList(companyNo).then(result => {
-    //   // console.log('######result', result);
-    //   res.json(Mapper.map(result));
-    // }).catch(err => defaultErrorHandler(res, err)) 
+});
+
+
+//////////////////////////////////////////////////////
+// POST /api/reservation/
+// 예약 리스트 insert
+//////////////////////////////////////////////////////
+router.post('/search',
+  (req, res) => {
+    const user = req.user;
+    const companyNo = user.cn;
+
+    const reservation = req.body;
+
+    // reservationService.getReservationList(criteria).then(result => {
+    //   res.send(Mapper.map(result));
+    // }).catch(err=> defaultErrorHandler(res, err));
     
 });
 

@@ -13,9 +13,46 @@ export const timeUnits = [
   {key:9, value:'1시간 30분'}
 ]
 
+export const hours = [
+  {key:0,  value:'0시'      },
+  {key:1,  value:'1시'      },
+  {key:2,  value:'2시'      },
+  {key:3,  value:'3시'      },
+  {key:4,  value:'4시'      },
+  {key:5,  value:'5시'      },
+  {key:6,  value:'6시'      },
+  {key:7,  value:'7시'      },
+  {key:8,  value:'8시'      },
+  {key:9,  value:'9시'      },
+  {key:10, value:'10시'     },
+  {key:11, value:'11시'     },
+  {key:12, value:'12시'     },
+  {key:13, value:'13시'     },
+  {key:14, value:'14시'     },
+  {key:15, value:'15시'     },
+  {key:16, value:'16시'     },
+  {key:17, value:'17시'     },
+  {key:18, value:'18시'     },
+  {key:19, value:'19시'     },
+  {key:20, value:'20시'     },
+  {key:21, value:'21시'     },
+  {key:22, value:'22시'     },
+  {key:23, value:'23시'     },
+]
+
+export const minutes = [
+  {key:0,   value:'0분'      },
+  {key:10,  value:'10분'      },
+  {key:20,  value:'20분'      },
+  {key:30,  value:'30분'      },
+  {key:40,  value:'40분'      },
+  {key:50,  value:'50분'      },
+]
 
 const lists = {
-  timeUnits
+  timeUnits,
+  hours,
+  minutes
 }
 
 export const spread = (list) => {

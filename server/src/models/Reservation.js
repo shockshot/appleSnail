@@ -68,6 +68,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
+    timeRequired: {
+      type: DataTypes.INTEGER(10).UNSIGNED,
+      allowNull: true
+    },
     remark: {
       type: DataTypes.STRING(2000),
       allowNull: true

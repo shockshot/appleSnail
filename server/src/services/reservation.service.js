@@ -25,33 +25,6 @@ export const getReservationList = (criteria) => {
   })
 }
 
-
-// db.User.hasOne(db.Employee, {foreignKey: 'userNo'});
-//   db.Employee.belongsTo(db.Company, {foreignKey: 'companyNo'});
-//   db.Employee.hasMany(db.ShopEmployee, {foreignKey: 'employeeNo'});
-//   db.ShopEmployee.belongsTo(db.Shop, {foreignKey: 'shopNo'});
+export const insertReservation = (reservation, user) => {
   
-//   return db.User.findOne({
-//     where: {
-//       userNo: userNo,
-//       del: 0
-//     },
-//     include:{
-//       model: db.Employee,
-//       where: {del: 0},
-//       include: [
-//         { 
-//           model: db.Company,
-//           where: {del: 0}
-//         },
-//         {
-//           model: db.ShopEmployee,
-//           where: {del: 0},
-//           include: {
-//             model: db.Shop,
-//             where: {del: 0}
-//           }
-//         }
-//       ]
-//     }
-//   })
+}

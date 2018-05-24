@@ -30,11 +30,9 @@ router.use(tokenPassport.auth );
 router.post('/search',
   (req, res) => {
     const user = req.user;
-    const companyNo = user.cn;
+    const criteria = req.body;
 
-    const criteria = {
-      companyNo
-    }
+    criteria.companyNo = user.cn;
 
     customerService.getCustomerList(criteria).then(result => {
       if(!result){

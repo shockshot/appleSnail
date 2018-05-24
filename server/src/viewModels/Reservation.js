@@ -12,6 +12,7 @@ export const Reservation = {
   parentReservationNo: null,
   reservationMethod: null,
   regDate: null,
+  timeRequired: null,
   remark: null,
   ReservationServices: null,
   Shop: null

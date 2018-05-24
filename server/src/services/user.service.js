@@ -2,7 +2,6 @@ import db from '../models';
 // import {defaultErrorHandler, Mapper, ModelAttributes } from '../helpers';
 // import { User } from '../viewModels';
 
-
 export const getUser = (userNo) => {
 
   db.User.hasOne(db.Employee, {foreignKey: 'userNo'});

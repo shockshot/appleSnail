@@ -1,12 +1,23 @@
 import db from '../models';
 
-export const getCustomerList = (criteria) => {
+export const getCustomerList = (criteria = {}) => {
+  const where = {
+    del: 0,
+    companyNo: criteria.companyNo,
+  }
+
+  if(criteria.customerName){
+    where.customerName = {like: `%${criteria.customerName}%`}
+  }
+  if(criteria.phoneNumber){
+    where.phoneNumber = {like: `%${criteria.phoneNumber}%`}
+  }
+  if(criteria.birthDate){
+    where.birthDate = criteria.birthDate
+  }
 
   return db.Customer.findAll({
-    where: {
-      del: 0,
-      companyNo: criteria.companyNo
-    }
+    where: where
   })
 }
 

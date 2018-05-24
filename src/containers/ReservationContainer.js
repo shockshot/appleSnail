@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import * as customerActions from 'actions/CustomerActions';
 import * as reservationActions from 'actions/ReservationActions';
 
 import Calendar from 'components/reservation/Calendar';
 import ReservationForm from 'components/reservation/ReservationForm';
 
 import { Logger } from 'helpers';
+import { DateUtils } from 'utils';
 
 class ReservationContainer extends Component {
 
@@ -16,7 +18,7 @@ class ReservationContainer extends Component {
 
     this.state = {
       isFormOpened : false,
-      viewDay: new Date()
+      viewDay: new Date(),
     }
 
     const critetria = {};
@@ -29,7 +31,7 @@ class ReservationContainer extends Component {
       viewDay: newViewDay
     });
 
-    Logger.debug('state:', this.state);
+    // Logger.debug('state:', this.state);
   }
 
   closeForm = () => {
@@ -38,9 +40,10 @@ class ReservationContainer extends Component {
     })
   }
 
-  openForm = () => {
+  openForm = (selectedDate = (new Date()) ) => {
     this.setState({
-      isFormOpened : true
+      isFormOpened : true,
+      selectedDate: DateUtils.format(selectedDate, 'yyyyMMdd')
     })
   }
 
@@ -54,24 +57,32 @@ class ReservationContainer extends Component {
         onChangeViewDay={this.handleChangeViewDay}
         
         />
-      <ReservationForm isOpened={this.state.isFormOpened} toggle={this.closeForm}/>
+      <ReservationForm 
+        isOpened={this.state.isFormOpened} 
+        toggle={this.closeForm} 
+        customerList={this.props.customerList}
+        onSearchCustomer={this.props.searchCustomer}
+        reservationDate={this.state.selectedDate}
+        />
       </div>
     )
   }
 
 }
 
-const mapStateToProps = ({reservation}) => {
+const mapStateToProps = ({reservation, customer}) => {
   // Logger.debug('customer', customer);
   return {
-    list: reservation.list
+    list: reservation.list,
+    customerList: customer.list
   };
 };
 
 const mapDispatchProps = (dispatch) => {
   return {
     // getCustomerList: () => dispatch(reqList())
-    getReservationList: bindActionCreators(reservationActions.reqList, dispatch)
+    getReservationList: bindActionCreators(reservationActions.reqList, dispatch),
+    searchCustomer: bindActionCreators(customerActions.reqList, dispatch)
   };
 };
 
