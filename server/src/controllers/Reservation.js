@@ -45,16 +45,15 @@ router.post('/search',
 // POST /api/reservation/
 // 예약 리스트 insert
 //////////////////////////////////////////////////////
-router.post('/search',
+router.post('/',
   (req, res) => {
     const user = req.user;
-    const companyNo = user.cn;
-
     const reservation = req.body;
 
-    // reservationService.getReservationList(criteria).then(result => {
-    //   res.send(Mapper.map(result));
-    // }).catch(err=> defaultErrorHandler(res, err));
+    reservationService.insertReservation(reservation, user)
+    .then(result => {
+        res.send(Mapper.map(result));
+    }).catch(err=> defaultErrorHandler(res, err));
     
 });
 

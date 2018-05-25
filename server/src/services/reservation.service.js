@@ -26,5 +26,23 @@ export const getReservationList = (criteria) => {
 }
 
 export const insertReservation = (reservation, user) => {
+  const _reservation = {
+    shopNo: 1,
+    customerNo: reservation.notRegistered ? null : reservation.customerNo,
+    customerName: reservation.customerName,
+    phoneNumber: reservation.phoneNumber,
+    employeeNo: reservation.employeeNo,
+    reservationStatus: 'CONFIRMED',
+    reservationDateTime: reservation.reservationDateTime,
+    regDateTime: new Date(),
+    responseDateTime: new Date(),
+    parentReservationNo: null,
+    reservationMethod: null,
+    regDate: new Date(),
+    timeRequired: reservation.timeRequired,
+    remark: reservation.remark,
+    createUser: user.no
+  };
   
+  return db.Reservation.create(_reservation)
 }

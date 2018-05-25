@@ -8,6 +8,7 @@ import { faSearch } from '@fortawesome/fontawesome-free-solid';
 import CustomerSelector from './CustomerSelector';
 
 import {Options, Logger} from 'helpers';
+import {DateUtils} from 'utils';
 
 import classNames from 'classnames/bind';
 import styles from './ReservationForm.scss';
@@ -17,35 +18,41 @@ class ReservationForm extends Component {
 
   constructor(props){
     super(props);
-    this.initialState = {
-      reservationDate: props.reservationDate,
-      reservationHour: 9,
-      reservationMinutes: 0,
+    this.state = {
+      reservationDateTime: null,
+      reservationDate: props.reservationDate | DateUtils.format(new Date(), 'yyyyMMdd'),
+      reservationHour: '09',
+      reservationMinutes: '00',
       customerSelectorOpened: false,
       timeRequired: 3,
       customerName: '',
       phoneNumber: '',
       remark: '',
+      customerNo: null
     };
-    this.state = this.initialState;
   }
 
   searchCustomer = () => {
-    
+    const customerName = this.state.customerName;
+    const phoneNumber = this.state.phoneNumber;
     this.props.onSearchCustomer({
-      customerName: this.state.customerName,
-      phoneNumber: this.state.phoneNumber
+      customerName, phoneNumber
     }).then( e=> {
-      this.setState({customerSelectorOpened:true});
+      this.setState({
+        customerName, phoneNumber,
+        customerSelectorOpened: true,
+      });
     })
     
   }
 
   selectCustomer = (customer) => {
-    Logger.debug('selectCustomer', customer);
+    // Logger.debug('selectCustomer', customer);
     this.setState({
       customerSelectorOpened:false,
-      ...customer
+      customerName: customer.customerName,
+      phoneNumber: customer.phoneNumber,
+      customerNo: customer.customerNo
     })
   }
 
@@ -59,12 +66,39 @@ class ReservationForm extends Component {
     if(nextProps.isFormOpened){
       this.setState({...nextProps});
     }else{
-      this.setState(this.initialState);
+      this.setState({
+        reservationDateTime: null,
+        reservationDate: nextProps.reservationDate,
+        reservationHour: '09',
+        reservationMinutes: '00',
+        customerSelectorOpened: false,
+        timeRequired: 3,
+        customerName: '',
+        phoneNumber: '',
+        remark: '',
+        customerNo: null
+      });
     }
     
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const dateString = this.state.reservationDate.replace(/([0-9]{4})([0-9]{2})([0-9]{2})/, '$1-$2-$3');
+    const dateTimeString = `${dateString} ${this.state.reservationHour}:${this.state.reservationMinutes}:00`;
+    const reservationDateTime = new Date(dateTimeString);
+    // Logger.debug('onSubmit');
+    this.props.onSubmit({ 
+      ...this.state,
+      reservationDateTime : reservationDateTime
+    }).then(_e => {
+      // Logger.debug(123);
+      this.props.toggle();
+    })
+  }
+
   handleChange = (e) => {
+    // Logger.debug(e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.type==='checkbox' ? e.target.checked : e.target.value
     });
@@ -73,21 +107,22 @@ class ReservationForm extends Component {
   render(){
     return (
       <Modal isOpen={this.props.isOpened} toggle={this.props.toggle} centered={true} fade={false} >
+        <Form onSubmit={this.handleSubmit}>
         <ModalHeader toggle={this.props.toggle}>예약 등록</ModalHeader>
           <ModalBody>
-            <Form>
+            
               <FormGroup row>
                 <Label sm={3}>예약일시</Label>
                 <Col sm={4}>
-                  <DatePicker selected={this.state.reservationDate} name="reservaionDate" onChange={this.handleChange} />
+                  <DatePicker selected={this.state.reservationDate} name="reservationDate" onChange={this.handleChange} required/>
                 </Col>
                 <Col sm={2}>
-                  <Input type="select" name="reservationHour" value={this.state.reservationHour}  onChange={this.handleChange} >
+                  <Input type="select" name="reservationHour" value={this.state.reservationHour}  onChange={this.handleChange} required>
                     {Options.spread('hours')}
                   </Input>
                 </Col>
                 <Col sm={2}>
-                  <Input type="select" name="reservationMinutes" value={this.state.reservationMinutes}  onChange={this.handleChange} >
+                  <Input type="select" name="reservationMinutes" value={this.state.reservationMinutes}  onChange={this.handleChange} required>
                     {Options.spread('minutes')}
                   </Input>
                 </Col>
@@ -98,10 +133,10 @@ class ReservationForm extends Component {
                 <Col sm={8}>
                   <Row>
                     <Col sm={4}>
-                      <Input placeholder="성명" name="customerName" value={this.state.customerName} onChange={this.handleChange}/>
+                      <Input placeholder="성명" name="customerName" value={this.state.customerName} onChange={this.handleChange} required="true"/>
                     </Col>
                     <Col sm={6}>
-                      <Input placeholder="휴대폰번호" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleChange}/>
+                      <Input placeholder="휴대폰번호" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleChange} required="true"/>
                     </Col>
                     <Col sm={2}>
                       <Button type="button" onClick={this.searchCustomer}>
@@ -145,12 +180,13 @@ class ReservationForm extends Component {
                   <Input type="textarea" name="remark" onChange={this.handleChange} value={this.state.remark}/>
                 </Col>
               </FormGroup>
-            </Form>
+            
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.props.toggle}>등록</Button>
-            <Button color="secondary" onClick={this.props.toggle}>취소</Button>
+            <Button type="submit" color="primary">등록</Button>
+            <Button type="button" color="secondary" onClick={this.props.toggle}>취소</Button>
           </ModalFooter>
+          </Form>
       </Modal>
     )
   }

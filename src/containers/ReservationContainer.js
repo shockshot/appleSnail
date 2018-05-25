@@ -63,6 +63,7 @@ class ReservationContainer extends Component {
         customerList={this.props.customerList}
         onSearchCustomer={this.props.searchCustomer}
         reservationDate={this.state.selectedDate}
+        onSubmit={this.props.postReservation}
         />
       </div>
     )
@@ -82,7 +83,8 @@ const mapDispatchProps = (dispatch) => {
   return {
     // getCustomerList: () => dispatch(reqList())
     getReservationList: bindActionCreators(reservationActions.reqList, dispatch),
-    searchCustomer: bindActionCreators(customerActions.reqList, dispatch)
+    postReservation: bindActionCreators(reservationActions.reqPost, dispatch),
+    searchCustomer: bindActionCreators(customerActions.reqList, dispatch),
   };
 };
 

@@ -10,6 +10,10 @@ export const RESERVATION = {
   LIST:         "RESERVATION.LIST_REQUEST",
   LIST_SUCCESS: "RESERVATION.LIST_SUCCESS",
   LIST_FAILURE: "RESERVATION.LIST_FAILURE",
+
+  POST         : "RESERVATION.POST_REQUEST",
+  POST_SUCCESS : "RESERVATION.POST_SUCCESS",
+  POST_FAILURE : "RESERVATION.POST_FAILURE",
 }
 
 
@@ -30,6 +34,22 @@ export const reqList = (criteria = {}) => (dispatch) => {
     })
     .catch(err => {
       dispatch(createAction(RESERVATION.LIST_FAILURE)());
+      Logger.error('error:', err);
+    })
+}
+
+
+export const reqPost = (reservation) => dispatch => {
+  dispatch(createAction(RESERVATION.POST)(reservation));
+  return HttpHelper.post(serviceUrl, reservation)
+    .then(response => {
+      const data = response.data;
+      data.uuid = uuid();
+      dispatch(createAction(RESERVATION.POST_SUCCESS)(data));
+      dispatch(addMessage('등록 성공'));
+    })
+    .catch(err => {
+      dispatch(createAction(RESERVATION.POST_FAILURE)());
       Logger.error('error:', err);
     })
 }

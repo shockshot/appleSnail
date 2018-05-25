@@ -22,4 +22,13 @@ export default handleActions({
       ...payload
     }
   },
+  [RESERVATION.POST]: (state, action) => state,
+  [RESERVATION.POST_SUCCESS]: (state, {payload}) => {
+    const reservation = payload;
+    return {
+      ...state,
+      list: [...state.list, reservation]
+    }
+  },
+  [RESERVATION.POST_FAILURE]: (state, action) => state,
 }, initialState)
