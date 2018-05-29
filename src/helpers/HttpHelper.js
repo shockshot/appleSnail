@@ -1,6 +1,6 @@
 import httpClient from 'axios';
 // import AxiosRequestConfig from 'axios';
-import { store, Logger} from 'helpers';
+import { store, Logger, history} from 'helpers';
 // import { error } from 'util';
 
 const addAuth = ( config ) => {
@@ -21,13 +21,20 @@ const resultHandler = (promise) => {
         switch(result.status){
             case 200:
                 return result;
+            case 401:
+                return null;
             case 404:
                 return null;
             default:
                 throw new Error('http error:', result.status);
         }
-    }).catch(err => {
-        Logger.error('error:', err);
+    }).catch( (err ) => {
+        Logger.error(err);
+        if(err.response.status === 401){
+            history.push('/login');
+            return null;
+        }
+        return null;
     });
 }
 

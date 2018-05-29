@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import * as customerActions from 'actions/CustomerActions';
 import * as reservationActions from 'actions/ReservationActions';
+import * as serviceActions from 'actions/ServiceActions';
+import * as serviceCategoryActions from 'actions/ServiceCategoryActions';
 
 import Calendar from 'components/reservation/Calendar';
 import ReservationForm from 'components/reservation/ReservationForm';
@@ -23,6 +25,11 @@ class ReservationContainer extends Component {
 
     const critetria = {};
     this.props.getReservationList(critetria);
+
+    //콤보박스를 위한...
+    this.props.serviceCategoryActions.reqList();
+    this.props.serviceActions.reqList();
+
   }
 
   handleChangeViewDay = (newViewDay) => {
@@ -64,6 +71,8 @@ class ReservationContainer extends Component {
         onSearchCustomer={this.props.searchCustomer}
         reservationDate={this.state.selectedDate}
         onSubmit={this.props.postReservation}
+        serviceList={this.props.serviceList}
+        serviceCategoryList={this.props.serviceCategoryList}
         />
       </div>
     )
@@ -71,11 +80,13 @@ class ReservationContainer extends Component {
 
 }
 
-const mapStateToProps = ({reservation, customer}) => {
+const mapStateToProps = ({reservation, customer, serviceCategory, service}) => {
   // Logger.debug('customer', customer);
   return {
     list: reservation.list,
-    customerList: customer.list
+    customerList: customer.list,
+    serviceList: service.list,
+    serviceCategoryList: serviceCategory.list
   };
 };
 
@@ -85,6 +96,9 @@ const mapDispatchProps = (dispatch) => {
     getReservationList: bindActionCreators(reservationActions.reqList, dispatch),
     postReservation: bindActionCreators(reservationActions.reqPost, dispatch),
     searchCustomer: bindActionCreators(customerActions.reqList, dispatch),
+
+    serviceActions: bindActionCreators(serviceActions, dispatch),
+    serviceCategoryActions: bindActionCreators(serviceCategoryActions, dispatch),
   };
 };
 

@@ -29,6 +29,7 @@ class ReservationForm extends Component {
       phoneNumber: '',
       remark: '',
       customerNo: null
+      serviceCategoryNo: props.serviceCategoryList[0].serviceCategoryNo
     };
   }
 
@@ -102,6 +103,8 @@ class ReservationForm extends Component {
     this.setState({
       [e.target.name]: e.target.type==='checkbox' ? e.target.checked : e.target.value
     });
+    
+    Logger.debug('state:', this.state);
   }
 
   render(){
@@ -162,8 +165,19 @@ class ReservationForm extends Component {
               </FormGroup>
               <FormGroup row>
                 <Label sm={3}>시술종류</Label>
-                <Col sm={9}>
-                  <Input type="text"/>
+                <Col sm={4}>
+                  <Input type="select" value={this.state.serviceCategoryNo} onChange={this.handleChange} name="serviceCategoryNo">
+                    {this.props.serviceCategoryList.map(serviceCategory => (
+                      <option key={serviceCategory.uuid} value={serviceCategory.serviceCategoryNo}>{serviceCategory.serviceCategoryName}</option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col sm={4}>
+                  <Input type="select" name="serviceNo" onChange={this.handleChange}>
+                    {this.props.serviceList.filter(service => service.serviceCategoryNo === this.state.serviceCategoryNo).map(service => (
+                      <option key={service.uuid} value={service.serviceNo}>{service.serviceName}</option>
+                    ))}
+                  </Input>
                 </Col>
               </FormGroup>
               <FormGroup row>
