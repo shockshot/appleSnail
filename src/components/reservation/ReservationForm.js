@@ -28,7 +28,7 @@ class ReservationForm extends Component {
       customerName: '',
       phoneNumber: '',
       remark: '',
-      customerNo: null
+      customerNo: null,
       serviceCategoryNo: props.serviceCategoryList[0].serviceCategoryNo
     };
   }
