@@ -7,6 +7,7 @@
       "host": "deliwind.com",
       "port": 53306,
       "dialect": "mysql",
+      "timezone": "+09:00",
       "pool": { "max": 5, "min": 0, "idle": 10000 }
     },
     "jwt": {

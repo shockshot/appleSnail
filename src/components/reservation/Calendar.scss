@@ -2,69 +2,70 @@ $header-background:#ccc;
 $border-color:#ddd;
 $btn-color: #666;
 
-.calendar ul{
-  list-style-type: none;
-  font-size:0;
-  padding-left:0;
-  >li{
-    display:inline-block;
+table.calendar{
+  width:100%;
+  colgroup>col{
+    width: calc(100% / 7)
   }
-}
-.calendar li.cal-col {
-  font-size:1.0rem;
-  width: calc(calc(100% / 7) + 1px);
-  margin-right: -1px;
-  border:1px solid $border-color;
-}
-ul.calendar-header{
-  padding:0;
-  >li{
-    margin:0;
-    font-size:1.0rem;
+
+  td, th{
+    border:1px solid $border-color;
+    vertical-align: top
+  }
+
+  th{
     text-align:center;
     background-color:$header-background;
   }
-}
-ul.calendar-week{
-  >li{
-    margin-top:-1px;
-    width:100%;
 
-  }
-}
+  td{
+    min-height:6rem;
+    >ul>li{ 
 
-li.cal-day {
-  // min-height:5rem;
-  >div.dateLabel{
-    text-align:center;
-    min-height:5rem;
-    width:1rem;
-    display:inline-block;
-  }
-  >div.dateContent{
-    width:calc(100% - 1rem);
-    display:inline-block;
-  }
-  >div{ 
-    .btn-trans{
-      background-color: rgba($btn-color, 0.1);
-      border:1px solid;
-      border-color: rgba($btn-color, 0.05);
+      .btn-trans{
+        background-color: rgba($btn-color, 0.1);
+        border:1px solid;
+        border-color: rgba($btn-color, 0.05);
+      }
+    }
+
+    >div.dateLabel{
+      font-size:0.8rem;
+      text-align:center;
+      min-height:6rem;
+      width:1rem;
+      float:left;
+      // display:inline-block;
+    }
+
+    >ul.dateContent{
+      padding-left:0;
+      width:calc(100% - 1rem);
+      float:right;
+      // display:inline-block;
+      min-height:5rem;
+      >li{
+        display:block;
+        font-size:1rem;
+      }
     }
   }
-}
-
-li.cal-day:hover{
-  >div{
-    .btn-trans{
-      background-color: rgba($btn-color, 1.0);
-      border:1px solid;
-      border-color: rgba($btn-color, 1.0);
+  
+  td:hover{
+    >ul>li{
+      .btn-trans{
+        background-color: rgba($btn-color, 1.0);
+        border:1px solid;
+        border-color: rgba($btn-color, 1.0);
+      }
     }
   }
+
+  td.today{
+    background-color:#ffa
+  }
+
 }
 
-li.cal-day.today{
-  background-color:#ffa
-}
+
 

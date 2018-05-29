@@ -88,12 +88,11 @@ class ReservationForm extends Component {
     const dateString = this.state.reservationDate.replace(/([0-9]{4})([0-9]{2})([0-9]{2})/, '$1-$2-$3');
     const dateTimeString = `${dateString} ${this.state.reservationHour}:${this.state.reservationMinutes}:00`;
     const reservationDateTime = new Date(dateTimeString);
-    // Logger.debug('onSubmit');
+    
     this.props.onSubmit({ 
       ...this.state,
       reservationDateTime : reservationDateTime
     }).then(_e => {
-      // Logger.debug(123);
       this.props.toggle();
     })
   }
@@ -174,7 +173,7 @@ class ReservationForm extends Component {
                 </Col>
                 <Col sm={4}>
                   <Input type="select" name="serviceNo" onChange={this.handleChange}>
-                    {this.props.serviceList.filter(service => service.serviceCategoryNo === this.state.serviceCategoryNo).map(service => (
+                    {this.props.serviceList.filter(service => service.serviceCategoryNo === Number(this.state.serviceCategoryNo)).map(service => (
                       <option key={service.uuid} value={service.serviceNo}>{service.serviceName}</option>
                     ))}
                   </Input>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { DateUtils } from 'utils';
 
-
-import {Form, Input, Label, FormGroup, Button /*, FormFeedback*/} from 'reactstrap';
+import CalendarReservation from './CalendarReservation';
+import {Button, Popover, PopoverHeader, PopoverBody} from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faPlus } from '@fortawesome/fontawesome-free-solid';
 
@@ -16,15 +16,6 @@ const st = classNames.bind(styles);
 
 const weekTitles = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-
-
-/////////////////////////////////////////////////////
-// 각 개별 예약 표현
-/////////////////////////////////////////////////////
-const Reservation = (props) => 
-<span>
-  {props.reservation.customerName}
-</span>
 
 
 /////////////////////////////////////////////////////
@@ -89,42 +80,49 @@ class Calendar extends Component {
             <FontAwesomeIcon icon={faAngleRight}/>
           </Button>
         </h2>
-        <ul className={st("calendar-week")}>
-          <li>
-            <ul className={st("calendar-header")}>
+        <table className={st("calendar")}>
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <tbody>
+            <tr className={st("calendar-header")}>
               {weekTitles.map(day => 
-                <li key={day} className={st("cal-col")}>{day}</li>
+                <th key={day} className={st("cal-col")}>{day}</th>
               )}
-            </ul>
-          </li>
-          {this.state.datesArray.map(week => 
-          <li key={uuid()}>
-            <ul>
+            </tr>
+            {this.state.datesArray.map(week => 
+            <tr key={uuid()}>
               {week.map(date => 
-                <li className={st("cal-col", "cal-day") + ' '+(DateUtils.isToday(date)?st('today'):'' )} 
+                <td className={st("cal-col", "cal-day") + ' '+(DateUtils.isToday(date)?st('today'):'' )} 
                   key={uuid()}
                   >
                   <div className={st("dateLabel")}>
                     {date.getDate()}
                   </div>
-                  <div className={st("dateContent")}>
+                  <ul className={st("dateContent")}>
                     {this.state.reservationList ? 
                       this.state.reservationList
                         .filter(reservation => DateUtils.isSameDate(new Date(reservation.reservationDateTime), date) )
-                        .map(reservation => <Reservation reservation={reservation} key={uuid()}/>) : 
+                        .map(reservation => <CalendarReservation reservation={reservation} key={uuid()}/>) : 
                       ''}
-                  </div>
-                  <div>
-                    <Button className={'btn-circle-sm '+st('btn-trans')} onClick={e=>this.props.onNewReservation(date)} >
-                      <FontAwesomeIcon icon={faPlus}/>
-                    </Button>
-                  </div>
-                </li>
+                    <li>
+                      <Button className={'btn-circle-sm '+st('btn-trans')} onClick={e=>this.props.onNewReservation(date)} >
+                        <FontAwesomeIcon icon={faPlus}/>
+                      </Button>
+                    </li>
+                  </ul>
+                </td>
               )}
-            </ul>
-          </li>
-          )}
-        </ul>
+            </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     )
   }
