@@ -18,7 +18,8 @@ class SalesList extends Component {
       searchTo: props.searchCondition.searchTo
     };
     // this.handleSearch = this.handleSearch.bind(this);
-    Logger.debug('dataList:', props.dataList);
+    // Logger.debug('dataList:', props.dataList);
+    this.handleSearch();
   }
 
   handleSearch = () => {
@@ -29,10 +30,14 @@ class SalesList extends Component {
     });
   }
 
-  handleDatePickerChange = (e) => {
-    let change = {...this.state}
-    change[e.target.name] = e.target.value;
-    this.setState(change);
+  // handleDatePickerChange = (e) => {
+  //   let change = {...this.state}
+  //   change[e.target.name] = e.target.value;
+  //   this.setState(change);
+  // }
+
+  handleChange = (e) => {
+    this.setState({[e.target.name]:e.target.value});
   }
 
 
@@ -59,11 +64,11 @@ class SalesList extends Component {
         <Form inline innerRef={c=>this.form=c}>
           <FormGroup>
             <Label for="searchFrom" hidden>검색시작일</Label>
-            <DatePicker name="searchFrom" selected={this.state.searchFrom} onChange={this.handleDatePickerChange} />
+            <DatePicker name="searchFrom" selected={this.state.searchFrom} onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
             <Label for="searchTo" hidden>검색종료일</Label>
-            <DatePicker name="searchTo" selected={this.state.searchTo} onChange={this.handleDatePickerChange} />
+            <DatePicker name="searchTo" selected={this.state.searchTo} onChange={this.handleChange} />
           </FormGroup>
           <Button onClick={this.handleSearch}>
             {spinner}검색

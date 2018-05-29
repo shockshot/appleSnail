@@ -52,3 +52,7 @@ main{
 .form-check{
   padding-left: 2.25rem !important;
 }
+
+.fr{
+  float:right;
+}

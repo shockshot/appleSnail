@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import Logger from 'helpers/Logger';
+import { Logger } from 'helpers';
 // import DatePicker from 'react-datepicker';
 import { DatePicker } from 'components/common';
 import { FormGroup, Label, Form, Col, Button, Input, Row, ListGroup, ListGroupItem } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/fontawesome-free-solid';
+import { faSearch, faCheck, faTrashAlt } from '@fortawesome/fontawesome-free-solid';
+
+import classNames from 'classnames/bind';
+import scss from './SalesForm.scss';
+const styles = classNames.bind(scss);
 
 class SalesForm extends Component {
 
@@ -14,14 +18,29 @@ class SalesForm extends Component {
     this.state = {};
   }
 
-  onChangeHandler = (e) => {
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    Logger.debug('handleSubmit:', this.state);
+
+
+    this.props.onSubmit();
+  }
+
+  handleDelete = (e) => {
+
+    this.props.onDelete();
+  }
+
+  handleChange = (e) => {
+    this.setState({[e.target.name]:e.target.value});
     Logger.debug('e', e);
   }
 
   render(){
     return(
       <div>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <FormGroup row>
             <Label for="salesDate" sm={2}>날짜</Label>
             <Col sm={10}>
@@ -85,15 +104,15 @@ class SalesForm extends Component {
                   <ListGroup>
                     <ListGroupItem>
                       <span>손톱 > 기본</span>
-                      <span style={{float:'right'}}>1000원</span>
+                      <span className="fr">1000원</span>
                     </ListGroupItem>
                     <ListGroupItem>
                       <span>손톱 > 아트</span>
-                      <span style={{float:'right'}}>1000원</span>
+                      <span className="fr">1000원</span>
                     </ListGroupItem>
                     <ListGroupItem>
                       <span>합계</span>
-                      <span style={{float:'right'}}>2000원</span>
+                      <span className="fr">2000원</span>
                     </ListGroupItem>
                   </ListGroup>
                 </Col>
@@ -124,15 +143,15 @@ class SalesForm extends Component {
                   <ListGroup>
                     <ListGroupItem>
                       <span>손톱 > 기본</span>
-                      <span style={{float:'right'}}>1000원</span>
+                      <span className="fr">1000원</span>
                     </ListGroupItem>
                     <ListGroupItem>
                       <span>손톱 > 아트</span>
-                      <span style={{float:'right'}}>1000원</span>
+                      <span className="fr">1000원</span>
                     </ListGroupItem>
                     <ListGroupItem>
                       <span>할인합계</span>
-                      <span style={{float:'right'}}>2000원</span>
+                      <span className="fr">2000원</span>
                     </ListGroupItem>
                   </ListGroup>
                 </Col>
@@ -140,19 +159,53 @@ class SalesForm extends Component {
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label sm={2}>최종결제금액</Label>
+            <Label sm={2}>결제</Label>
             <Col sm={10}>
               <Row>
                 <Col sm={12}>
                   <ListGroup>
                     <ListGroupItem>
-                      <span>할인합계</span>
-                      <span style={{float:'right'}}>2000원</span>
+                      <span>최종결제금액</span>
+                      <span className="fr">2000원</span>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <FormGroup row className={styles('noBottomMargin')}>
+                        <Label sm={4}>카드</Label>
+                        <Col><Input /></Col>
+                      </FormGroup>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <FormGroup row className={styles('noBottomMargin')}>
+                        <Label sm={4}>현금</Label>
+                        <Col><Input /></Col>
+                      </FormGroup>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <FormGroup row className={styles('noBottomMargin')}>
+                        <Label sm={4}>회원권</Label>
+                        <Col><Input /></Col>
+                      </FormGroup>
                     </ListGroupItem>
                   </ListGroup>
                 </Col>
               </Row>
             </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="salesDate" sm={2}>메모</Label>
+            <Col sm={10}>
+              <Input type="textarea"/>
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Button type="button" onClick={this.handleDelete}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+              삭제
+            </Button>{' '}
+            <Button type="submit">
+              <FontAwesomeIcon icon={faCheck} />
+              확인
+            </Button>
           </FormGroup>
         </Form>
 
