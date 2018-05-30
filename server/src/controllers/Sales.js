@@ -5,7 +5,8 @@ import express from 'express';
 import db from '../models';
 import bodyParser from 'body-parser';
 import tokenPassport from '../services/tokenPassport';
-import { defaultErrorHandler } from '../helpers';
+import { defaultErrorHandler, Mapper } from '../helpers';
+import { salesService } from '../services';
 
 const router = express.Router();
 
@@ -28,15 +29,14 @@ router.use(tokenPassport.auth );
 //search. 
 router.post('/search', 
   (req, res) => {
-    db.Sales.findAll().then( result => {
-      if(!result){
-        res.status(404).send({message: 'there is no data'});
-      }else{
-        const data = result.map(result => result.dataValues);
-        res.status(200).json(data);
-      }
-    })
-  
+    salesService.getSalesList(req.body, req.user)
+    .then( result => {
+        if(!result){
+          res.status(404).send({message: 'there is no data'});
+        }else{
+          res.status(200).json(Mapper.map(result));
+        }
+      })
 });
 
 router.get('/:id',

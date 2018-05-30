@@ -7,6 +7,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPlus, faSpinner, faSearch } from '@fortawesome/fontawesome-free-solid';
 import { Button, Table, FormGroup, Label, Form /*, Input, Breadcrumb, BreadcrumbItem*/ } from 'reactstrap';
 
+import {DateUtils} from 'utils';
 
 class SalesList extends Component {
 
@@ -43,14 +44,14 @@ class SalesList extends Component {
 
   render(){
     const list = this.props.dataList && this.props.dataList.length  ? (
-      this.props.dataList.map( e => 
-        <tr key={e.salesNo}>
-          <th scope="row">{e.salesNo}</th>
-          <td>4.18</td>
+      this.props.dataList.map( sales => 
+        <tr key={sales.salesNo}>
+          <th scope="row">{sales.salesNo}</th>
+          <td>{DateUtils.format(new Date(sales.saleDateTime), 'yyyy.MM.dd')}</td>
           <td>기본</td>
-          <td>현금({e.salesPrice})</td>
-          <td>{e.salesPrice}</td>
-          <td>홍길동</td>
+          <td>현금({sales.salesPrice})</td>
+          <td>{sales.salesPrice}</td>
+          <td>{sales.Customer ? sales.Customer.customerName : ''}</td>
           <td>수정/삭제</td>
           <td>시술상세내역</td>
         </tr>
