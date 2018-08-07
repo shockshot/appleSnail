@@ -29,7 +29,7 @@ class ReservationForm extends Component {
       phoneNumber: '',
       remark: '',
       customerNo: null,
-      serviceCategoryNo: props.serviceCategoryList[0].serviceCategoryNo
+      serviceCategoryNo: props.serviceCategoryList?props.serviceCategoryList[0].serviceCategoryNo:null
     };
   }
 
